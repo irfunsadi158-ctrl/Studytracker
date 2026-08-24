@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission DMC:Syllabus Tracker</title>
+    <title>Mission DMC & HSC Tracker</title>
     <style>
-        /* CSS Variables for Theming */
+        /* --- CSS Variables for Theming --- */
         :root {
-            /* Dark Theme (Default) */
             --bg-color: #050505;
             --card-bg: #121212;
             --border-color: #2a2a2a;
@@ -23,13 +22,12 @@
         }
 
         [data-theme="light"] {
-            /* Light Theme */
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
             --border-color: #d1d5db;
             --text-main: #1f2937;
             --text-muted: #4b5563;
-            --accent-color: #10b981; /* Darker green for readability */
+            --accent-color: #10b981;
             --danger-color: #ef4444;
             --warning-color: #f59e0b;
             --info-color: #0ea5e9;
@@ -38,12 +36,16 @@
             --header-grad-end: #e5e7eb;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
@@ -52,28 +54,30 @@
             margin: 0 auto;
         }
 
-        /* Header */
+        /* --- Header (Mobile Fixed) --- */
         .header {
             position: relative;
             text-align: center;
             margin-bottom: 20px;
-            padding: 25px 20px;
+            padding: 40px 20px 20px; /* Top padding added to prevent overlap */
             background: linear-gradient(180deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .theme-toggle {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 30px;
             transition: all 0.3s ease;
         }
@@ -85,20 +89,21 @@
 
         .header h1 {
             margin: 0;
-            font-size: 28px;
+            font-size: 26px;
             color: var(--accent-color);
             letter-spacing: 1px;
         }
 
         .header p {
             color: var(--text-muted);
-            margin-top: 10px;
+            margin-top: 8px;
+            font-size: 14px;
         }
 
-        /* Dashboard Overview */
+        /* --- Dashboard Overview --- */
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -107,11 +112,10 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s ease;
         }
 
         .stat-card::before {
@@ -128,14 +132,13 @@
         .stat-title {
             font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             font-weight: bold;
-            letter-spacing: 0.5px;
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             margin-bottom: 5px;
         }
@@ -145,18 +148,30 @@
             color: var(--text-muted);
         }
 
-        /* Pomodoro Timer Buttons */
+        /* Speed Card Multi-Row */
+        .speed-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 4px 8px;
+            background: var(--input-bg);
+            border-radius: 6px;
+        }
+
+        /* --- Pomodoro Timer Buttons --- */
         .timer-controls {
             margin-top: 10px;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
         .timer-btn {
             background-color: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
@@ -164,17 +179,16 @@
         }
         .timer-btn:hover { border-color: var(--warning-color); color: var(--warning-color); }
 
-        /* Notes Section */
+        /* --- Notes Section --- */
         .notes-section {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 12px 15px;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: all 0.4s ease;
+            gap: 10px;
         }
 
         .notes-input {
@@ -182,37 +196,34 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
             border-bottom: 1px dashed var(--border-color);
             padding: 5px;
-            transition: all 0.4s ease;
         }
-        
         .notes-input:focus { border-bottom-color: var(--accent-color); }
 
-        /* Master Progress */
+        /* --- Master Progress --- */
         .master-progress-container {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            transition: all 0.4s ease;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 16px;
+            margin-bottom: 10px;
+            font-size: 15px;
             font-weight: bold;
         }
 
         .progress-bar-bg {
             background-color: var(--input-bg);
-            height: 14px;
-            border-radius: 7px;
+            height: 12px;
+            border-radius: 6px;
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
@@ -224,7 +235,6 @@
             transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 100% Glow Effect */
         .glow-effect {
             box-shadow: 0 0 15px var(--accent-color);
             animation: pulse 2s infinite;
@@ -236,11 +246,11 @@
             100% { box-shadow: 0 0 10px var(--accent-color); }
         }
 
-        /* Tabs */
+        /* --- Tabs --- */
         .tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 20px;
             justify-content: center;
         }
@@ -249,10 +259,11 @@
             background-color: var(--card-bg);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
-            padding: 10px 18px;
+            padding: 8px 15px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 13px;
             transition: all 0.3s ease;
         }
 
@@ -263,60 +274,95 @@
 
         .tab-btn.active {
             background-color: var(--accent-color);
-            color: #000 !important; /* Always black text for active tab */
+            color: #000 !important;
             border-color: var(--accent-color);
         }
 
-        /* Subject Content */
+        /* --- Subject Content (Mobile Responsive) --- */
         .subject-content {
             display: none;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 20px;
-            transition: all 0.4s ease;
+        }
+        .subject-content.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .subject-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--input-bg);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border: 1px dashed var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .subject-content.active {
-            display: block;
-            animation: fadeIn 0.4s;
+        .exclude-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--warning-color);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .add-topic-btn {
+            background-color: var(--info-color);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
         }
 
         .chapter-list { list-style: none; padding: 0; margin: 0; }
-
         .chapter-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border-color);
         }
         .chapter-item:last-child { border-bottom: none; }
-        .chapter-name { font-size: 15px; font-weight: 500;}
+        .chapter-name { font-size: 14px; font-weight: 500; flex: 1; margin-right: 10px;}
 
         select.status-select {
             background-color: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
             cursor: pointer;
             outline: none;
             font-weight: bold;
-            transition: all 0.3s;
+            font-size: 13px;
         }
 
-        select.status-select:focus { border-color: var(--accent-color); }
+        /* --- Media Queries (For Mobile Phones) --- */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 22px; }
+            .chapter-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            select.status-select { width: 100%; }
+            .subject-controls { flex-direction: column; align-items: flex-start; }
+            .tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 5px;}
+            .tab-btn { flex-shrink: 0; }
+        }
 
-        /* Colors for select */
+        /* Select Colors */
         option[value="0"] { color: var(--danger-color); }
         option[value="25"] { color: var(--warning-color); }
-        option[value="50"] { color: #aaaa00; } /* Adjusted yellow for light mode */
+        option[value="50"] { color: #aaaa00; }
         option[value="75"] { color: var(--info-color); }
         option[value="100"] { color: var(--accent-color); }
 
@@ -329,9 +375,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            transition: 0.3s;
         }
-        .reset-btn:hover { background-color: var(--danger-color); color: #fff; }
 
     </style>
 </head>
@@ -344,9 +388,9 @@
         <p>ইনশাআল্লাহ আমি সফল হবো</p>
     </div>
 
-    <!-- Notes / Upcoming Task -->
+    <!-- Notes -->
     <div class="notes-section">
-        <span style="font-size: 20px;">📌</span>
+        <span style="font-size: 18px;">📌</span>
         <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট বা প্ল্যান এখানে লিখে রাখো..." oninput="saveNote()">
     </div>
 
@@ -363,9 +407,15 @@
             <div class="stat-sub">পরীক্ষা শুরু হওয়ার বাকি</div>
         </div>
         <div class="stat-card speed-card">
-            <div class="stat-title">প্রয়োজনীয় স্পিড</div>
-            <div class="stat-value" id="daily-speed" style="color: var(--info-color);">0.0</div>
-            <div class="stat-sub">প্রতিদিন চ্যাপ্টার পড়তে হবে</div>
+            <div class="stat-title">প্রয়োজনীয় স্পিড (চ্যাপ্টার/দিন)</div>
+            <div class="speed-row">
+                <span>সব সাবজেক্ট (Total):</span>
+                <span id="speed-all" style="font-weight:bold; color: var(--info-color);">0.0</span>
+            </div>
+            <div class="speed-row">
+                <span>বাদ দেওয়া ছাড়া (Active):</span>
+                <span id="speed-active" style="font-weight:bold; color: var(--accent-color);">0.0</span>
+            </div>
         </div>
         <!-- Pomodoro Timer -->
         <div class="stat-card timer-card">
@@ -415,9 +465,9 @@
         themeBtn.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
     }
 
-    // --- Pomodoro Timer Logic ---
+    // --- Pomodoro Timer ---
     let timerInterval;
-    let timeLeft = 25 * 60; // 25 minutes
+    let timeLeft = 25 * 60;
     let isTimerRunning = false;
     const timerDisplay = document.getElementById('timer-display');
 
@@ -431,10 +481,8 @@
         if (!isTimerRunning) {
             isTimerRunning = true;
             timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateTimerDisplay();
-                } else {
+                if (timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
+                else {
                     clearInterval(timerInterval);
                     isTimerRunning = false;
                     alert("২৫ মিনিট শেষ! এখন ৫ মিনিটের একটি ছোট ব্রেক নাও। ☕");
@@ -444,43 +492,43 @@
             }, 1000);
         }
     }
+    function pauseTimer() { clearInterval(timerInterval); isTimerRunning = false; }
+    function resetTimer() { clearInterval(timerInterval); isTimerRunning = false; timeLeft = 25 * 60; updateTimerDisplay(); }
 
-    function pauseTimer() {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-    }
-
-    function resetTimer() {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-        timeLeft = 25 * 60;
-        updateTimerDisplay();
-    }
-
-
-    // --- Syllabus Data & Tracker Logic ---
-    const syllabusData = {
+    // --- Data Base & Logic ---
+    const defaultSyllabus = {
         "physics1": { name: "Physics 1st Paper", chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ ও অভিকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"] },
         "physics2": { name: "Physics 2nd Paper", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া", "তাড়িতচৌম্বক আবেশ", "জ্যামিতিক আলোকবিজ্ঞান", "ভৌত আলোকবিজ্ঞান", "আধুনিক পদার্থবিজ্ঞানের সূচনা", "পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", "সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "জ্যোতির্বিজ্ঞান"] },
         "chem1": { name: "Chemistry 1st Paper", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
         "chem2": { name: "Chemistry 2nd Paper", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
-        "math1": { name: "Math 1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত", "ফাংশন ও ফাংশনের লেখচিত্র", "অন্তরীকরণ", "যোগজীকরণ"] },
-        "math2": { name: "Math 2nd Paper", chapters: ["বাস্তব সংখ্যা ও অসমতা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও বহুপদী সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ ও সম্ভাবনা"] },
+        
+        
         "bio1": { name: "Biology 1st Paper", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "জীবের পরিবেশ ও বিস্তার"] },
         "bio2": { name: "Biology 2nd Paper", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "মানব শারীরতত্ত্ব (পরিপাক ও শোষণ)", "মানব শারীরতত্ত্ব (রক্ত ও সঞ্চালন)", "মানব শারীরতত্ত্ব (শ্বাসক্রিয়া)", "মানব শারীরতত্ত্ব (বর্জ্য ও নিষ্কাশন)", "মানব শারীরতত্ত্ব (চলন ও অঙ্গচালনা)", "মানব শারীরতত্ত্ব (স্নায়বিক সমন্বয়)", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] },
+        "math1": { name: "Math 1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত", "ফাংশন ও ফাংশনের লেখচিত্র", "অন্তরীকরণ", "যোগজীকরণ"] },
+        "math2": { name: "Math 2nd Paper", chapters: ["বাস্তব সংখ্যা ও অসমতা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও বহুপদী সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ ও সম্ভাবনা"] },
         "medEng": { name: "Medical English", chapters: ["Parts of Speech", "Tense & Sequence of Tense", "Right Forms of Verbs", "Voice Change", "Narration", "Sentence Correction", "Synonym & Antonym", "Spelling", "Phrases & Idioms", "Preposition"] },
         "medGK": { name: "Medical GK", chapters: ["প্রাচীন বাংলার ইতিহাস", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ ও স্বাধীনতা", "বাংলাদেশের সংবিধান", "বাংলাদেশের অর্থনীতি ও সম্পদ", "বাংলাদেশের সংস্কৃতি ও উপজাতি", "গুরুত্বপূর্ণ জাতীয় ও আন্তর্জাতিক বিষয়াবলি"] }
     };
 
+    // Load custom chapters for Eng and GK
+    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChapters')) || { medEng: [], medGK: [] };
+    defaultSyllabus.medEng.chapters.push(...customChapters.medEng);
+    defaultSyllabus.medGK.chapters.push(...customChapters.medGK);
+
+    const syllabusData = defaultSyllabus;
+    let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgress')) || {};
+    
+    // Dates 2026
     const currentYear = new Date().getFullYear();
     const syllabusDeadline = new Date(`October 31, ${currentYear} 23:59:59`).getTime();
     const examDeadline = new Date(`November 30, ${currentYear} 23:59:59`).getTime();
 
+    document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
+
     const tabsContainer = document.getElementById('tabs-container');
     const contentContainer = document.getElementById('content-container');
-    
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgress')) || {};
-    document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
 
     // Generate UI
     let isFirst = true;
@@ -496,16 +544,29 @@
         contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`;
         contentDiv.id = `content-${key}`;
 
+        let isExcluded = excludedSubjects.includes(key);
+        
+        let customAddBtn = (key === 'medEng' || key === 'medGK') ? 
+            `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add New Topic</button>` : '';
+
+        let subjectControlsHtml = `
+            <div class="subject-controls">
+                <label class="exclude-label">
+                    <input type="checkbox" onchange="toggleExclude('${key}', this)" ${isExcluded ? 'checked' : ''}>
+                    এই সাবজেক্টটিকে "ডেইলি টার্গেট স্পিড" থেকে বাদ দিন
+                </label>
+                ${customAddBtn}
+            </div>
+        `;
+
         let chaptersHtml = '';
         subject.chapters.forEach((chapter, index) => {
             const chapterId = `${key}-ch-${index}`;
             const savedValue = savedProgress[chapterId] || 0;
-            
-            // Setting inline color variable for proper light/dark mode contrast handling via CSS
             chaptersHtml += `
                 <li class="chapter-item">
                     <span class="chapter-name">${chapter}</span>
-                    <select class="status-select" id="${chapterId}" onchange="updateProgress('${key}', '${chapterId}')" data-val="${savedValue}">
+                    <select class="status-select" id="${chapterId}" onchange="updateProgress('${key}', '${chapterId}')">
                         <option value="0" ${savedValue == 0 ? 'selected' : ''}>❌ শুরু করিনি</option>
                         <option value="25" ${savedValue == 25 ? 'selected' : ''}>📖 শুরু করেছি (25%)</option>
                         <option value="50" ${savedValue == 50 ? 'selected' : ''}>⏳ অর্ধেক শেষ (50%)</option>
@@ -517,6 +578,7 @@
         });
 
         contentDiv.innerHTML = `
+            ${subjectControlsHtml}
             <div class="progress-header" style="margin-bottom: 8px; font-size:14px;">
                 <span>${subject.name} Progress</span>
                 <span id="progress-text-${key}">0%</span>
@@ -532,6 +594,7 @@
         isFirst = false;
     }
 
+    // Functions
     function switchTab(activeKey) {
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -542,8 +605,26 @@
     }
 
     function saveNote() {
-        const note = document.getElementById('daily-note').value;
-        localStorage.setItem('missionDmcNote', note);
+        localStorage.setItem('missionDmcNote', document.getElementById('daily-note').value);
+    }
+
+    function addCustomChapter(subjectKey) {
+        let topicName = prompt("নতুন টপিক বা চ্যাপ্টারের নাম লিখুন:");
+        if(topicName && topicName.trim() !== "") {
+            customChapters[subjectKey].push(topicName.trim());
+            localStorage.setItem('missionDmcCustomChapters', JSON.stringify(customChapters));
+            location.reload(); // Reload to update UI automatically
+        }
+    }
+
+    function toggleExclude(subjectKey, checkbox) {
+        if(checkbox.checked) {
+            if(!excludedSubjects.includes(subjectKey)) excludedSubjects.push(subjectKey);
+        } else {
+            excludedSubjects = excludedSubjects.filter(item => item !== subjectKey);
+        }
+        localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects));
+        calculateMasterProgress();
     }
 
     function updateDropdownColors() {
@@ -559,8 +640,7 @@
     function updateProgress(subjectKey, chapterId = null) {
         if(chapterId) {
             const selectElement = document.getElementById(chapterId);
-            const val = selectElement.value;
-            savedProgress[chapterId] = parseInt(val);
+            savedProgress[chapterId] = parseInt(selectElement.value);
             localStorage.setItem('missionDmcProgress', JSON.stringify(savedProgress));
             updateDropdownColors();
         }
@@ -571,66 +651,63 @@
             subject.chapters.forEach((_, index) => {
                 total += savedProgress[`${subjectKey}-ch-${index}`] || 0;
             });
-            const average = (total / subject.chapters.length).toFixed(1);
+            const average = subject.chapters.length > 0 ? (total / subject.chapters.length).toFixed(1) : 0;
             const bar = document.getElementById(`progress-bar-${subjectKey}`);
             bar.style.width = `${average}%`;
             document.getElementById(`progress-text-${subjectKey}`).innerText = `${average}%`;
-
-            // Subject 100% Glow effect
-            if(average == 100) {
-                bar.classList.add('glow-effect');
-            } else {
-                bar.classList.remove('glow-effect');
-            }
+            if(average == 100) bar.classList.add('glow-effect');
+            else bar.classList.remove('glow-effect');
         }
-
         calculateMasterProgress();
     }
 
     function calculateMasterProgress() {
-        let totalChaptersCount = 0;
-        let completedEquivalent = 0;
+        let totalChaptersAll = 0, completedAll = 0;
+        let totalChaptersActive = 0, completedActive = 0;
 
         for (const [key, subject] of Object.entries(syllabusData)) {
-            totalChaptersCount += subject.chapters.length;
+            let subjCount = subject.chapters.length;
+            let subjCompleted = 0;
+            
             subject.chapters.forEach((_, index) => {
                 const val = savedProgress[`${key}-ch-${index}`] || 0;
-                completedEquivalent += (val / 100);
+                subjCompleted += (val / 100);
             });
+
+            totalChaptersAll += subjCount;
+            completedAll += subjCompleted;
+
+            if(!excludedSubjects.includes(key)) {
+                totalChaptersActive += subjCount;
+                completedActive += subjCompleted;
+            }
         }
 
-        const overallPercentage = ((completedEquivalent / totalChaptersCount) * 100).toFixed(2);
+        // Master Progress Update
+        const overallPercentage = totalChaptersAll > 0 ? ((completedAll / totalChaptersAll) * 100).toFixed(2) : 0;
         const masterBar = document.getElementById('master-progress-bar');
         masterBar.style.width = `${overallPercentage}%`;
         document.getElementById('master-progress-text').innerText = `${overallPercentage}%`;
 
-        // Master 100% Celebration
         if(overallPercentage == 100.00) {
             masterBar.classList.add('glow-effect');
             document.getElementById('master-progress-text').innerText = "🎉 100% COMPLETE!";
-        } else {
-            masterBar.classList.remove('glow-effect');
-        }
+        } else { masterBar.classList.remove('glow-effect'); }
 
         // Speed Calculation
-        const remainingChapters = totalChaptersCount - completedEquivalent;
         const now = new Date().getTime();
         const daysLeft = Math.ceil((syllabusDeadline - now) / (1000 * 60 * 60 * 24));
         
-        let speedText = "0.0";
-        if(remainingChapters <= 0) {
-            speedText = "✅ সিলেবাস শেষ!";
-            document.getElementById('daily-speed').style.color = "var(--accent-color)";
-        } else if (daysLeft <= 0) {
-            speedText = "⚠️ সময় শেষ!";
-            document.getElementById('daily-speed').style.color = "var(--danger-color)";
+        let remainAll = totalChaptersAll - completedAll;
+        let remainActive = totalChaptersActive - completedActive;
+
+        if (daysLeft <= 0) {
+            document.getElementById('speed-all').innerText = "সময় শেষ!";
+            document.getElementById('speed-active').innerText = "সময় শেষ!";
         } else {
-            const speed = (remainingChapters / daysLeft).toFixed(2);
-            speedText = `${speed} টি চ্যাপ্টার / দিন`;
-            document.getElementById('daily-speed').style.color = "var(--info-color)";
+            document.getElementById('speed-all').innerText = remainAll > 0 ? (remainAll / daysLeft).toFixed(2) : "✅ শেষ";
+            document.getElementById('speed-active').innerText = remainActive > 0 ? (remainActive / daysLeft).toFixed(2) : "✅ শেষ";
         }
-        
-        document.getElementById('daily-speed').innerText = speedText;
     }
 
     function updateTimers() {
@@ -641,29 +718,27 @@
             const d = Math.floor(sylDiff / (1000 * 60 * 60 * 24));
             const h = Math.floor((sylDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('syl-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
-        } else {
-            document.getElementById('syl-countdown').innerText = "ডেডলাইন পার হয়ে গেছে!";
-        }
+        } else { document.getElementById('syl-countdown').innerText = "ডেডলাইন পার হয়ে গেছে!"; }
 
         const examDiff = examDeadline - now;
         if(examDiff > 0) {
             const d = Math.floor(examDiff / (1000 * 60 * 60 * 24));
             const h = Math.floor((examDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('exam-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
-        } else {
-            document.getElementById('exam-countdown').innerText = "পরীক্ষার সময় এসে গেছে!";
-        }
+        } else { document.getElementById('exam-countdown').innerText = "পরীক্ষার সময় এসে গেছে!"; }
     }
 
     function resetData() {
         if(confirm("তুমি কি নিশ্চিত যে তুমি সব প্রোগ্রেস ডিলিট করে নতুন করে শুরু করতে চাও?")) {
             localStorage.removeItem('missionDmcProgress');
             localStorage.removeItem('missionDmcNote');
+            localStorage.removeItem('missionDmcExcluded');
+            localStorage.removeItem('missionDmcCustomChapters');
             location.reload();
         }
     }
 
-    // Initial setups
+    // Initial Execute
     updateDropdownColors();
     Object.keys(syllabusData).forEach(key => updateProgress(key));
     updateTimers();
