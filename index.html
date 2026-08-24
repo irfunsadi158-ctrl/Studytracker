@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission DMC:Syllabus Tracker</title>
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            /* Dark Theme (Default) */
+            --bg-color: #050505;
+            --card-bg: #121212;
+            --border-color: #2a2a2a;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #00ff88;
+            --danger-color: #ff4d4d;
+            --warning-color: #ffa64d;
+            --info-color: #4dffff;
+            --input-bg: #1a1a1a;
+            --header-grad-start: #1a1a1a;
+            --header-grad-end: #050505;
+        }
+
+        [data-theme="light"] {
+            /* Light Theme */
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --border-color: #d1d5db;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --accent-color: #10b981; /* Darker green for readability */
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #0ea5e9;
+            --input-bg: #f3f4f6;
+            --header-grad-start: #ffffff;
+            --header-grad-end: #e5e7eb;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 25px 20px;
+            background: linear-gradient(180deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Dashboard Overview */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent-color);
+        }
+
+        .stat-card.exam-card::before { background: var(--danger-color); }
+        .stat-card.speed-card::before { background: var(--info-color); }
+        .stat-card.timer-card::before { background: var(--warning-color); }
+
+        .stat-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Pomodoro Timer Buttons */
+        .timer-controls {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .timer-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+        .timer-btn:hover { border-color: var(--warning-color); color: var(--warning-color); }
+
+        /* Notes Section */
+        .notes-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .notes-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+            border-bottom: 1px dashed var(--border-color);
+            padding: 5px;
+            transition: all 0.4s ease;
+        }
+        
+        .notes-input:focus { border-bottom-color: var(--accent-color); }
+
+        /* Master Progress */
+        .master-progress-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .progress-bar-bg {
+            background-color: var(--input-bg);
+            height: 14px;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar-fill {
+            background-color: var(--accent-color);
+            height: 100%;
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 100% Glow Effect */
+        .glow-effect {
+            box-shadow: 0 0 15px var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--accent-color); }
+            50% { box-shadow: 0 0 20px var(--accent-color); }
+            100% { box-shadow: 0 0 10px var(--accent-color); }
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-color);
+            color: #000 !important; /* Always black text for active tab */
+            border-color: var(--accent-color);
+        }
+
+        /* Subject Content */
+        .subject-content {
+            display: none;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .subject-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter-list { list-style: none; padding: 0; margin: 0; }
+
+        .chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chapter-item:last-child { border-bottom: none; }
+        .chapter-name { font-size: 15px; font-weight: 500;}
+
+        select.status-select {
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        select.status-select:focus { border-color: var(--accent-color); }
+
+        /* Colors for select */
+        option[value="0"] { color: var(--danger-color); }
+        option[value="25"] { color: var(--warning-color); }
+        option[value="50"] { color: #aaaa00; } /* Adjusted yellow for light mode */
+        option[value="75"] { color: var(--info-color); }
+        option[value="100"] { color: var(--accent-color); }
+
+        .footer-actions { margin-top: 30px; text-align: right; }
+        .reset-btn {
+            background-color: transparent;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .reset-btn:hover { background-color: var(--danger-color); color: #fff; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">☀️</button>
+        <h1>Mission DMC: Syllabus Tracker</h1>
+        <p>ইনশাআল্লাহ আমি সফল হবো</p>
+    </div>
+
+    <!-- Notes / Upcoming Task -->
+    <div class="notes-section">
+        <span style="font-size: 20px;">📌</span>
+        <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট বা প্ল্যান এখানে লিখে রাখো..." oninput="saveNote()">
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <div class="stat-card">
+            <div class="stat-title">সিলেবাস ডেডলাইন (৩১ অক্টো)</div>
+            <div class="stat-value" id="syl-countdown" style="color: var(--accent-color);">লোড হচ্ছে...</div>
+            <div class="stat-sub">সম্পূর্ণ সিলেবাস শেষ করার টার্গেট</div>
+        </div>
+        <div class="stat-card exam-card">
+            <div class="stat-title">ফাইনাল পরীক্ষা (৩০ নভে)</div>
+            <div class="stat-value" id="exam-countdown" style="color: var(--danger-color);">লোড হচ্ছে...</div>
+            <div class="stat-sub">পরীক্ষা শুরু হওয়ার বাকি</div>
+        </div>
+        <div class="stat-card speed-card">
+            <div class="stat-title">প্রয়োজনীয় স্পিড</div>
+            <div class="stat-value" id="daily-speed" style="color: var(--info-color);">0.0</div>
+            <div class="stat-sub">প্রতিদিন চ্যাপ্টার পড়তে হবে</div>
+        </div>
+        <!-- Pomodoro Timer -->
+        <div class="stat-card timer-card">
+            <div class="stat-title">স্টাডি টাইমার (Focus)</div>
+            <div class="stat-value" id="timer-display" style="color: var(--warning-color);">25:00</div>
+            <div class="timer-controls">
+                <button class="timer-btn" onclick="startTimer()">Start</button>
+                <button class="timer-btn" onclick="pauseTimer()">Pause</button>
+                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Master Progress -->
+    <div class="master-progress-container">
+        <div class="progress-header">
+            <span>সার্বিক অগ্রগতি (Overall Progress)</span>
+            <span id="master-progress-text" style="color: var(--accent-color);">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="master-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" id="tabs-container"></div>
+
+    <!-- Content -->
+    <div id="content-container"></div>
+
+    <div class="footer-actions">
+        <button class="reset-btn" onclick="resetData()">🗑️ Clear All Progress</button>
+    </div>
+</div>
+
+<script>
+    // --- Theme Logic ---
+    const themeBtn = document.getElementById('theme-btn');
+    let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    themeBtn.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+
+    function toggleTheme() {
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('missionDmcTheme', currentTheme);
+        themeBtn.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // --- Pomodoro Timer Logic ---
+    let timerInterval;
+    let timeLeft = 25 * 60; // 25 minutes
+    let isTimerRunning = false;
+    const timerDisplay = document.getElementById('timer-display');
+
+    function updateTimerDisplay() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        if (!isTimerRunning) {
+            isTimerRunning = true;
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    isTimerRunning = false;
+                    alert("২৫ মিনিট শেষ! এখন ৫ মিনিটের একটি ছোট ব্রেক নাও। ☕");
+                    timeLeft = 25 * 60;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        timeLeft = 25 * 60;
+        updateTimerDisplay();
+    }
+
+
+    // --- Syllabus Data & Tracker Logic ---
+    const syllabusData = {
+        "physics1": { name: "Physics 1st Paper", chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ ও অভিকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"] },
+        "physics2": { name: "Physics 2nd Paper", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া", "তাড়িতচৌম্বক আবেশ", "জ্যামিতিক আলোকবিজ্ঞান", "ভৌত আলোকবিজ্ঞান", "আধুনিক পদার্থবিজ্ঞানের সূচনা", "পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", "সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "জ্যোতির্বিজ্ঞান"] },
+        "chem1": { name: "Chemistry 1st Paper", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
+        "chem2": { name: "Chemistry 2nd Paper", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
+        "math1": { name: "Math 1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত", "ফাংশন ও ফাংশনের লেখচিত্র", "অন্তরীকরণ", "যোগজীকরণ"] },
+        "math2": { name: "Math 2nd Paper", chapters: ["বাস্তব সংখ্যা ও অসমতা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও বহুপদী সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ ও সম্ভাবনা"] },
+        "bio1": { name: "Biology 1st Paper", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "জীবের পরিবেশ ও বিস্তার"] },
+        "bio2": { name: "Biology 2nd Paper", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "মানব শারীরতত্ত্ব (পরিপাক ও শোষণ)", "মানব শারীরতত্ত্ব (রক্ত ও সঞ্চালন)", "মানব শারীরতত্ত্ব (শ্বাসক্রিয়া)", "মানব শারীরতত্ত্ব (বর্জ্য ও নিষ্কাশন)", "মানব শারীরতত্ত্ব (চলন ও অঙ্গচালনা)", "মানব শারীরতত্ত্ব (স্নায়বিক সমন্বয়)", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] },
+        "medEng": { name: "Medical English", chapters: ["Parts of Speech", "Tense & Sequence of Tense", "Right Forms of Verbs", "Voice Change", "Narration", "Sentence Correction", "Synonym & Antonym", "Spelling", "Phrases & Idioms", "Preposition"] },
+        "medGK": { name: "Medical GK", chapters: ["প্রাচীন বাংলার ইতিহাস", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ ও স্বাধীনতা", "বাংলাদেশের সংবিধান", "বাংলাদেশের অর্থনীতি ও সম্পদ", "বাংলাদেশের সংস্কৃতি ও উপজাতি", "গুরুত্বপূর্ণ জাতীয় ও আন্তর্জাতিক বিষয়াবলি"] }
+    };
+
+    const currentYear = new Date().getFullYear();
+    const syllabusDeadline = new Date(`October 31, ${currentYear} 23:59:59`).getTime();
+    const examDeadline = new Date(`November 30, ${currentYear} 23:59:59`).getTime();
+
+    const tabsContainer = document.getElementById('tabs-container');
+    const contentContainer = document.getElementById('content-container');
+    
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgress')) || {};
+    document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
+
+    // Generate UI
+    let isFirst = true;
+    for (const [key, subject] of Object.entries(syllabusData)) {
+        
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${isFirst ? 'active' : ''}`;
+        btn.innerText = subject.name;
+        btn.onclick = () => switchTab(key);
+        tabsContainer.appendChild(btn);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`;
+        contentDiv.id = `content-${key}`;
+
+        let chaptersHtml = '';
+        subject.chapters.forEach((chapter, index) => {
+            const chapterId = `${key}-ch-${index}`;
+            const savedValue = savedProgress[chapterId] || 0;
+            
+            // Setting inline color variable for proper light/dark mode contrast handling via CSS
+            chaptersHtml += `
+                <li class="chapter-item">
+                    <span class="chapter-name">${chapter}</span>
+                    <select class="status-select" id="${chapterId}" onchange="updateProgress('${key}', '${chapterId}')" data-val="${savedValue}">
+                        <option value="0" ${savedValue == 0 ? 'selected' : ''}>❌ শুরু করিনি</option>
+                        <option value="25" ${savedValue == 25 ? 'selected' : ''}>📖 শুরু করেছি (25%)</option>
+                        <option value="50" ${savedValue == 50 ? 'selected' : ''}>⏳ অর্ধেক শেষ (50%)</option>
+                        <option value="75" ${savedValue == 75 ? 'selected' : ''}>🔄 রিভিশন (75%)</option>
+                        <option value="100" ${savedValue == 100 ? 'selected' : ''}>✅ সম্পূর্ণ শেষ</option>
+                    </select>
+                </li>
+            `;
+        });
+
+        contentDiv.innerHTML = `
+            <div class="progress-header" style="margin-bottom: 8px; font-size:14px;">
+                <span>${subject.name} Progress</span>
+                <span id="progress-text-${key}">0%</span>
+            </div>
+            <div class="progress-bar-bg" style="margin-bottom: 20px; height: 10px;">
+                <div class="progress-bar-fill" id="progress-bar-${key}"></div>
+            </div>
+            <ul class="chapter-list">
+                ${chaptersHtml}
+            </ul>
+        `;
+        contentContainer.appendChild(contentDiv);
+        isFirst = false;
+    }
+
+    function switchTab(activeKey) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.innerText === syllabusData[activeKey].name) btn.classList.add('active');
+        });
+        document.querySelectorAll('.subject-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`content-${activeKey}`).classList.add('active');
+    }
+
+    function saveNote() {
+        const note = document.getElementById('daily-note').value;
+        localStorage.setItem('missionDmcNote', note);
+    }
+
+    function updateDropdownColors() {
+        document.querySelectorAll('.status-select').forEach(select => {
+            let val = select.value;
+            select.style.color = (val == 0) ? 'var(--danger-color)' : 
+                                 (val == 25) ? 'var(--warning-color)' : 
+                                 (val == 50) ? '#aaaa00' : 
+                                 (val == 75) ? 'var(--info-color)' : 'var(--accent-color)';
+        });
+    }
+
+    function updateProgress(subjectKey, chapterId = null) {
+        if(chapterId) {
+            const selectElement = document.getElementById(chapterId);
+            const val = selectElement.value;
+            savedProgress[chapterId] = parseInt(val);
+            localStorage.setItem('missionDmcProgress', JSON.stringify(savedProgress));
+            updateDropdownColors();
+        }
+
+        if(subjectKey) {
+            const subject = syllabusData[subjectKey];
+            let total = 0;
+            subject.chapters.forEach((_, index) => {
+                total += savedProgress[`${subjectKey}-ch-${index}`] || 0;
+            });
+            const average = (total / subject.chapters.length).toFixed(1);
+            const bar = document.getElementById(`progress-bar-${subjectKey}`);
+            bar.style.width = `${average}%`;
+            document.getElementById(`progress-text-${subjectKey}`).innerText = `${average}%`;
+
+            // Subject 100% Glow effect
+            if(average == 100) {
+                bar.classList.add('glow-effect');
+            } else {
+                bar.classList.remove('glow-effect');
+            }
+        }
+
+        calculateMasterProgress();
+    }
+
+    function calculateMasterProgress() {
+        let totalChaptersCount = 0;
+        let completedEquivalent = 0;
+
+        for (const [key, subject] of Object.entries(syllabusData)) {
+            totalChaptersCount += subject.chapters.length;
+            subject.chapters.forEach((_, index) => {
+                const val = savedProgress[`${key}-ch-${index}`] || 0;
+                completedEquivalent += (val / 100);
+            });
+        }
+
+        const overallPercentage = ((completedEquivalent / totalChaptersCount) * 100).toFixed(2);
+        const masterBar = document.getElementById('master-progress-bar');
+        masterBar.style.width = `${overallPercentage}%`;
+        document.getElementById('master-progress-text').innerText = `${overallPercentage}%`;
+
+        // Master 100% Celebration
+        if(overallPercentage == 100.00) {
+            masterBar.classList.add('glow-effect');
+            document.getElementById('master-progress-text').innerText = "🎉 100% COMPLETE!";
+        } else {
+            masterBar.classList.remove('glow-effect');
+        }
+
+        // Speed Calculation
+        const remainingChapters = totalChaptersCount - completedEquivalent;
+        const now = new Date().getTime();
+        const daysLeft = Math.ceil((syllabusDeadline - now) / (1000 * 60 * 60 * 24));
+        
+        let speedText = "0.0";
+        if(remainingChapters <= 0) {
+            speedText = "✅ সিলেবাস শেষ!";
+            document.getElementById('daily-speed').style.color = "var(--accent-color)";
+        } else if (daysLeft <= 0) {
+            speedText = "⚠️ সময় শেষ!";
+            document.getElementById('daily-speed').style.color = "var(--danger-color)";
+        } else {
+            const speed = (remainingChapters / daysLeft).toFixed(2);
+            speedText = `${speed} টি চ্যাপ্টার / দিন`;
+            document.getElementById('daily-speed').style.color = "var(--info-color)";
+        }
+        
+        document.getElementById('daily-speed').innerText = speedText;
+    }
+
+    function updateTimers() {
+        const now = new Date().getTime();
+        
+        const sylDiff = syllabusDeadline - now;
+        if(sylDiff > 0) {
+            const d = Math.floor(sylDiff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((sylDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('syl-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
+        } else {
+            document.getElementById('syl-countdown').innerText = "ডেডলাইন পার হয়ে গেছে!";
+        }
+
+        const examDiff = examDeadline - now;
+        if(examDiff > 0) {
+            const d = Math.floor(examDiff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((examDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('exam-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
+        } else {
+            document.getElementById('exam-countdown').innerText = "পরীক্ষার সময় এসে গেছে!";
+        }
+    }
+
+    function resetData() {
+        if(confirm("তুমি কি নিশ্চিত যে তুমি সব প্রোগ্রেস ডিলিট করে নতুন করে শুরু করতে চাও?")) {
+            localStorage.removeItem('missionDmcProgress');
+            localStorage.removeItem('missionDmcNote');
+            location.reload();
+        }
+    }
+
+    // Initial setups
+    updateDropdownColors();
+    Object.keys(syllabusData).forEach(key => updateProgress(key));
+    updateTimers();
+    updateTimerDisplay();
+    setInterval(updateTimers, 60000);
+
+</script>
+</body>
+</html>
