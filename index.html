@@ -1,381 +1,225 @@
+
 <!DOCTYPE html>
 <html lang="bn" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission DMC & HSC Tracker</title>
+    <title>Mission DMC</title>
     <style>
-        /* --- CSS Variables for Theming --- */
+        /* --- Premium CSS Variables for True AMOLED --- */
         :root {
-            --bg-color: #050505;
-            --card-bg: #121212;
-            --border-color: #2a2a2a;
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --border-color: #1f1f1f;
             --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --accent-color: #00ff88;
-            --danger-color: #ff4d4d;
-            --warning-color: #ffa64d;
-            --info-color: #4dffff;
-            --input-bg: #1a1a1a;
-            --header-grad-start: #1a1a1a;
-            --header-grad-end: #050505;
+            --text-muted: #888888;
+            --accent-color: #00e676; 
+            --danger-color: #ff3d00;
+            --warning-color: #ffea00;
+            --info-color: #00e5ff;
+            --rev-color: #b388ff; /* Nice purple for revision */
+            --input-bg: #141414;
+            --header-grad-start: #0a0a0a;
+            --header-grad-end: #000000;
         }
 
         [data-theme="light"] {
-            --bg-color: #f4f7f6;
+            --bg-color: #f0f2f5;
             --card-bg: #ffffff;
-            --border-color: #d1d5db;
-            --text-main: #1f2937;
-            --text-muted: #4b5563;
-            --accent-color: #10b981;
-            --danger-color: #ef4444;
-            --warning-color: #f59e0b;
-            --info-color: #0ea5e9;
-            --input-bg: #f3f4f6;
+            --border-color: #e4e6eb;
+            --text-main: #1c1e21;
+            --text-muted: #606770;
+            --accent-color: #00a455;
+            --danger-color: #e41e3f;
+            --warning-color: #d99c00;
+            --info-color: #0093a8;
+            --rev-color: #7c4dff;
+            --input-bg: #f5f6f7;
             --header-grad-start: #ffffff;
-            --header-grad-end: #e5e7eb;
+            --header-grad-end: #f0f2f5;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 15px;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            background-color: var(--bg-color); color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0; padding: 12px; transition: 0.4s ease;
         }
+        .container { max-width: 1050px; margin: 0 auto; }
 
-        .container {
-            max-width: 1050px;
-            margin: 0 auto;
-        }
-
-        /* --- Header (Mobile Fixed) --- */
+        /* --- Stylish Header --- */
         .header {
-            position: relative;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 40px 20px 20px; /* Top padding added to prevent overlap */
+            position: relative; text-align: center; margin-bottom: 20px; padding: 35px 20px 20px;
             background: linear-gradient(180deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            border: 1px solid var(--border-color); border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 230, 118, 0.05);
         }
-
         .theme-toggle {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            font-size: 18px;
-            cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+            position: absolute; top: 15px; right: 15px; background: var(--input-bg);
+            border: 1px solid var(--border-color); color: var(--text-main); font-size: 16px;
+            cursor: pointer; padding: 8px 12px; border-radius: 50%; transition: 0.3s ease;
         }
+        .theme-toggle:hover { border-color: var(--accent-color); transform: rotate(15deg) scale(1.1); }
+        .header h1 { margin: 0; font-size: 26px; color: var(--accent-color); font-weight: 800; letter-spacing: -0.5px;}
+        .header p { color: var(--text-muted); margin-top: 5px; font-size: 14px; font-weight: 500;}
+        .badge { background: rgba(0, 230, 118, 0.1); color: var(--accent-color); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; margin-top: 10px; border: 1px solid rgba(0,230,118,0.2);}
 
-        .theme-toggle:hover {
-            border-color: var(--accent-color);
-            transform: scale(1.05);
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 26px;
-            color: var(--accent-color);
-            letter-spacing: 1px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            margin-top: 8px;
-            font-size: 14px;
-        }
-
-        /* --- Dashboard Overview --- */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
+        /* --- Dashboard Grid --- */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 25px; }
         .stat-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 18px 15px; text-align: center; position: relative; overflow: hidden;
+            transition: transform 0.3s;
         }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--accent-color);
-        }
-
+        .stat-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent-color); }
         .stat-card.exam-card::before { background: var(--danger-color); }
         .stat-card.speed-card::before { background: var(--info-color); }
         .stat-card.timer-card::before { background: var(--warning-color); }
-
-        .stat-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .stat-value {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Speed Card Multi-Row */
+        .stat-title { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .stat-value { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
         .speed-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            margin: 5px 0;
-            padding: 4px 8px;
-            background: var(--input-bg);
-            border-radius: 6px;
+            display: flex; justify-content: space-between; font-size: 13px; margin: 6px 0;
+            padding: 6px 10px; background: var(--input-bg); border-radius: 8px;
         }
 
-        /* --- Pomodoro Timer Buttons --- */
-        .timer-controls {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
+        /* --- Interactive Timer & Notes --- */
+        .timer-controls { margin-top: 12px; display: flex; justify-content: center; gap: 8px; }
         .timer-btn {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 5px 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.3s;
+            background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.3s;
         }
-        .timer-btn:hover { border-color: var(--warning-color); color: var(--warning-color); }
+        .timer-btn:hover { background: rgba(255, 234, 0, 0.1); border-color: var(--warning-color); color: var(--warning-color); }
 
-        /* --- Notes Section --- */
         .notes-section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 12px 18px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;
         }
-
         .notes-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
-            border-bottom: 1px dashed var(--border-color);
-            padding: 5px;
+            flex: 1; background: transparent; border: none; color: var(--text-main);
+            font-size: 15px; outline: none; border-bottom: 1px solid transparent; transition: 0.3s;
         }
         .notes-input:focus { border-bottom-color: var(--accent-color); }
 
         /* --- Master Progress --- */
         .master-progress-container {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 20px; margin-bottom: 20px;
         }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .progress-bar-bg {
-            background-color: var(--input-bg);
-            height: 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-
-        .progress-bar-fill {
-            background-color: var(--accent-color);
-            height: 100%;
-            width: 0%;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glow-effect {
-            box-shadow: 0 0 15px var(--accent-color);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px var(--accent-color); }
-            50% { box-shadow: 0 0 20px var(--accent-color); }
-            100% { box-shadow: 0 0 10px var(--accent-color); }
-        }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 700; font-size: 15px;}
+        .progress-bar-bg { background-color: var(--input-bg); height: 10px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
+        .progress-bar-fill { background-color: var(--accent-color); height: 100%; width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px var(--accent-color);}
+        .glow-effect .progress-bar-fill { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--accent-color); } 50% { box-shadow: 0 0 25px var(--accent-color); } }
 
         /* --- Tabs --- */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; }
         .tab-btn {
-            background-color: var(--card-bg);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 8px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s ease;
+            background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color);
+            padding: 10px 18px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.3s;
         }
+        .tab-btn:hover { border-color: var(--accent-color); color: var(--text-main); }
+        .tab-btn.active { background-color: var(--accent-color); color: #000 !important; border-color: var(--accent-color); box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);}
 
-        .tab-btn:hover {
-            border-color: var(--accent-color);
-            color: var(--text-main);
-        }
-
-        .tab-btn.active {
-            background-color: var(--accent-color);
-            color: #000 !important;
-            border-color: var(--accent-color);
-        }
-
-        /* --- Subject Content (Mobile Responsive) --- */
+        /* --- Subject Content --- */
         .subject-content {
-            display: none;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
+            display: none; background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 20px;
         }
         .subject-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .subject-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--input-bg);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            border: 1px dashed var(--border-color);
-            flex-wrap: wrap;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: center; background: var(--input-bg);
+            padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; border: 1px solid var(--border-color);
+            flex-wrap: wrap; gap: 10px;
         }
+        .exclude-label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--warning-color); font-weight: 600;}
+        .add-topic-btn { background-color: var(--info-color); color: #000; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 12px; transition: 0.2s;}
+        .add-topic-btn:hover { transform: scale(1.05); }
 
-        .exclude-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: var(--warning-color);
-        }
-
-        .add-topic-btn {
-            background-color: var(--info-color);
-            color: #000;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
+        /* --- Chapter List with Advanced Actions --- */
         .chapter-list { list-style: none; padding: 0; margin: 0; }
         .chapter-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 0; border-bottom: 1px solid var(--border-color); transition: 0.3s;
         }
         .chapter-item:last-child { border-bottom: none; }
-        .chapter-name { font-size: 14px; font-weight: 500; flex: 1; margin-right: 10px;}
+        
+        .chapter-info { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .star-btn { cursor: pointer; font-size: 18px; opacity: 0.2; transition: 0.3s; user-select: none; filter: grayscale(1); }
+        .star-btn.active { opacity: 1; filter: grayscale(0); transform: scale(1.1);}
+        .chapter-name { font-size: 15px; font-weight: 600; transition: color 0.3s; }
+        .chapter-name.hard-topic { color: var(--danger-color); }
 
-        select.status-select {
-            background-color: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 6px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            outline: none;
-            font-weight: bold;
-            font-size: 13px;
+        /* Action Group: Link + Revision + Dropdown */
+        .chapter-action { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;}
+
+        /* Link Button */
+        .link-btn {
+            background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 50%;
+            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 14px; transition: 0.3s; color: var(--text-muted);
         }
+        .link-btn.has-link { border-color: var(--info-color); color: var(--info-color); background: rgba(0, 229, 255, 0.1); }
+        .link-btn:hover { transform: scale(1.1); }
 
-        /* --- Media Queries (For Mobile Phones) --- */
+        /* Smart Revision Counter */
+        .rev-control {
+            display: flex; align-items: center; background: var(--input-bg);
+            border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;
+            height: 34px;
+        }
+        .rev-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            padding: 0 10px; height: 100%; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .rev-btn:hover { color: var(--rev-color); background: rgba(179, 136, 255, 0.1); }
+        .rev-count {
+            font-size: 12px; font-weight: 700; color: var(--text-main); padding: 0 5px;
+            min-width: 65px; text-align: center; display: flex; align-items: center; justify-content: center;
+        }
+        .rev-count.active { color: var(--rev-color); }
+
+        /* Premium Dropdown */
+        select.status-select {
+            appearance: none; height: 34px;
+            background-color: var(--input-bg); color: var(--text-main);
+            border: 1px solid var(--border-color); padding: 0 30px 0 12px;
+            border-radius: 10px; cursor: pointer; outline: none; font-weight: 700; font-size: 12px;
+            transition: all 0.3s; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 10px center; background-size: 14px;
+        }
+        select.status-select:focus { border-color: var(--accent-color); box-shadow: 0 0 0 2px rgba(0,230,118,0.2); }
+
+        /* Mobile specific adjustments */
         @media (max-width: 600px) {
-            .header h1 { font-size: 22px; }
-            .chapter-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            select.status-select { width: 100%; }
+            .header { padding: 30px 15px 15px;}
+            .header h1 { font-size: 24px; }
+            .chapter-item { flex-direction: column; align-items: flex-start; gap: 12px; background: var(--input-bg); padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); }
+            .chapter-action { width: 100%; justify-content: space-between; }
+            select.status-select { flex: 1; }
             .subject-controls { flex-direction: column; align-items: flex-start; }
-            .tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 5px;}
+            .tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 10px;}
             .tab-btn { flex-shrink: 0; }
         }
 
-        /* Select Colors */
-        option[value="0"] { color: var(--danger-color); }
-        option[value="25"] { color: var(--warning-color); }
-        option[value="50"] { color: #aaaa00; }
-        option[value="75"] { color: var(--info-color); }
-        option[value="100"] { color: var(--accent-color); }
-
         .footer-actions { margin-top: 30px; text-align: right; }
-        .reset-btn {
-            background-color: transparent;
-            color: var(--danger-color);
-            border: 1px solid var(--danger-color);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .reset-btn { background: transparent; color: var(--danger-color); border: 1px solid var(--danger-color); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s;}
+        .reset-btn:hover { background: var(--danger-color); color: #fff; }
+
+        /* Link Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);}
+        .modal-content { background: var(--card-bg); padding: 25px; border-radius: 16px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); }
+        .modal h3 { margin-top: 0; color: var(--accent-color); }
+        .modal input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: #fff; margin-bottom: 15px; }
+        .modal-btns { display: flex; justify-content: flex-end; gap: 10px; }
+        .modal-btns button { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold;}
+        .btn-save { background: var(--accent-color); color: #000; }
+        .btn-cancel { background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color) !important;}
+        .btn-open { background: var(--info-color); color: #000; display: none; width: 100%; margin-bottom: 10px;}
 
     </style>
 </head>
@@ -384,17 +228,16 @@
 <div class="container">
     <div class="header">
         <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">☀️</button>
-        <h1>Mission DMC: Syllabus Tracker</h1>
-        <p>ইনশাআল্লাহ আমি সফল হবো</p>
+        <h1>Irfun's Mission-DMC 🩺</h1>
+        <p>Medical Preaparation Tracker</p>
+        <span class="badge">Target: Nov 30, 2026</span>
     </div>
 
-    <!-- Notes -->
     <div class="notes-section">
-        <span style="font-size: 18px;">📌</span>
-        <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট বা প্ল্যান এখানে লিখে রাখো..." oninput="saveNote()">
+        <span style="font-size: 20px;">📌</span>
+        <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট (যেমন: ফিজিক্স ২য় পত্র শেষ করা...)" oninput="saveNote()">
     </div>
 
-    <!-- Dashboard -->
     <div class="dashboard">
         <div class="stat-card">
             <div class="stat-title">সিলেবাস ডেডলাইন (৩১ অক্টো)</div>
@@ -402,22 +245,21 @@
             <div class="stat-sub">সম্পূর্ণ সিলেবাস শেষ করার টার্গেট</div>
         </div>
         <div class="stat-card exam-card">
-            <div class="stat-title">ফাইনাল পরীক্ষা (৩০ নভে)</div>
+            <div class="stat-title">মেডিকেল পরীক্ষা (৩০ নভে)</div>
             <div class="stat-value" id="exam-countdown" style="color: var(--danger-color);">লোড হচ্ছে...</div>
             <div class="stat-sub">পরীক্ষা শুরু হওয়ার বাকি</div>
         </div>
         <div class="stat-card speed-card">
             <div class="stat-title">প্রয়োজনীয় স্পিড (চ্যাপ্টার/দিন)</div>
             <div class="speed-row">
-                <span>সব সাবজেক্ট (Total):</span>
+                <span>সব সাবজেক্ট:</span>
                 <span id="speed-all" style="font-weight:bold; color: var(--info-color);">0.0</span>
             </div>
             <div class="speed-row">
-                <span>বাদ দেওয়া ছাড়া (Active):</span>
+                <span>টার্গেট সাবজেক্ট:</span>
                 <span id="speed-active" style="font-weight:bold; color: var(--accent-color);">0.0</span>
             </div>
         </div>
-        <!-- Pomodoro Timer -->
         <div class="stat-card timer-card">
             <div class="stat-title">স্টাডি টাইমার (Focus)</div>
             <div class="stat-value" id="timer-display" style="color: var(--warning-color);">25:00</div>
@@ -429,8 +271,7 @@
         </div>
     </div>
 
-    <!-- Master Progress -->
-    <div class="master-progress-container">
+    <div class="master-progress-container" id="master-box">
         <div class="progress-header">
             <span>সার্বিক অগ্রগতি (Overall Progress)</span>
             <span id="master-progress-text" style="color: var(--accent-color);">0%</span>
@@ -440,10 +281,7 @@
         </div>
     </div>
 
-    <!-- Tabs -->
     <div class="tabs" id="tabs-container"></div>
-
-    <!-- Content -->
     <div id="content-container"></div>
 
     <div class="footer-actions">
@@ -451,150 +289,169 @@
     </div>
 </div>
 
+<!-- Link Modal -->
+<div class="modal" id="linkModal">
+    <div class="modal-content">
+        <h3>🔗 Resource Link</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: -5px;">এই চ্যাপ্টারের প্রয়োজনীয় ক্লাসের লিংক সেভ করে রাখো</p>
+        <button id="modalOpenBtn" class="btn-open" onclick="openSavedLink()">Go to Link 🚀</button>
+        <input type="url" id="modalLinkInput" placeholder="ক্লাসের লিংক (Youtube, Drive, etc...)">
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-save" onclick="saveLink()">Save Link</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // --- Theme Logic ---
-    const themeBtn = document.getElementById('theme-btn');
     let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
-    themeBtn.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
-
+    document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
     function toggleTheme() {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
         localStorage.setItem('missionDmcTheme', currentTheme);
-        themeBtn.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+        document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
     }
 
-    // --- Pomodoro Timer ---
-    let timerInterval;
-    let timeLeft = 25 * 60;
-    let isTimerRunning = false;
-    const timerDisplay = document.getElementById('timer-display');
-
+    // --- Pomodoro ---
+    let timerInterval; let timeLeft = 25 * 60; let isTimerRunning = false;
     function updateTimerDisplay() {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('timer-display').innerText = `${Math.floor(timeLeft / 60).toString().padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`;
     }
-
     function startTimer() {
         if (!isTimerRunning) {
             isTimerRunning = true;
             timerInterval = setInterval(() => {
                 if (timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
-                else {
-                    clearInterval(timerInterval);
-                    isTimerRunning = false;
-                    alert("২৫ মিনিট শেষ! এখন ৫ মিনিটের একটি ছোট ব্রেক নাও। ☕");
-                    timeLeft = 25 * 60;
-                    updateTimerDisplay();
-                }
+                else { clearInterval(timerInterval); isTimerRunning = false; alert("২৫ মিনিট শেষ! ব্রেক নাও ☕"); timeLeft = 25 * 60; updateTimerDisplay(); }
             }, 1000);
         }
     }
     function pauseTimer() { clearInterval(timerInterval); isTimerRunning = false; }
     function resetTimer() { clearInterval(timerInterval); isTimerRunning = false; timeLeft = 25 * 60; updateTimerDisplay(); }
 
-    // --- Data Base & Logic ---
+    // --- Syllabus Data Base ---
     const defaultSyllabus = {
         "physics1": { name: "Physics 1st Paper", chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ ও অভিকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"] },
         "physics2": { name: "Physics 2nd Paper", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া", "তাড়িতচৌম্বক আবেশ", "জ্যামিতিক আলোকবিজ্ঞান", "ভৌত আলোকবিজ্ঞান", "আধুনিক পদার্থবিজ্ঞানের সূচনা", "পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", "সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "জ্যোতির্বিজ্ঞান"] },
         "chem1": { name: "Chemistry 1st Paper", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
         "chem2": { name: "Chemistry 2nd Paper", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
-        
-        
-        "bio1": { name: "Biology 1st Paper", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "জীবের পরিবেশ ও বিস্তার"] },
-        "bio2": { name: "Biology 2nd Paper", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "মানব শারীরতত্ত্ব (পরিপাক ও শোষণ)", "মানব শারীরতত্ত্ব (রক্ত ও সঞ্চালন)", "মানব শারীরতত্ত্ব (শ্বাসক্রিয়া)", "মানব শারীরতত্ত্ব (বর্জ্য ও নিষ্কাশন)", "মানব শারীরতত্ত্ব (চলন ও অঙ্গচালনা)", "মানব শারীরতত্ত্ব (স্নায়বিক সমন্বয়)", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] },
         "math1": { name: "Math 1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত", "ফাংশন ও ফাংশনের লেখচিত্র", "অন্তরীকরণ", "যোগজীকরণ"] },
         "math2": { name: "Math 2nd Paper", chapters: ["বাস্তব সংখ্যা ও অসমতা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও বহুপদী সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ ও সম্ভাবনা"] },
+        "bio1": { name: "Biology 1st Paper", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "জীবের পরিবেশ ও বিস্তার"] },
+        "bio2": { name: "Biology 2nd Paper", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "মানব শারীরতত্ত্ব (পরিপাক ও শোষণ)", "মানব শারীরতত্ত্ব (রক্ত ও সঞ্চালন)", "মানব শারীরতত্ত্ব (শ্বাসক্রিয়া)", "মানব শারীরতত্ত্ব (বর্জ্য ও নিষ্কাশন)", "মানব শারীরতত্ত্ব (চলন ও অঙ্গচালনা)", "মানব শারীরতত্ত্ব (স্নায়বিক সমন্বয়)", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] },
         "medEng": { name: "Medical English", chapters: ["Parts of Speech", "Tense & Sequence of Tense", "Right Forms of Verbs", "Voice Change", "Narration", "Sentence Correction", "Synonym & Antonym", "Spelling", "Phrases & Idioms", "Preposition"] },
         "medGK": { name: "Medical GK", chapters: ["প্রাচীন বাংলার ইতিহাস", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ ও স্বাধীনতা", "বাংলাদেশের সংবিধান", "বাংলাদেশের অর্থনীতি ও সম্পদ", "বাংলাদেশের সংস্কৃতি ও উপজাতি", "গুরুত্বপূর্ণ জাতীয় ও আন্তর্জাতিক বিষয়াবলি"] }
     };
 
-    // Load custom chapters for Eng and GK
     let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChapters')) || { medEng: [], medGK: [] };
     defaultSyllabus.medEng.chapters.push(...customChapters.medEng);
     defaultSyllabus.medGK.chapters.push(...customChapters.medGK);
-
     const syllabusData = defaultSyllabus;
+
     let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgress')) || {};
+    
+    // Check & Initialize Data Object
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV3')) || {};
+    // Fallback if structure is missing rev
+    for(let key in savedProgress) {
+        if(savedProgress[key].rev === undefined) savedProgress[key].rev = 0;
+    }
     
     // Dates 2026
-    const currentYear = new Date().getFullYear();
-    const syllabusDeadline = new Date(`October 31, ${currentYear} 23:59:59`).getTime();
-    const examDeadline = new Date(`November 30, ${currentYear} 23:59:59`).getTime();
+    const syllabusDeadline = new Date(`October 31, 2026 23:59:59`).getTime();
+    const examDeadline = new Date(`November 30, 2026 23:59:59`).getTime();
 
     document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
 
+    // Generate UI
     const tabsContainer = document.getElementById('tabs-container');
     const contentContainer = document.getElementById('content-container');
-
-    // Generate UI
     let isFirst = true;
+
+    // Helper to format revision text
+    function getRevText(num) {
+        if(num === 0) return '🔄 Rev: 0';
+        if(num === 1) return '1st Rev';
+        if(num === 2) return '2nd Rev';
+        if(num === 3) return '3rd Rev';
+        return `${num}th Rev`;
+    }
+
     for (const [key, subject] of Object.entries(syllabusData)) {
-        
+        // Tab
         const btn = document.createElement('button');
         btn.className = `tab-btn ${isFirst ? 'active' : ''}`;
         btn.innerText = subject.name;
         btn.onclick = () => switchTab(key);
         tabsContainer.appendChild(btn);
 
+        // Content
         const contentDiv = document.createElement('div');
         contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`;
         contentDiv.id = `content-${key}`;
 
-        let isExcluded = excludedSubjects.includes(key);
-        
-        let customAddBtn = (key === 'medEng' || key === 'medGK') ? 
-            `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add New Topic</button>` : '';
-
         let subjectControlsHtml = `
             <div class="subject-controls">
                 <label class="exclude-label">
-                    <input type="checkbox" onchange="toggleExclude('${key}', this)" ${isExcluded ? 'checked' : ''}>
-                    এই সাবজেক্টটিকে "ডেইলি টার্গেট স্পিড" থেকে বাদ দিন
+                    <input type="checkbox" onchange="toggleExclude('${key}', this)" ${excludedSubjects.includes(key) ? 'checked' : ''}>
+                    স্পিড ক্যালকুলেশন থেকে বাদ দিন
                 </label>
-                ${customAddBtn}
+                ${(key === 'medEng' || key === 'medGK') ? `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add Topic</button>` : ''}
             </div>
         `;
 
         let chaptersHtml = '';
         subject.chapters.forEach((chapter, index) => {
             const chapterId = `${key}-ch-${index}`;
-            const savedValue = savedProgress[chapterId] || 0;
+            const cData = savedProgress[chapterId] || { val: 0, star: false, link: '', rev: 0 };
+            
             chaptersHtml += `
                 <li class="chapter-item">
-                    <span class="chapter-name">${chapter}</span>
-                    <select class="status-select" id="${chapterId}" onchange="updateProgress('${key}', '${chapterId}')">
-                        <option value="0" ${savedValue == 0 ? 'selected' : ''}>❌ শুরু করিনি</option>
-                        <option value="25" ${savedValue == 25 ? 'selected' : ''}>📖 শুরু করেছি (25%)</option>
-                        <option value="50" ${savedValue == 50 ? 'selected' : ''}>⏳ অর্ধেক শেষ (50%)</option>
-                        <option value="75" ${savedValue == 75 ? 'selected' : ''}>🔄 রিভিশন (75%)</option>
-                        <option value="100" ${savedValue == 100 ? 'selected' : ''}>✅ সম্পূর্ণ শেষ</option>
-                    </select>
+                    <div class="chapter-info">
+                        <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)" title="Mark as Hard Topic">⭐</span>
+                        <span class="chapter-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                    </div>
+                    <div class="chapter-action">
+                        <button class="link-btn ${cData.link ? 'has-link' : ''}" onclick="openLinkModal('${chapterId}')" title="Class Link/Note">🔗</button>
+                        
+                        <!-- Smart Revision Counter -->
+                        <div class="rev-control" title="Revision Counter">
+                            <button class="rev-btn" onclick="changeRev('${chapterId}', -1)">-</button>
+                            <span class="rev-count ${cData.rev > 0 ? 'active' : ''}" id="rev-${chapterId}">${getRevText(cData.rev)}</span>
+                            <button class="rev-btn" onclick="changeRev('${chapterId}', 1)">+</button>
+                        </div>
+
+                        <select class="status-select" id="${chapterId}" onchange="updateProg('${key}', '${chapterId}', this)">
+                            <option value="0" ${cData.val == 0 ? 'selected' : ''} style="color: var(--danger-color)">❌ 0% (শুরু করিনি)</option>
+                            <option value="25" ${cData.val == 25 ? 'selected' : ''} style="color: var(--warning-color)">📖 25% (রিডিং শেষ)</option>
+                            <option value="50" ${cData.val == 50 ? 'selected' : ''} style="color: #aaaa00">📝 50% (প্র্যাকটিস)</option>
+                            <option value="75" ${cData.val == 75 ? 'selected' : ''} style="color: var(--info-color)">🔄 75% (রিভিশন)</option>
+                            <option value="100" ${cData.val == 100 ? 'selected' : ''} style="color: var(--accent-color)">✅ 100% (Done)</option>
+                        </select>
+                    </div>
                 </li>
             `;
         });
 
         contentDiv.innerHTML = `
             ${subjectControlsHtml}
-            <div class="progress-header" style="margin-bottom: 8px; font-size:14px;">
-                <span>${subject.name} Progress</span>
+            <div class="progress-header" style="margin-bottom: 8px;">
+                <span>${subject.name}</span>
                 <span id="progress-text-${key}">0%</span>
             </div>
-            <div class="progress-bar-bg" style="margin-bottom: 20px; height: 10px;">
+            <div class="progress-bar-bg" style="margin-bottom: 20px;">
                 <div class="progress-bar-fill" id="progress-bar-${key}"></div>
             </div>
-            <ul class="chapter-list">
-                ${chaptersHtml}
-            </ul>
+            <ul class="chapter-list">${chaptersHtml}</ul>
         `;
         contentContainer.appendChild(contentDiv);
         isFirst = false;
     }
 
-    // Functions
+    // --- Core Functions ---
     function switchTab(activeKey) {
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -604,61 +461,111 @@
         document.getElementById(`content-${activeKey}`).classList.add('active');
     }
 
-    function saveNote() {
-        localStorage.setItem('missionDmcNote', document.getElementById('daily-note').value);
-    }
+    function saveNote() { localStorage.setItem('missionDmcNote', document.getElementById('daily-note').value); }
 
     function addCustomChapter(subjectKey) {
         let topicName = prompt("নতুন টপিক বা চ্যাপ্টারের নাম লিখুন:");
         if(topicName && topicName.trim() !== "") {
             customChapters[subjectKey].push(topicName.trim());
             localStorage.setItem('missionDmcCustomChapters', JSON.stringify(customChapters));
-            location.reload(); // Reload to update UI automatically
+            location.reload();
         }
     }
 
     function toggleExclude(subjectKey, checkbox) {
-        if(checkbox.checked) {
-            if(!excludedSubjects.includes(subjectKey)) excludedSubjects.push(subjectKey);
-        } else {
-            excludedSubjects = excludedSubjects.filter(item => item !== subjectKey);
-        }
+        if(checkbox.checked) { if(!excludedSubjects.includes(subjectKey)) excludedSubjects.push(subjectKey); } 
+        else { excludedSubjects = excludedSubjects.filter(item => item !== subjectKey); }
         localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects));
         calculateMasterProgress();
     }
 
-    function updateDropdownColors() {
-        document.querySelectorAll('.status-select').forEach(select => {
-            let val = select.value;
-            select.style.color = (val == 0) ? 'var(--danger-color)' : 
-                                 (val == 25) ? 'var(--warning-color)' : 
-                                 (val == 50) ? '#aaaa00' : 
-                                 (val == 75) ? 'var(--info-color)' : 'var(--accent-color)';
-        });
+    function toggleStar(chapterId, el) {
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        savedProgress[chapterId].star = !savedProgress[chapterId].star;
+        localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
+        el.classList.toggle('active');
+        document.getElementById(`name-${chapterId}`).classList.toggle('hard-topic');
     }
 
-    function updateProgress(subjectKey, chapterId = null) {
-        if(chapterId) {
-            const selectElement = document.getElementById(chapterId);
-            savedProgress[chapterId] = parseInt(selectElement.value);
-            localStorage.setItem('missionDmcProgress', JSON.stringify(savedProgress));
-            updateDropdownColors();
-        }
+    // Update Revision
+    function changeRev(chapterId, amount) {
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        let newRev = (savedProgress[chapterId].rev || 0) + amount;
+        if(newRev < 0) newRev = 0; // Prevent negative revisions
+        
+        savedProgress[chapterId].rev = newRev;
+        localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
+        
+        let revSpan = document.getElementById(`rev-${chapterId}`);
+        revSpan.innerText = getRevText(newRev);
+        if(newRev > 0) revSpan.classList.add('active');
+        else revSpan.classList.remove('active');
+    }
 
-        if(subjectKey) {
-            const subject = syllabusData[subjectKey];
-            let total = 0;
-            subject.chapters.forEach((_, index) => {
-                total += savedProgress[`${subjectKey}-ch-${index}`] || 0;
-            });
-            const average = subject.chapters.length > 0 ? (total / subject.chapters.length).toFixed(1) : 0;
-            const bar = document.getElementById(`progress-bar-${subjectKey}`);
-            bar.style.width = `${average}%`;
-            document.getElementById(`progress-text-${subjectKey}`).innerText = `${average}%`;
-            if(average == 100) bar.classList.add('glow-effect');
-            else bar.classList.remove('glow-effect');
+    // --- Modal & Link Logic ---
+    let currentChapterForLink = null;
+    function openLinkModal(chapterId) {
+        currentChapterForLink = chapterId;
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        let existingLink = savedProgress[chapterId].link || '';
+        document.getElementById('modalLinkInput').value = existingLink;
+        
+        let openBtn = document.getElementById('modalOpenBtn');
+        if(existingLink) { openBtn.style.display = 'block'; } else { openBtn.style.display = 'none'; }
+        
+        document.getElementById('linkModal').style.display = 'flex';
+    }
+    function closeModal() { document.getElementById('linkModal').style.display = 'none'; }
+    function saveLink() {
+        let linkVal = document.getElementById('modalLinkInput').value;
+        savedProgress[currentChapterForLink].link = linkVal;
+        localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
+        
+        let btn = document.querySelector(`#rev-${currentChapterForLink}`).parentElement.previousElementSibling;
+        if(linkVal) btn.classList.add('has-link'); else btn.classList.remove('has-link');
+        
+        closeModal();
+    }
+    function openSavedLink() {
+        let linkVal = document.getElementById('modalLinkInput').value;
+        if(linkVal) {
+            if(!linkVal.startsWith('http')) linkVal = 'https://' + linkVal;
+            window.open(linkVal, '_blank');
         }
+    }
+
+    // Update Dropdown Color dynamically
+    function setDropdownColor(selectElement) {
+        let val = selectElement.value;
+        selectElement.style.color = (val == 0) ? 'var(--danger-color)' : 
+                             (val == 25) ? 'var(--warning-color)' : 
+                             (val == 50) ? '#aaaa00' : 
+                             (val == 75) ? 'var(--info-color)' : 'var(--accent-color)';
+    }
+
+    function updateProg(subjectKey, chapterId, selectElement) {
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        savedProgress[chapterId].val = parseInt(selectElement.value);
+        localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
+        
+        setDropdownColor(selectElement);
+        calcSubjectProgress(subjectKey);
         calculateMasterProgress();
+    }
+
+    function calcSubjectProgress(subjectKey) {
+        const subject = syllabusData[subjectKey];
+        let totalVal = 0;
+        
+        subject.chapters.forEach((_, index) => {
+            let c = savedProgress[`${subjectKey}-ch-${index}`];
+            if(c) totalVal += c.val;
+        });
+        
+        const average = subject.chapters.length > 0 ? (totalVal / subject.chapters.length).toFixed(1) : 0;
+        const bar = document.getElementById(`progress-bar-${subjectKey}`);
+        bar.style.width = `${average}%`;
+        document.getElementById(`progress-text-${subjectKey}`).innerText = `${average}%`;
     }
 
     function calculateMasterProgress() {
@@ -670,34 +577,28 @@
             let subjCompleted = 0;
             
             subject.chapters.forEach((_, index) => {
-                const val = savedProgress[`${key}-ch-${index}`] || 0;
-                subjCompleted += (val / 100);
+                let c = savedProgress[`${key}-ch-${index}`];
+                if(c) subjCompleted += (c.val / 100);
             });
 
             totalChaptersAll += subjCount;
             completedAll += subjCompleted;
-
             if(!excludedSubjects.includes(key)) {
                 totalChaptersActive += subjCount;
                 completedActive += subjCompleted;
             }
         }
 
-        // Master Progress Update
         const overallPercentage = totalChaptersAll > 0 ? ((completedAll / totalChaptersAll) * 100).toFixed(2) : 0;
         const masterBar = document.getElementById('master-progress-bar');
+        const masterBox = document.getElementById('master-box');
         masterBar.style.width = `${overallPercentage}%`;
         document.getElementById('master-progress-text').innerText = `${overallPercentage}%`;
+        if(overallPercentage == 100) masterBox.classList.add('glow-effect'); else masterBox.classList.remove('glow-effect');
 
-        if(overallPercentage == 100.00) {
-            masterBar.classList.add('glow-effect');
-            document.getElementById('master-progress-text').innerText = "🎉 100% COMPLETE!";
-        } else { masterBar.classList.remove('glow-effect'); }
-
-        // Speed Calculation
+        // Speed Logic
         const now = new Date().getTime();
         const daysLeft = Math.ceil((syllabusDeadline - now) / (1000 * 60 * 60 * 24));
-        
         let remainAll = totalChaptersAll - completedAll;
         let remainActive = totalChaptersActive - completedActive;
 
@@ -712,7 +613,6 @@
 
     function updateTimers() {
         const now = new Date().getTime();
-        
         const sylDiff = syllabusDeadline - now;
         if(sylDiff > 0) {
             const d = Math.floor(sylDiff / (1000 * 60 * 60 * 24));
@@ -730,19 +630,16 @@
 
     function resetData() {
         if(confirm("তুমি কি নিশ্চিত যে তুমি সব প্রোগ্রেস ডিলিট করে নতুন করে শুরু করতে চাও?")) {
-            localStorage.removeItem('missionDmcProgress');
-            localStorage.removeItem('missionDmcNote');
-            localStorage.removeItem('missionDmcExcluded');
-            localStorage.removeItem('missionDmcCustomChapters');
+            localStorage.clear();
             location.reload();
         }
     }
 
-    // Initial Execute
-    updateDropdownColors();
-    Object.keys(syllabusData).forEach(key => updateProgress(key));
-    updateTimers();
-    updateTimerDisplay();
+    // Init Execution
+    document.querySelectorAll('.status-select').forEach(setDropdownColor);
+    Object.keys(syllabusData).forEach(key => calcSubjectProgress(key));
+    calculateMasterProgress();
+    updateTimers(); updateTimerDisplay();
     setInterval(updateTimers, 60000);
 
 </script>
