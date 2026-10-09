@@ -1,311 +1,214 @@
-
 <!DOCTYPE html>
 <html lang="bn" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission DMC</title>
+    <title>Mission DMC Dashboard</title>
     <style>
-        /* --- Premium CSS Variables for True AMOLED --- */
+        /* --- Premium Compact Variables --- */
         :root {
-            --bg-color: #000000;
-            --card-bg: #0a0a0a;
-            --border-color: #1f1f1f;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent-color: #00e676; 
-            --danger-color: #ff3d00;
-            --warning-color: #ffea00;
-            --info-color: #00e5ff;
-            --rev-color: #b388ff; /* Nice purple for revision */
-            --input-bg: #141414;
-            --header-grad-start: #0a0a0a;
-            --header-grad-end: #000000;
+            --bg-color: #050505; --card-bg: #121212; --border-color: #1f1f1f;
+            --text-main: #ffffff; --text-muted: #888888;
+            --accent-color: #00e676; --danger-color: #ff3d00;
+            --warning-color: #ffea00; --info-color: #00e5ff;
+            --rev-color: #b388ff; --input-bg: #1a1a1a;
+            --overall-grad: linear-gradient(135deg, #102a45 0%, #174272 100%);
         }
 
         [data-theme="light"] {
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --border-color: #e4e6eb;
-            --text-main: #1c1e21;
-            --text-muted: #606770;
-            --accent-color: #00a455;
-            --danger-color: #e41e3f;
-            --warning-color: #d99c00;
-            --info-color: #0093a8;
-            --rev-color: #7c4dff;
-            --input-bg: #f5f6f7;
-            --header-grad-start: #ffffff;
-            --header-grad-end: #f0f2f5;
+            --bg-color: #eef0f3; --card-bg: #ffffff; --border-color: #d1d5db;
+            --text-main: #1f2937; --text-muted: #6b7280;
+            --accent-color: #10b981; --danger-color: #ef4444;
+            --warning-color: #f59e0b; --info-color: #0ea5e9;
+            --rev-color: #6366f1; --input-bg: #f9fafb;
+            --overall-grad: linear-gradient(135deg, #2b70b5 0%, #36556f 100%);
         }
 
         * { box-sizing: border-box; }
-        body {
-            background-color: var(--bg-color); color: var(--text-main);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0; padding: 12px; transition: 0.4s ease;
-        }
-        .container { max-width: 1050px; margin: 0 auto; }
-
-        /* --- Stylish Header --- */
-        .header {
-            position: relative; text-align: center; margin-bottom: 20px; padding: 35px 20px 20px;
-            background: linear-gradient(180deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%);
-            border: 1px solid var(--border-color); border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 230, 118, 0.05);
-        }
-        .theme-toggle {
-            position: absolute; top: 15px; right: 15px; background: var(--input-bg);
-            border: 1px solid var(--border-color); color: var(--text-main); font-size: 16px;
-            cursor: pointer; padding: 8px 12px; border-radius: 50%; transition: 0.3s ease;
-        }
-        .theme-toggle:hover { border-color: var(--accent-color); transform: rotate(15deg) scale(1.1); }
-        .header h1 { margin: 0; font-size: 26px; color: var(--accent-color); font-weight: 800; letter-spacing: -0.5px;}
-        .header p { color: var(--text-muted); margin-top: 5px; font-size: 14px; font-weight: 500;}
-        .badge { background: rgba(0, 230, 118, 0.1); color: var(--accent-color); padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; margin-top: 10px; border: 1px solid rgba(0,230,118,0.2);}
-
-        /* --- Dashboard Grid --- */
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 25px; }
-        .stat-card {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 18px 15px; text-align: center; position: relative; overflow: hidden;
-            transition: transform 0.3s;
-        }
-        .stat-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); }
-        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent-color); }
-        .stat-card.exam-card::before { background: var(--danger-color); }
-        .stat-card.speed-card::before { background: var(--info-color); }
-        .stat-card.timer-card::before { background: var(--warning-color); }
-        .stat-title { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
-        .stat-value { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
-        .speed-row {
-            display: flex; justify-content: space-between; font-size: 13px; margin: 6px 0;
-            padding: 6px 10px; background: var(--input-bg); border-radius: 8px;
+        body { background: var(--bg-color); color: var(--text-main); font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 15px; transition: 0.3s ease; }
+        
+        /* Main Layout Grid */
+        .container { max-width: 1250px; margin: 0 auto; }
+        .main-layout { display: flex; flex-direction: column; gap: 20px; }
+        
+        @media (min-width: 992px) {
+            .main-layout { display: grid; grid-template-columns: 380px 1fr; align-items: flex-start; }
+            body { padding: 25px; }
         }
 
-        /* --- Interactive Timer & Notes --- */
-        .timer-controls { margin-top: 12px; display: flex; justify-content: center; gap: 8px; }
-        .timer-btn {
-            background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main);
-            padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.3s;
-        }
-        .timer-btn:hover { background: rgba(255, 234, 0, 0.1); border-color: var(--warning-color); color: var(--warning-color); }
+        /* --- Global Compact Styles --- */
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; }
+        
+        /* --- Header --- */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .header h1 { margin: 0; font-size: 18px; font-weight: 700; color: var(--text-main); }
+        .header p { margin: 2px 0 0; font-size: 12px; color: var(--text-muted); }
+        .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; transition: 0.3s; }
+        .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent-color); }
 
-        .notes-section {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 12px 18px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;
-        }
-        .notes-input {
-            flex: 1; background: transparent; border: none; color: var(--text-main);
-            font-size: 15px; outline: none; border-bottom: 1px solid transparent; transition: 0.3s;
-        }
+        /* --- Overall Progress (Compact) --- */
+        .overall-card { background: var(--overall-grad); border-radius: 12px; padding: 20px 15px; text-align: center; color: #fff; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .overall-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+        .overall-val-container { font-size: 42px; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .overall-bar-bg { background: rgba(255, 255, 255, 0.2); height: 8px; border-radius: 8px; width: 85%; margin: 0 auto; overflow: hidden; }
+        .overall-bar-fill { background: #00ff88; height: 100%; width: 0%; border-radius: 8px; transition: width 1s; }
+        .target-note { font-size: 11px; margin-top: 10px; opacity: 0.9; background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 15px; display: inline-block;}
+
+        /* --- Mini Stats & Timer --- */
+        .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .m-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px; text-align: center; }
+        .m-title { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 4px;}
+        .m-val { font-size: 16px; font-weight: 800; color: var(--text-main); }
+        
+        /* Timer block taking full width in grid */
+        .timer-block { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; }
+        .timer-block .m-val { font-size: 20px; color: var(--warning-color); }
+        .timer-btns { display: flex; gap: 5px; }
+        .timer-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+
+        /* --- Notes --- */
+        .notes-section { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding: 10px 12px; }
+        .notes-input { flex: 1; background: transparent; border: none; color: var(--text-main); font-size: 13px; outline: none; border-bottom: 1px dashed var(--border-color); }
         .notes-input:focus { border-bottom-color: var(--accent-color); }
 
-        /* --- Master Progress --- */
-        .master-progress-container {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 20px; margin-bottom: 20px;
-        }
-        .progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 700; font-size: 15px;}
-        .progress-bar-bg { background-color: var(--input-bg); height: 10px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
-        .progress-bar-fill { background-color: var(--accent-color); height: 100%; width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px var(--accent-color);}
-        .glow-effect .progress-bar-fill { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--accent-color); } 50% { box-shadow: 0 0 25px var(--accent-color); } }
+        /* --- Summary Grid --- */
+        .summary-card { margin-bottom: 10px; padding: 12px; }
+        .summary-card h3 { margin: 0 0 10px 0; font-size: 14px; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;}
+        .paper-row { margin-bottom: 10px; }
+        .paper-row:last-child { margin-bottom: 0; }
+        .paper-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .paper-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .target-toggle { cursor: pointer; font-size: 12px; opacity: 0.5; transition: 0.3s; }
+        .target-toggle.active { opacity: 1; color: var(--accent-color); }
+        .rev-badge { background: var(--input-bg); color: var(--text-muted); font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 8px; border: 1px solid var(--border-color); }
+        .paper-bar-container { display: flex; align-items: center; gap: 8px; }
+        .paper-bar-bg { flex: 1; background: var(--input-bg); height: 6px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); }
+        .paper-bar-fill { background: var(--accent-color); height: 100%; width: 0%; transition: 0.8s; }
+        .paper-percent { font-size: 11px; font-weight: 700; color: var(--accent-color); width: 25px; text-align: right; }
+        .paper-excluded { opacity: 0.4; filter: grayscale(1); }
 
-        /* --- Tabs --- */
-        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; }
-        .tab-btn {
-            background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color);
-            padding: 10px 18px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.3s;
-        }
-        .tab-btn:hover { border-color: var(--accent-color); color: var(--text-main); }
-        .tab-btn.active { background-color: var(--accent-color); color: #000 !important; border-color: var(--accent-color); box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);}
+        /* --- Right Panel: Tabs & Details --- */
+        .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-bottom: 15px; padding-bottom: 5px; scrollbar-width: none;}
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 12px; flex-shrink: 0; }
+        .tab-btn.active { background: var(--accent-color); color: #000; border-color: var(--accent-color); }
 
-        /* --- Subject Content --- */
-        .subject-content {
-            display: none; background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 20px;
-        }
-        .subject-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .subject-content { display: none; }
+        .subject-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .subject-controls {
-            display: flex; justify-content: space-between; align-items: center; background: var(--input-bg);
-            padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; border: 1px solid var(--border-color);
-            flex-wrap: wrap; gap: 10px;
-        }
-        .exclude-label { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--warning-color); font-weight: 600;}
-        .add-topic-btn { background-color: var(--info-color); color: #000; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 12px; transition: 0.2s;}
-        .add-topic-btn:hover { transform: scale(1.05); }
+        .subject-controls { display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; border: 1px solid var(--border-color); }
+        .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 4px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
 
-        /* --- Chapter List with Advanced Actions --- */
+        /* Compact Chapter List */
         .chapter-list { list-style: none; padding: 0; margin: 0; }
-        .chapter-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0; border-bottom: 1px solid var(--border-color); transition: 0.3s;
-        }
+        .chapter-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); gap: 10px; }
         .chapter-item:last-child { border-bottom: none; }
         
-        .chapter-info { display: flex; align-items: center; gap: 12px; flex: 1; }
-        .star-btn { cursor: pointer; font-size: 18px; opacity: 0.2; transition: 0.3s; user-select: none; filter: grayscale(1); }
-        .star-btn.active { opacity: 1; filter: grayscale(0); transform: scale(1.1);}
-        .chapter-name { font-size: 15px; font-weight: 600; transition: color 0.3s; }
+        .chapter-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 150px;}
+        .star-btn { cursor: pointer; font-size: 14px; opacity: 0.3; filter: grayscale(1); }
+        .star-btn.active { opacity: 1; filter: grayscale(0); }
+        .chapter-name { font-size: 13px; font-weight: 600; line-height: 1.3;}
         .chapter-name.hard-topic { color: var(--danger-color); }
 
-        /* Action Group: Link + Revision + Dropdown */
-        .chapter-action { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;}
-
-        /* Link Button */
-        .link-btn {
-            background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 50%;
-            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 14px; transition: 0.3s; color: var(--text-muted);
-        }
-        .link-btn.has-link { border-color: var(--info-color); color: var(--info-color); background: rgba(0, 229, 255, 0.1); }
-        .link-btn:hover { transform: scale(1.1); }
-
-        /* Smart Revision Counter */
-        .rev-control {
-            display: flex; align-items: center; background: var(--input-bg);
-            border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden;
-            height: 34px;
-        }
-        .rev-btn {
-            background: transparent; border: none; color: var(--text-muted);
-            padding: 0 10px; height: 100%; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .rev-btn:hover { color: var(--rev-color); background: rgba(179, 136, 255, 0.1); }
-        .rev-count {
-            font-size: 12px; font-weight: 700; color: var(--text-main); padding: 0 5px;
-            min-width: 65px; text-align: center; display: flex; align-items: center; justify-content: center;
-        }
+        /* Compact Actions (Rev + Select) */
+        .chapter-action { display: flex; align-items: center; gap: 6px; }
+        
+        .rev-control { display: flex; align-items: center; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 6px; height: 26px; }
+        .rev-btn { background: transparent; border: none; color: var(--text-muted); padding: 0 6px; cursor: pointer; font-weight: bold; font-size: 12px; }
+        .rev-btn:hover { color: var(--rev-color); }
+        .rev-count { font-size: 10px; font-weight: 700; color: var(--text-main); min-width: 45px; text-align: center; }
         .rev-count.active { color: var(--rev-color); }
 
-        /* Premium Dropdown */
         select.status-select {
-            appearance: none; height: 34px;
-            background-color: var(--input-bg); color: var(--text-main);
-            border: 1px solid var(--border-color); padding: 0 30px 0 12px;
-            border-radius: 10px; cursor: pointer; outline: none; font-weight: 700; font-size: 12px;
-            transition: all 0.3s; 
+            appearance: none; height: 26px; background: var(--input-bg); color: var(--text-main);
+            border: 1px solid var(--border-color); padding: 0 20px 0 8px; border-radius: 6px; cursor: pointer; outline: none; font-weight: 700; font-size: 11px;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat; background-position: right 10px center; background-size: 14px;
+            background-repeat: no-repeat; background-position: right 4px center; background-size: 10px;
         }
-        select.status-select:focus { border-color: var(--accent-color); box-shadow: 0 0 0 2px rgba(0,230,118,0.2); }
 
-        /* Mobile specific adjustments */
-        @media (max-width: 600px) {
-            .header { padding: 30px 15px 15px;}
-            .header h1 { font-size: 24px; }
-            .chapter-item { flex-direction: column; align-items: flex-start; gap: 12px; background: var(--input-bg); padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); }
-            .chapter-action { width: 100%; justify-content: space-between; }
+        .reset-btn { width: 100%; margin-top: 20px; background: transparent; color: var(--danger-color); border: 1px dashed var(--danger-color); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;}
+        
+        /* Make chapter items stack slightly on very small phones, but stay inline mostly */
+        @media (max-width: 480px) {
+            .chapter-item { flex-direction: column; align-items: flex-start; background: var(--card-bg); padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color);}
+            .chapter-action { width: 100%; justify-content: space-between; margin-top: 5px; }
             select.status-select { flex: 1; }
-            .subject-controls { flex-direction: column; align-items: flex-start; }
-            .tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 10px;}
-            .tab-btn { flex-shrink: 0; }
         }
-
-        .footer-actions { margin-top: 30px; text-align: right; }
-        .reset-btn { background: transparent; color: var(--danger-color); border: 1px solid var(--danger-color); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s;}
-        .reset-btn:hover { background: var(--danger-color); color: #fff; }
-
-        /* Link Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(5px);}
-        .modal-content { background: var(--card-bg); padding: 25px; border-radius: 16px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); }
-        .modal h3 { margin-top: 0; color: var(--accent-color); }
-        .modal input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: #fff; margin-bottom: 15px; }
-        .modal-btns { display: flex; justify-content: flex-end; gap: 10px; }
-        .modal-btns button { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold;}
-        .btn-save { background: var(--accent-color); color: #000; }
-        .btn-cancel { background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color) !important;}
-        .btn-open { background: var(--info-color); color: #000; display: none; width: 100%; margin-bottom: 10px;}
 
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">☀️</button>
-        <h1>Irfun's Mission-DMC 🩺</h1>
-        <p>Medical Preaparation Tracker</p>
-        <span class="badge">Target: Nov 30, 2026</span>
-    </div>
-
-    <div class="notes-section">
-        <span style="font-size: 20px;">📌</span>
-        <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট (যেমন: ফিজিক্স ২য় পত্র শেষ করা...)" oninput="saveNote()">
-    </div>
-
-    <div class="dashboard">
-        <div class="stat-card">
-            <div class="stat-title">সিলেবাস ডেডলাইন (৩১ অক্টো)</div>
-            <div class="stat-value" id="syl-countdown" style="color: var(--accent-color);">লোড হচ্ছে...</div>
-            <div class="stat-sub">সম্পূর্ণ সিলেবাস শেষ করার টার্গেট</div>
-        </div>
-        <div class="stat-card exam-card">
-            <div class="stat-title">মেডিকেল পরীক্ষা (৩০ নভে)</div>
-            <div class="stat-value" id="exam-countdown" style="color: var(--danger-color);">লোড হচ্ছে...</div>
-            <div class="stat-sub">পরীক্ষা শুরু হওয়ার বাকি</div>
-        </div>
-        <div class="stat-card speed-card">
-            <div class="stat-title">প্রয়োজনীয় স্পিড (চ্যাপ্টার/দিন)</div>
-            <div class="speed-row">
-                <span>সব সাবজেক্ট:</span>
-                <span id="speed-all" style="font-weight:bold; color: var(--info-color);">0.0</span>
+    <div class="main-layout">
+        
+        <!-- ================= LEFT PANEL (Dashboard) ================= -->
+        <div class="left-panel">
+            
+            <div class="header">
+                <div>
+                    <h1>Mission DMC Tracker</h1>
+                    <p>Compact Dashboard & Revision</p>
+                </div>
+                <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
             </div>
-            <div class="speed-row">
-                <span>টার্গেট সাবজেক্ট:</span>
-                <span id="speed-active" style="font-weight:bold; color: var(--accent-color);">0.0</span>
+
+            <div class="card notes-section">
+                <span>📌</span>
+                <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট এখানে লিখুন..." oninput="saveNote()">
             </div>
-        </div>
-        <div class="stat-card timer-card">
-            <div class="stat-title">স্টাডি টাইমার (Focus)</div>
-            <div class="stat-value" id="timer-display" style="color: var(--warning-color);">25:00</div>
-            <div class="timer-controls">
-                <button class="timer-btn" onclick="startTimer()">Start</button>
-                <button class="timer-btn" onclick="pauseTimer()">Pause</button>
-                <button class="timer-btn" onclick="resetTimer()">Reset</button>
+
+            <div class="overall-card">
+                <div class="overall-title">Targeted Syllabus Progress</div>
+                <div class="overall-val-container"><span id="overall-val">0</span>%</div>
+                <div class="overall-bar-bg"><div class="overall-bar-fill" id="overall-bar"></div></div>
+                <div class="target-note">🎯 Excluding untargeted subjects</div>
             </div>
-        </div>
-    </div>
 
-    <div class="master-progress-container" id="master-box">
-        <div class="progress-header">
-            <span>সার্বিক অগ্রগতি (Overall Progress)</span>
-            <span id="master-progress-text" style="color: var(--accent-color);">0%</span>
-        </div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="master-progress-bar"></div>
-        </div>
-    </div>
+            <div class="mini-stats">
+                <div class="m-card">
+                    <div class="m-title">Deadline</div>
+                    <div class="m-val" id="syl-countdown" style="color: var(--accent-color);">-- d</div>
+                </div>
+                <div class="m-card">
+                    <div class="m-title">Speed Required</div>
+                    <div class="m-val" id="speed-active" style="color: var(--info-color);">-- ch/d</div>
+                </div>
+                <div class="m-card timer-block">
+                    <div>
+                        <div class="m-title" style="text-align: left;">Focus Timer</div>
+                        <div class="m-val" id="timer-display">25:00</div>
+                    </div>
+                    <div class="timer-btns">
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+            </div>
 
-    <div class="tabs" id="tabs-container"></div>
-    <div id="content-container"></div>
+            <div id="summary-grid">
+                <!-- Auto Generated Summary -->
+            </div>
+            
+            <!-- Hide Reset on Desktop Left Panel, show on Mobile bottom or via Setting -->
+            <button class="reset-btn" onclick="resetData()">🗑️ Reset All Data</button>
+        </div>
 
-    <div class="footer-actions">
-        <button class="reset-btn" onclick="resetData()">🗑️ Clear All Progress</button>
+
+        <!-- ================= RIGHT PANEL (Details) ================= -->
+        <div class="right-panel card">
+            <div class="tabs" id="tabs-container"></div>
+            <div id="content-container"></div>
+        </div>
+
     </div>
 </div>
 
-<!-- Link Modal -->
-<div class="modal" id="linkModal">
-    <div class="modal-content">
-        <h3>🔗 Resource Link</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: -5px;">এই চ্যাপ্টারের প্রয়োজনীয় ক্লাসের লিংক সেভ করে রাখো</p>
-        <button id="modalOpenBtn" class="btn-open" onclick="openSavedLink()">Go to Link 🚀</button>
-        <input type="url" id="modalLinkInput" placeholder="ক্লাসের লিংক (Youtube, Drive, etc...)">
-        <div class="modal-btns">
-            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-            <button class="btn-save" onclick="saveLink()">Save Link</button>
-        </div>
-    </div>
-</div>
-
+<!-- Scripts -->
 <script>
-    // --- Theme Logic ---
-    let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
+    // Theme
+    let currentTheme = localStorage.getItem('missionDmcTheme') || 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
     document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
     function toggleTheme() {
@@ -315,11 +218,9 @@
         document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
     }
 
-    // --- Pomodoro ---
+    // Timer
     let timerInterval; let timeLeft = 25 * 60; let isTimerRunning = false;
-    function updateTimerDisplay() {
-        document.getElementById('timer-display').innerText = `${Math.floor(timeLeft / 60).toString().padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`;
-    }
+    function updateTimerDisplay() { document.getElementById('timer-display').innerText = `${Math.floor(timeLeft / 60).toString().padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`; }
     function startTimer() {
         if (!isTimerRunning) {
             isTimerRunning = true;
@@ -327,23 +228,32 @@
                 if (timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
                 else { clearInterval(timerInterval); isTimerRunning = false; alert("২৫ মিনিট শেষ! ব্রেক নাও ☕"); timeLeft = 25 * 60; updateTimerDisplay(); }
             }, 1000);
+        } else {
+            clearInterval(timerInterval); isTimerRunning = false; // Pause if clicked again
         }
     }
-    function pauseTimer() { clearInterval(timerInterval); isTimerRunning = false; }
     function resetTimer() { clearInterval(timerInterval); isTimerRunning = false; timeLeft = 25 * 60; updateTimerDisplay(); }
 
-    // --- Syllabus Data Base ---
+    // Data 
+    const groups = [
+        { id: 'bio', title: 'Biology', papers: [{id:'bio1', name:'Botany (Paper I)'}, {id:'bio2', name:'Zoology (Paper II)'}] },
+        { id: 'chem', title: 'Chemistry', papers: [{id:'chem1', name:'Chemistry (Paper I)'}, {id:'chem2', name:'Chemistry (Paper II)'}] },
+        { id: 'phy', title: 'Physics', papers: [{id:'physics1', name:'Physics (Paper I)'}, {id:'physics2', name:'Physics (Paper II)'}] },
+        { id: 'math', title: 'Mathematics', papers: [{id:'math1', name:'Math (Paper I)'}, {id:'math2', name:'Math (Paper II)'}] },
+        { id: 'med', title: 'Medical Prep', papers: [{id:'medEng', name:'English'}, {id:'medGK', name:'GK'}] }
+    ];
+
     const defaultSyllabus = {
-        "physics1": { name: "Physics 1st Paper", chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ ও অভিকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"] },
-        "physics2": { name: "Physics 2nd Paper", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া", "তাড়িতচৌম্বক আবেশ", "জ্যামিতিক আলোকবিজ্ঞান", "ভৌত আলোকবিজ্ঞান", "আধুনিক পদার্থবিজ্ঞানের সূচনা", "পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", "সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "জ্যোতির্বিজ্ঞান"] },
-        "chem1": { name: "Chemistry 1st Paper", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
-        "chem2": { name: "Chemistry 2nd Paper", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
-        "math1": { name: "Math 1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত", "ফাংশন ও ফাংশনের লেখচিত্র", "অন্তরীকরণ", "যোগজীকরণ"] },
-        "math2": { name: "Math 2nd Paper", chapters: ["বাস্তব সংখ্যা ও অসমতা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও বহুপদী সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ ও সম্ভাবনা"] },
-        "bio1": { name: "Biology 1st Paper", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "জীবের পরিবেশ ও বিস্তার"] },
-        "bio2": { name: "Biology 2nd Paper", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "মানব শারীরতত্ত্ব (পরিপাক ও শোষণ)", "মানব শারীরতত্ত্ব (রক্ত ও সঞ্চালন)", "মানব শারীরতত্ত্ব (শ্বাসক্রিয়া)", "মানব শারীরতত্ত্ব (বর্জ্য ও নিষ্কাশন)", "মানব শারীরতত্ত্ব (চলন ও অঙ্গচালনা)", "মানব শারীরতত্ত্ব (স্নায়বিক সমন্বয়)", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] },
-        "medEng": { name: "Medical English", chapters: ["Parts of Speech", "Tense & Sequence of Tense", "Right Forms of Verbs", "Voice Change", "Narration", "Sentence Correction", "Synonym & Antonym", "Spelling", "Phrases & Idioms", "Preposition"] },
-        "medGK": { name: "Medical GK", chapters: ["প্রাচীন বাংলার ইতিহাস", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ ও স্বাধীনতা", "বাংলাদেশের সংবিধান", "বাংলাদেশের অর্থনীতি ও সম্পদ", "বাংলাদেশের সংস্কৃতি ও উপজাতি", "গুরুত্বপূর্ণ জাতীয় ও আন্তর্জাতিক বিষয়াবলি"] }
+        "physics1": { name: "Phy 1st", chapters: ["ভৌতজগৎ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি", "মহাকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস"] },
+        "physics2": { name: "Phy 2nd", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "চৌম্বক ক্রিয়া", "আবেশ", "জ্যামিতিক আলোক", "ভৌত আলোক", "আধুনিক পদার্থবিজ্ঞান", "পরমাণু ও নিউক্লিয়ার", "সেমিকন্ডাক্টর", "জ্যোতির্বিজ্ঞান"] },
+        "chem1": { name: "Chem 1st", chapters: ["ল্যাবরেটরি", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
+        "chem2": { name: "Chem 2nd", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
+        "math1": { name: "Math 1st", chapters: ["ম্যাট্রিক্স", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস-সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণ", "ফাংশন", "অন্তরীকরণ", "যোগজীকরণ"] },
+        "math2": { name: "Math 2nd", chapters: ["বাস্তব সংখ্যা", "যোগাশ্রয়ী", "জটিল সংখ্যা", "বহুপদী", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক", "স্থিতিবিদ্যা", "সমতলে বস্তুকণা", "বিস্তার পরিমাপ"] },
+        "bio1": { name: "Botany", chapters: ["কোষ", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল-ছত্রাক", "ব্রায়োফাইটা", "নগ্নবীজী", "টিস্যু", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "পরিবেশ"] },
+        "bio2": { name: "Zoology", chapters: ["প্রাণীর শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "পরিপাক", "রক্ত ও সঞ্চালন", "শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন", "স্নায়বিক সমন্বয়", "ধারাবাহিকতা", "প্রতিরক্ষা", "জিনতত্ত্ব", "আচরণ"] },
+        "medEng": { name: "English", chapters: ["Parts of Speech", "Tense", "Right Forms", "Voice", "Narration", "Correction", "Synonym-Antonym", "Spelling", "Phrases", "Preposition"] },
+        "medGK": { name: "GK", chapters: ["প্রাচীন বাংলা", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ", "সংবিধান", "অর্থনীতি", "সংস্কৃতি", "আন্তর্জাতিক"] }
     };
 
     let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChapters')) || { medEng: [], medGK: [] };
@@ -352,296 +262,170 @@
     const syllabusData = defaultSyllabus;
 
     let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    
-    // Check & Initialize Data Object
     let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV3')) || {};
-    // Fallback if structure is missing rev
-    for(let key in savedProgress) {
-        if(savedProgress[key].rev === undefined) savedProgress[key].rev = 0;
-    }
-    
-    // Dates 2026
     const syllabusDeadline = new Date(`October 31, 2026 23:59:59`).getTime();
-    const examDeadline = new Date(`November 30, 2026 23:59:59`).getTime();
 
     document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
 
-    // Generate UI
-    const tabsContainer = document.getElementById('tabs-container');
-    const contentContainer = document.getElementById('content-container');
-    let isFirst = true;
+    function getRevText(num) { return num === 0 ? 'Rev 0' : `Rev ${num}`; }
+    function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? '#aaaa00' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
 
-    // Helper to format revision text
-    function getRevText(num) {
-        if(num === 0) return '🔄 Rev: 0';
-        if(num === 1) return '1st Rev';
-        if(num === 2) return '2nd Rev';
-        if(num === 3) return '3rd Rev';
-        return `${num}th Rev`;
-    }
+    function buildUI() {
+        const summaryGrid = document.getElementById('summary-grid');
+        summaryGrid.innerHTML = '';
+        
+        groups.forEach(group => {
+            let cardHtml = `<div class="card summary-card"><h3>${group.title}</h3>`;
+            group.papers.forEach(paper => {
+                const subId = paper.id; const subjData = syllabusData[subId]; const isTargeted = !excludedSubjects.includes(subId);
+                let totalCh = subjData.chapters.length; let compCh = 0; let totalRevs = 0;
+                subjData.chapters.forEach((_, i) => { let c = savedProgress[`${subId}-ch-${i}`] || {val:0, rev:0}; compCh += (c.val / 100); totalRevs += c.rev; });
+                let percent = totalCh > 0 ? Math.round((compCh / totalCh) * 100) : 0;
+                let avgRev = totalCh > 0 ? Math.floor(totalRevs / totalCh) : 0;
 
-    for (const [key, subject] of Object.entries(syllabusData)) {
-        // Tab
-        const btn = document.createElement('button');
-        btn.className = `tab-btn ${isFirst ? 'active' : ''}`;
-        btn.innerText = subject.name;
-        btn.onclick = () => switchTab(key);
-        tabsContainer.appendChild(btn);
-
-        // Content
-        const contentDiv = document.createElement('div');
-        contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`;
-        contentDiv.id = `content-${key}`;
-
-        let subjectControlsHtml = `
-            <div class="subject-controls">
-                <label class="exclude-label">
-                    <input type="checkbox" onchange="toggleExclude('${key}', this)" ${excludedSubjects.includes(key) ? 'checked' : ''}>
-                    স্পিড ক্যালকুলেশন থেকে বাদ দিন
-                </label>
-                ${(key === 'medEng' || key === 'medGK') ? `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add Topic</button>` : ''}
-            </div>
-        `;
-
-        let chaptersHtml = '';
-        subject.chapters.forEach((chapter, index) => {
-            const chapterId = `${key}-ch-${index}`;
-            const cData = savedProgress[chapterId] || { val: 0, star: false, link: '', rev: 0 };
-            
-            chaptersHtml += `
-                <li class="chapter-item">
-                    <div class="chapter-info">
-                        <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)" title="Mark as Hard Topic">⭐</span>
-                        <span class="chapter-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
-                    </div>
-                    <div class="chapter-action">
-                        <button class="link-btn ${cData.link ? 'has-link' : ''}" onclick="openLinkModal('${chapterId}')" title="Class Link/Note">🔗</button>
-                        
-                        <!-- Smart Revision Counter -->
-                        <div class="rev-control" title="Revision Counter">
-                            <button class="rev-btn" onclick="changeRev('${chapterId}', -1)">-</button>
-                            <span class="rev-count ${cData.rev > 0 ? 'active' : ''}" id="rev-${chapterId}">${getRevText(cData.rev)}</span>
-                            <button class="rev-btn" onclick="changeRev('${chapterId}', 1)">+</button>
+                cardHtml += `
+                    <div class="paper-row ${isTargeted ? '' : 'paper-excluded'}">
+                        <div class="paper-header">
+                            <div class="paper-name"><span class="target-toggle ${isTargeted ? 'active' : ''}" onclick="toggleTarget('${subId}')">${isTargeted ? '🎯' : '⭕'}</span>${paper.name}</div>
+                            <div class="rev-badge">${getRevText(avgRev)}</div>
                         </div>
-
-                        <select class="status-select" id="${chapterId}" onchange="updateProg('${key}', '${chapterId}', this)">
-                            <option value="0" ${cData.val == 0 ? 'selected' : ''} style="color: var(--danger-color)">❌ 0% (শুরু করিনি)</option>
-                            <option value="25" ${cData.val == 25 ? 'selected' : ''} style="color: var(--warning-color)">📖 25% (রিডিং শেষ)</option>
-                            <option value="50" ${cData.val == 50 ? 'selected' : ''} style="color: #aaaa00">📝 50% (প্র্যাকটিস)</option>
-                            <option value="75" ${cData.val == 75 ? 'selected' : ''} style="color: var(--info-color)">🔄 75% (রিভিশন)</option>
-                            <option value="100" ${cData.val == 100 ? 'selected' : ''} style="color: var(--accent-color)">✅ 100% (Done)</option>
-                        </select>
-                    </div>
-                </li>
-            `;
+                        <div class="paper-bar-container">
+                            <div class="paper-bar-bg"><div class="paper-bar-fill" style="width: ${percent}%;"></div></div>
+                            <div class="paper-percent">${percent}%</div>
+                        </div>
+                    </div>`;
+            });
+            summaryGrid.innerHTML += cardHtml + `</div>`;
         });
 
-        contentDiv.innerHTML = `
-            ${subjectControlsHtml}
-            <div class="progress-header" style="margin-bottom: 8px;">
-                <span>${subject.name}</span>
-                <span id="progress-text-${key}">0%</span>
-            </div>
-            <div class="progress-bar-bg" style="margin-bottom: 20px;">
-                <div class="progress-bar-fill" id="progress-bar-${key}"></div>
-            </div>
-            <ul class="chapter-list">${chaptersHtml}</ul>
-        `;
-        contentContainer.appendChild(contentDiv);
-        isFirst = false;
+        const tabsContainer = document.getElementById('tabs-container');
+        const contentContainer = document.getElementById('content-container');
+        tabsContainer.innerHTML = ''; contentContainer.innerHTML = '';
+
+        let isFirst = true;
+        for (const [key, subject] of Object.entries(syllabusData)) {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${isFirst ? 'active' : ''}`;
+            btn.innerText = subject.name; btn.onclick = () => switchTab(key);
+            tabsContainer.appendChild(btn);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`;
+            contentDiv.id = `content-${key}`;
+
+            let headerHtml = `<div class="subject-controls">
+                <span><input type="checkbox" onchange="toggleExcludeBox('${key}', this)" ${excludedSubjects.includes(key) ? 'checked' : ''}> Target থেকে বাদ দিন</span>
+                ${(key === 'medEng' || key === 'medGK') ? `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add</button>` : ''}
+            </div>`;
+
+            let chaptersHtml = '';
+            subject.chapters.forEach((chapter, index) => {
+                const chapterId = `${key}-ch-${index}`;
+                const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0 };
+                chaptersHtml += `
+                    <li class="chapter-item">
+                        <div class="chapter-info">
+                            <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)">⭐</span>
+                            <span class="chapter-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                        </div>
+                        <div class="chapter-action">
+                            <div class="rev-control">
+                                <button class="rev-btn" onclick="changeRev('${chapterId}', -1)">-</button>
+                                <span class="rev-count ${cData.rev > 0 ? 'active' : ''}" id="rev-${chapterId}">${getRevText(cData.rev)}</span>
+                                <button class="rev-btn" onclick="changeRev('${chapterId}', 1)">+</button>
+                            </div>
+                            <select class="status-select" id="${chapterId}" onchange="updateProg('${key}', '${chapterId}', this)" style="color: ${getColor(cData.val)}">
+                                <option value="0" ${cData.val == 0 ? 'selected' : ''}>0%</option>
+                                <option value="25" ${cData.val == 25 ? 'selected' : ''}>25%</option>
+                                <option value="50" ${cData.val == 50 ? 'selected' : ''}>50%</option>
+                                <option value="75" ${cData.val == 75 ? 'selected' : ''}>75%</option>
+                                <option value="100" ${cData.val == 100 ? 'selected' : ''}>100%</option>
+                            </select>
+                        </div>
+                    </li>`;
+            });
+
+            contentDiv.innerHTML = headerHtml + `<ul class="chapter-list">${chaptersHtml}</ul>`;
+            contentContainer.appendChild(contentDiv);
+            isFirst = false;
+        }
     }
 
-    // --- Core Functions ---
     function switchTab(activeKey) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.innerText === syllabusData[activeKey].name) btn.classList.add('active');
-        });
+        document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); if (btn.innerText === syllabusData[activeKey].name) btn.classList.add('active'); });
         document.querySelectorAll('.subject-content').forEach(content => content.classList.remove('active'));
         document.getElementById(`content-${activeKey}`).classList.add('active');
     }
 
     function saveNote() { localStorage.setItem('missionDmcNote', document.getElementById('daily-note').value); }
-
+    
     function addCustomChapter(subjectKey) {
-        let topicName = prompt("নতুন টপিক বা চ্যাপ্টারের নাম লিখুন:");
-        if(topicName && topicName.trim() !== "") {
-            customChapters[subjectKey].push(topicName.trim());
-            localStorage.setItem('missionDmcCustomChapters', JSON.stringify(customChapters));
-            location.reload();
-        }
+        let topic = prompt("New Topic Name:");
+        if(topic && topic.trim() !== "") { customChapters[subjectKey].push(topic.trim()); localStorage.setItem('missionDmcCustomChapters', JSON.stringify(customChapters)); location.reload(); }
     }
 
-    function toggleExclude(subjectKey, checkbox) {
-        if(checkbox.checked) { if(!excludedSubjects.includes(subjectKey)) excludedSubjects.push(subjectKey); } 
-        else { excludedSubjects = excludedSubjects.filter(item => item !== subjectKey); }
-        localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects));
-        calculateMasterProgress();
+    function toggleTarget(subjectKey) {
+        if(excludedSubjects.includes(subjectKey)) excludedSubjects = excludedSubjects.filter(item => item !== subjectKey);
+        else excludedSubjects.push(subjectKey);
+        localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshAll();
     }
+    
+    function toggleExcludeBox(subjectKey, cb) { toggleTarget(subjectKey); }
 
     function toggleStar(chapterId, el) {
-        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0 };
         savedProgress[chapterId].star = !savedProgress[chapterId].star;
         localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
-        el.classList.toggle('active');
-        document.getElementById(`name-${chapterId}`).classList.toggle('hard-topic');
+        el.classList.toggle('active'); document.getElementById(`name-${chapterId}`).classList.toggle('hard-topic');
     }
 
-    // Update Revision
     function changeRev(chapterId, amount) {
-        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
-        let newRev = (savedProgress[chapterId].rev || 0) + amount;
-        if(newRev < 0) newRev = 0; // Prevent negative revisions
-        
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0 };
+        let newRev = Math.max(0, (savedProgress[chapterId].rev || 0) + amount);
         savedProgress[chapterId].rev = newRev;
         localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
-        
-        let revSpan = document.getElementById(`rev-${chapterId}`);
-        revSpan.innerText = getRevText(newRev);
-        if(newRev > 0) revSpan.classList.add('active');
-        else revSpan.classList.remove('active');
-    }
-
-    // --- Modal & Link Logic ---
-    let currentChapterForLink = null;
-    function openLinkModal(chapterId) {
-        currentChapterForLink = chapterId;
-        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
-        let existingLink = savedProgress[chapterId].link || '';
-        document.getElementById('modalLinkInput').value = existingLink;
-        
-        let openBtn = document.getElementById('modalOpenBtn');
-        if(existingLink) { openBtn.style.display = 'block'; } else { openBtn.style.display = 'none'; }
-        
-        document.getElementById('linkModal').style.display = 'flex';
-    }
-    function closeModal() { document.getElementById('linkModal').style.display = 'none'; }
-    function saveLink() {
-        let linkVal = document.getElementById('modalLinkInput').value;
-        savedProgress[currentChapterForLink].link = linkVal;
-        localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
-        
-        let btn = document.querySelector(`#rev-${currentChapterForLink}`).parentElement.previousElementSibling;
-        if(linkVal) btn.classList.add('has-link'); else btn.classList.remove('has-link');
-        
-        closeModal();
-    }
-    function openSavedLink() {
-        let linkVal = document.getElementById('modalLinkInput').value;
-        if(linkVal) {
-            if(!linkVal.startsWith('http')) linkVal = 'https://' + linkVal;
-            window.open(linkVal, '_blank');
-        }
-    }
-
-    // Update Dropdown Color dynamically
-    function setDropdownColor(selectElement) {
-        let val = selectElement.value;
-        selectElement.style.color = (val == 0) ? 'var(--danger-color)' : 
-                             (val == 25) ? 'var(--warning-color)' : 
-                             (val == 50) ? '#aaaa00' : 
-                             (val == 75) ? 'var(--info-color)' : 'var(--accent-color)';
+        refreshAll();
     }
 
     function updateProg(subjectKey, chapterId, selectElement) {
-        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, link:'', rev:0 };
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0 };
         savedProgress[chapterId].val = parseInt(selectElement.value);
         localStorage.setItem('missionDmcProgressV3', JSON.stringify(savedProgress));
-        
-        setDropdownColor(selectElement);
-        calcSubjectProgress(subjectKey);
-        calculateMasterProgress();
-    }
-
-    function calcSubjectProgress(subjectKey) {
-        const subject = syllabusData[subjectKey];
-        let totalVal = 0;
-        
-        subject.chapters.forEach((_, index) => {
-            let c = savedProgress[`${subjectKey}-ch-${index}`];
-            if(c) totalVal += c.val;
-        });
-        
-        const average = subject.chapters.length > 0 ? (totalVal / subject.chapters.length).toFixed(1) : 0;
-        const bar = document.getElementById(`progress-bar-${subjectKey}`);
-        bar.style.width = `${average}%`;
-        document.getElementById(`progress-text-${subjectKey}`).innerText = `${average}%`;
+        selectElement.style.color = getColor(selectElement.value);
+        refreshAll();
     }
 
     function calculateMasterProgress() {
-        let totalChaptersAll = 0, completedAll = 0;
-        let totalChaptersActive = 0, completedActive = 0;
-
+        let activeTotal = 0; let activeCompleted = 0;
         for (const [key, subject] of Object.entries(syllabusData)) {
-            let subjCount = subject.chapters.length;
-            let subjCompleted = 0;
-            
-            subject.chapters.forEach((_, index) => {
-                let c = savedProgress[`${key}-ch-${index}`];
-                if(c) subjCompleted += (c.val / 100);
-            });
-
-            totalChaptersAll += subjCount;
-            completedAll += subjCompleted;
             if(!excludedSubjects.includes(key)) {
-                totalChaptersActive += subjCount;
-                completedActive += subjCompleted;
+                activeTotal += subject.chapters.length;
+                subject.chapters.forEach((_, index) => { let c = savedProgress[`${key}-ch-${index}`]; if(c) activeCompleted += (c.val / 100); });
             }
         }
+        const overallPercent = activeTotal > 0 ? Math.round((activeCompleted / activeTotal) * 100) : 0;
+        document.getElementById('overall-val').innerText = overallPercent;
+        document.getElementById('overall-bar').style.width = `${overallPercent}%`;
 
-        const overallPercentage = totalChaptersAll > 0 ? ((completedAll / totalChaptersAll) * 100).toFixed(2) : 0;
-        const masterBar = document.getElementById('master-progress-bar');
-        const masterBox = document.getElementById('master-box');
-        masterBar.style.width = `${overallPercentage}%`;
-        document.getElementById('master-progress-text').innerText = `${overallPercentage}%`;
-        if(overallPercentage == 100) masterBox.classList.add('glow-effect'); else masterBox.classList.remove('glow-effect');
+        const daysLeft = Math.ceil((syllabusDeadline - new Date().getTime()) / (1000 * 60 * 60 * 24));
+        document.getElementById('syl-countdown').innerText = daysLeft > 0 ? `${daysLeft} d` : "End";
+        let remainActive = activeTotal - activeCompleted;
+        document.getElementById('speed-active').innerText = (daysLeft > 0 && remainActive > 0) ? (remainActive / daysLeft).toFixed(1) + " ch/d" : "Done";
+    }
 
-        // Speed Logic
-        const now = new Date().getTime();
-        const daysLeft = Math.ceil((syllabusDeadline - now) / (1000 * 60 * 60 * 24));
-        let remainAll = totalChaptersAll - completedAll;
-        let remainActive = totalChaptersActive - completedActive;
-
-        if (daysLeft <= 0) {
-            document.getElementById('speed-all').innerText = "সময় শেষ!";
-            document.getElementById('speed-active').innerText = "সময় শেষ!";
-        } else {
-            document.getElementById('speed-all').innerText = remainAll > 0 ? (remainAll / daysLeft).toFixed(2) : "✅ শেষ";
-            document.getElementById('speed-active').innerText = remainActive > 0 ? (remainActive / daysLeft).toFixed(2) : "✅ শেষ";
+    function refreshAll() {
+        buildUI(); calculateMasterProgress();
+        // keep selected tab active
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if(activeBtn) {
+            let foundKey = Object.keys(syllabusData).find(k => syllabusData[k].name === activeBtn.innerText);
+            if(foundKey) switchTab(foundKey);
         }
     }
 
-    function updateTimers() {
-        const now = new Date().getTime();
-        const sylDiff = syllabusDeadline - now;
-        if(sylDiff > 0) {
-            const d = Math.floor(sylDiff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((sylDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('syl-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
-        } else { document.getElementById('syl-countdown').innerText = "ডেডলাইন পার হয়ে গেছে!"; }
+    function resetData() { if(confirm("Are you sure to delete all progress?")) { localStorage.clear(); location.reload(); } }
 
-        const examDiff = examDeadline - now;
-        if(examDiff > 0) {
-            const d = Math.floor(examDiff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((examDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('exam-countdown').innerText = `${d} দিন ${h} ঘণ্টা`;
-        } else { document.getElementById('exam-countdown').innerText = "পরীক্ষার সময় এসে গেছে!"; }
-    }
-
-    function resetData() {
-        if(confirm("তুমি কি নিশ্চিত যে তুমি সব প্রোগ্রেস ডিলিট করে নতুন করে শুরু করতে চাও?")) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    // Init Execution
-    document.querySelectorAll('.status-select').forEach(setDropdownColor);
-    Object.keys(syllabusData).forEach(key => calcSubjectProgress(key));
-    calculateMasterProgress();
-    updateTimers(); updateTimerDisplay();
-    setInterval(updateTimers, 60000);
-
+    buildUI(); calculateMasterProgress(); updateTimerDisplay();
 </script>
 </body>
 </html>
