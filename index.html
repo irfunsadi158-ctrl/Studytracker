@@ -1,530 +1,893 @@
 <!DOCTYPE html>
-<html lang="bn" data-theme="dark">
+<html lang="bn" data-theme="dark" data-skin="default">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irfun's Ultimate Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dr. Irfun's Ultimate Dashboard</title>
     <style>
-        /* --- Flagship App Variables --- */
+        /* --- HIGH-CONTRAST APP VARIABLES --- */
         :root {
-            --bg-color: #000000; --card-bg: rgba(20, 20, 22, 0.7); --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff; --text-muted: #9ca3af;
-            --accent-color: #00ff88; --danger-color: #ff3d00;
-            --warning-color: #facc15; --info-color: #00d4ff;
-            --rev-color: #c084fc; --prac-color: #ff8a00; --input-bg: rgba(255, 255, 255, 0.05);
+            --bg-base: #000000; --bg-surface: #0a0a0c; 
+            --card-bg: rgba(20, 20, 25, 0.85);
+            --border-color: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff; --text-muted: #a1a1aa;
+            --accent-color: #00ff88; --accent-glow: rgba(0, 255, 136, 0.4);
+            --danger-color: #ff4757; --warning-color: #ffcc00; --info-color: #32ade6;
+            --rev-color: #bf5af2; --prac-color: #ff9500; --input-bg: rgba(0, 0, 0, 0.4);
+            --nav-bg: rgba(10, 10, 15, 0.95);
             --overall-grad: linear-gradient(135deg, #091221 0%, #173673 100%);
-            --glass-blur: blur(16px);
+            --glass-blur: blur(30px);
         }
 
         [data-theme="light"] {
-            --bg-color: #f3f4f8; --card-bg: rgba(255, 255, 255, 0.85); --border-color: rgba(0, 0, 0, 0.08);
-            --text-main: #111827; --text-muted: #6b7280;
-            --accent-color: #059669; --danger-color: #dc2626;
-            --warning-color: #d97706; --info-color: #0284c7;
-            --rev-color: #7c3aed; --prac-color: #ea580c; --input-bg: rgba(0, 0, 0, 0.04);
+            --bg-base: #f2f2f7; --bg-surface: #ffffff; 
+            --card-bg: rgba(255, 255, 255, 0.95); --border-color: rgba(0, 0, 0, 0.1);
+            --text-main: #111827; --text-muted: #4b5563; 
+            --accent-color: #059669; --accent-glow: rgba(5, 150, 105, 0.3);
+            --danger-color: #dc2626; --warning-color: #d97706; --info-color: #0284c7;
+            --rev-color: #7c3aed; --prac-color: #ea580c; --input-bg: rgba(0, 0, 0, 0.05);
+            --nav-bg: rgba(255, 255, 255, 0.95);
             --overall-grad: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
         }
 
+        /* Skins */
+        [data-skin="doom"] {
+            --bg-base: #030503; --bg-surface: #070c07; --card-bg: rgba(10, 20, 10, 0.9); --border-color: rgba(46, 204, 113, 0.2);
+            --text-main: #f0fff0; --text-muted: #81c784; --accent-color: #2ecc71; --accent-glow: rgba(46, 204, 113, 0.5);
+            --danger-color: #e74c3c; --info-color: #27ae60; --rev-color: #8e44ad; --prac-color: #e67e22; --input-bg: rgba(0, 0, 0, 0.6);
+            --nav-bg: rgba(5, 10, 5, 0.95); --overall-grad: linear-gradient(135deg, #000000 0%, #063b15 100%);
+        }
+        [data-skin="football"] {
+            --bg-base: #040d04; --bg-surface: #0a1a0a; --card-bg: rgba(15, 30, 15, 0.9); --border-color: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff; --text-muted: #aed581; --accent-color: #69f0ae; --accent-glow: rgba(105, 240, 174, 0.4);
+            --danger-color: #ff3d00; --info-color: #40c4ff; --rev-color: #e040fb; --prac-color: #ff9100; --input-bg: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(5, 15, 5, 0.95); --overall-grad: linear-gradient(135deg, #004d40 0%, #0091ea 100%);
+        }
+        [data-skin="cyberpunk"] {
+            --bg-base: #070112; --bg-surface: #0e0224; --card-bg: rgba(20, 5, 45, 0.9); --border-color: rgba(255, 0, 255, 0.25);
+            --text-main: #ffffff; --text-muted: #e1bee7; --accent-color: #ff00ff; --accent-glow: rgba(255, 0, 255, 0.6);
+            --danger-color: #ff003c; --info-color: #00f0ff; --rev-color: #b000ff; --prac-color: #ff5e00; --input-bg: rgba(0, 0, 0, 0.6);
+            --nav-bg: rgba(10, 2, 25, 0.95); --overall-grad: linear-gradient(135deg, #2a004f 0%, #d8004f 100%);
+        }
+        [data-skin="galaxy"] {
+            --bg-base: #0f0c29; --bg-surface: #1e133d; --card-bg: rgba(36, 36, 62, 0.85); --border-color: rgba(185, 43, 39, 0.3);
+            --text-main: #ffffff; --text-muted: #d8b4e2; --accent-color: #ff4b2b; --accent-glow: rgba(255, 75, 43, 0.5);
+            --danger-color: #ff416c; --info-color: #1565C0; --rev-color: #8E2DE2; --prac-color: #F37335; --input-bg: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(15, 12, 41, 0.95); --overall-grad: linear-gradient(135deg, #240b36 0%, #c31432 100%);
+        }
+        [data-skin="ocean"] {
+            --bg-base: #001220; --bg-surface: #001e36; --card-bg: rgba(0, 31, 63, 0.85); --border-color: rgba(0, 255, 255, 0.15);
+            --text-main: #ffffff; --text-muted: #80deea; --accent-color: #00e5ff; --accent-glow: rgba(0, 229, 255, 0.5);
+            --danger-color: #ff1744; --info-color: #29b6f6; --rev-color: #b388ff; --prac-color: #ffc400; --input-bg: rgba(0, 0, 0, 0.4);
+            --nav-bg: rgba(0, 18, 32, 0.95); --overall-grad: linear-gradient(135deg, #001f3f 0%, #00acc1 100%);
+        }
+        [data-skin="nature"] {
+            --bg-base: #0d1a10; --bg-surface: #122616; --card-bg: rgba(20, 40, 25, 0.85); --border-color: rgba(174, 213, 129, 0.15);
+            --text-main: #f1f8e9; --text-muted: #aed581; --accent-color: #cddc39; --accent-glow: rgba(205, 220, 57, 0.4);
+            --danger-color: #ff7043; --info-color: #4db6ac; --rev-color: #9575cd; --prac-color: #ffb74d; --input-bg: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(13, 26, 16, 0.95); --overall-grad: linear-gradient(135deg, #1b5e20 0%, #827717 100%);
+        }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent;}
-        body { background: var(--bg-color); color: var(--text-main); font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 15px 10px 40px; transition: 0.4s ease; overflow-x: hidden;}
-        
-        .container { max-width: 1300px; margin: 0 auto; }
-        .main-layout { display: flex; flex-direction: column; gap: 20px; }
-        
-        @media (min-width: 992px) {
-            .main-layout { display: grid; grid-template-columns: 380px 1fr; align-items: flex-start; gap: 30px;}
-            body { padding: 30px; }
-            .left-panel { position: sticky; top: 30px; height: calc(100vh - 60px); overflow-y: auto; padding-right: 10px; scrollbar-width: none; }
-            .left-panel::-webkit-scrollbar { display: none; }
+        body { 
+            background-color: var(--bg-base); color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; padding: 0; overflow-x: hidden; height: 100vh;
         }
 
-        /* Glass Cards */
-        .card { background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.05); transition: 0.3s;}
-        
-        /* Header & Greeting */
-        .header { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;}
-        .greeting { font-size: 13px; color: var(--info-color); font-weight: 700; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px;}
-        .header h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;}
-        .quote { font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 4px; opacity: 0.8;}
-        .streak-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 61, 0, 0.1); color: var(--danger-color); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 8px; border: 1px solid rgba(255, 61, 0, 0.2);}
-        
-        .header-actions { display: flex; gap: 10px; }
-        .icon-btn { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .icon-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.1); border-color: var(--accent-color);}
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-        /* Daily Note */
-        .notes-section { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding: 14px 16px; border-radius: 16px;}
-        .notes-input { flex: 1; background: transparent; border: none; color: var(--text-main); font-size: 14px; font-weight: 500; outline: none; }
-        .notes-input::placeholder { color: var(--text-muted); opacity: 0.7;}
+        /* --- Adaptive Layout: Mobile First --- */
+        .layout-wrapper { display: flex; height: 100vh; width: 100vw; }
         
+        .side-nav { display: none; } /* Hidden on mobile */
+        
+        .app-container { 
+            flex: 1; overflow-y: auto; overflow-x: hidden;
+            padding: 20px 15px 120px 15px; 
+            position: relative; scrollbar-width: none;
+        }
+        .app-container::-webkit-scrollbar { display: none; }
+
+        .screen { display: none; animation: fadeSlide 0.4s ease; }
+        .screen.active { display: flex; flex-direction: column; gap: 20px; }
+
+        @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* --- Desktop & Tablet Layout --- */
+        @media (min-width: 768px) {
+            .bottom-nav { display: none !important; } /* Hide bottom nav on desktop */
+            .side-nav { 
+                display: flex; flex-direction: column; width: 250px; background: var(--bg-surface); 
+                border-right: 1px solid var(--border-color); padding: 30px 20px; gap: 15px;
+            }
+            .side-logo { font-size: 20px; font-weight: 900; color: var(--accent-color); margin-bottom: 30px; display: flex; align-items: center; gap: 10px;}
+            .side-nav-item { 
+                display: flex; align-items: center; gap: 15px; padding: 12px 20px; border-radius: 12px; 
+                color: var(--text-muted); font-weight: 700; cursor: pointer; transition: 0.3s;
+            }
+            .side-nav-item:hover { background: var(--input-bg); color: var(--text-main); }
+            .side-nav-item.active { background: var(--accent-color); color: #000; box-shadow: 0 5px 15px var(--accent-glow); }
+            .side-icon { font-size: 20px; }
+
+            .app-container { padding: 40px; }
+            /* Grid layouts for large screens */
+            .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; align-items: start;}
+            .overall-card { grid-column: 1 / -1; } /* Spans full width */
+        }
+
+        /* --- Cards & UI Elements --- */
+        .card { 
+            background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); 
+            border: 1px solid var(--border-color); border-radius: 24px; padding: 20px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .profile-info { display: flex; gap: 15px; align-items: center;}
+        .avatar-box { font-size: 35px; background: var(--input-bg); width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
+        .greeting { font-size: 13px; color: var(--info-color); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;}
+        .header h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;}
+        .badges-wrap { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;}
+        .level-badge { background: rgba(50, 173, 230, 0.15); color: var(--info-color); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(50, 173, 230, 0.3); }
+        .streak-badge { background: rgba(255, 59, 48, 0.15); color: var(--danger-color); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 59, 48, 0.3);}
+
+        /* Notes & To-Do */
+        .notes-section { display: flex; align-items: center; gap: 12px; padding: 18px; border-radius: 20px; background: var(--input-bg); border: 1px solid var(--border-color);}
+        .notes-input { flex: 1; background: transparent; border: none; color: var(--text-main); font-size: 14px; font-weight: 600; outline: none; }
+        
+        .todo-card { padding: 20px; border-radius: 24px;}
+        .todo-header { font-size: 14px; font-weight: 800; color: var(--info-color); margin-bottom: 15px; display: flex; justify-content: space-between; text-transform: uppercase;}
+        .todo-input-wrap { display: flex; gap: 10px; margin-bottom: 15px; }
+        .todo-input { flex: 1; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 15px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;}
+        .todo-add { background: var(--info-color); color: #000; border: none; padding: 0 15px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer;}
+        .todo-list { list-style: none; padding: 0; margin: 0; max-height: 180px; overflow-y: auto;}
+        .todo-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; font-weight: 600; transition: 0.2s;}
+        .todo-item:last-child { border-bottom: none; }
+        .todo-item.done { text-decoration: line-through; color: var(--text-muted); opacity: 0.6; }
+        .todo-cb { width: 18px; height: 18px; cursor: pointer; accent-color: var(--info-color);}
+        .todo-del { margin-left: auto; cursor: pointer; color: var(--danger-color); font-size: 16px; background: none; border: none; font-weight: bold;}
+
         /* Overall Progress */
-        .overall-card { background: var(--overall-grad); border-radius: 20px; padding: 25px; text-align: center; color: #fff; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; overflow: hidden;}
-        .overall-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;}
-        .overall-val-container { font-size: 52px; font-weight: 800; margin-bottom: 15px; line-height: 1; text-shadow: 0 4px 15px rgba(0,0,0,0.3);}
-        .overall-bar-bg { background: rgba(255, 255, 255, 0.15); height: 10px; border-radius: 10px; width: 100%; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);}
-        .overall-bar-fill { background: var(--accent-color); height: 100%; width: 0%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);}
-        .target-note { font-size: 11px; margin-top: 15px; opacity: 0.8; display: flex; justify-content: space-between; align-items: center;}
+        .overall-card { background: var(--overall-grad); border-radius: 28px; padding: 30px; text-align: center; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative; overflow: hidden;}
+        .overall-title { font-size: 14px; font-weight: 800; margin-bottom: 15px; opacity: 0.9; text-transform: uppercase; letter-spacing: 2px;}
+        .overall-val-container { font-size: 65px; font-weight: 900; margin-bottom: 20px; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.4);}
+        .overall-bar-bg { background: rgba(255, 255, 255, 0.2); height: 12px; border-radius: 10px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .overall-bar-fill { background: var(--accent-color); height: 100%; width: 0%; border-radius: 10px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 20px var(--accent-glow);}
+        .target-note { font-size: 12px; margin-top: 15px; opacity: 0.95; display: flex; justify-content: space-between; font-weight: 600; align-items: center;}
+        .dynamic-target-badge { color: var(--bg-base); background: var(--accent-color); padding: 4px 12px; border-radius: 12px; font-weight: 800; box-shadow: 0 0 10px var(--accent-glow);}
 
-        /* Dual Timers & Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        /* Charts & Stats */
+        .chart-card { padding: 20px; }
+        .chart-title { font-size: 13px; color: var(--info-color); font-weight: 800; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; text-align: center;}
+        .chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 100px; gap: 8px;}
+        .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 8px;}
+        .bar { width: 100%; max-width: 35px; background: var(--input-bg); border-radius: 6px; display: flex; align-items: flex-end; justify-content: center; position: relative; transition: 0.3s;}
+        .bar-fill { width: 100%; background: var(--info-color); border-radius: 6px; min-height: 5px; transition: height 1s; opacity: 0.8;}
+        .bar-fill.today { background: var(--accent-color); opacity: 1; box-shadow: 0 0 12px var(--accent-glow);}
+        .bar-label { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;}
+        .bar-val { font-size: 11px; position: absolute; top: -22px; color: var(--text-main); font-weight: 800; opacity: 0; transition: 0.3s;}
+        .bar-wrap:hover .bar-val { opacity: 1; transform: translateY(-5px);}
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .m-card { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px; text-align: center; }
+        .m-title { font-size: 11px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 8px;}
+        .m-val { font-size: 22px; font-weight: 900; color: var(--text-main); }
+        .deadline-edit { cursor: pointer; background: var(--card-bg); border-radius: 6px; padding: 2px 6px; border: 1px solid var(--border-color); font-size: 10px;}
+
+        /* --- Timer Screen --- */
+        .timer-circle-wrap { display: flex; justify-content: center; align-items: center; padding: 40px 0; position: relative;}
+        .timer-circle { width: 300px; height: 300px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--input-bg); border: 2px solid var(--border-color); box-shadow: 0 0 40px rgba(0,0,0,0.1); z-index: 2; transition: 0.5s;}
+        .timer-circle.active { border-color: var(--danger-color); box-shadow: 0 0 60px rgba(255, 59, 48, 0.2); animation: pulseTimer 2s infinite; }
+        @keyframes pulseTimer { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
         
-        .timer-card { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; position: relative;}
-        .t-badge { position: absolute; top: 10px; right: 10px; font-size: 14px;}
-        .t-title { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 8px;}
-        .t-val { font-size: 24px; font-weight: 800; color: var(--text-main); font-family: 'Courier New', Courier, monospace; letter-spacing: -1px;}
-        .t-sub { font-size: 11px; color: var(--accent-color); font-weight: 600; margin-top: 4px; height: 15px;}
+        .t-val { font-size: 65px; font-weight: 900; font-family: 'Courier New', Courier, monospace; letter-spacing: -2px; color: var(--text-main); text-shadow: 0 0 20px rgba(255,255,255,0.2);}
+        .t-sub { font-size: 15px; font-weight: 800; color: var(--text-muted); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;}
         
-        /* Timer Progress Bar */
-        .t-prog-bg { background: rgba(255,255,255,0.1); height: 4px; border-radius: 2px; margin: 8px 0; overflow: hidden; }
-        .t-prog-fill { background: var(--danger-color); height: 100%; width: 0%; transition: width 1s linear;}
+        .timer-controls { display: flex; gap: 15px; justify-content: center;}
+        .t-btn { padding: 16px 35px; border-radius: 20px; font-weight: 800; font-size: 16px; border: none; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-start { background: var(--text-main); color: var(--bg-base); box-shadow: 0 10px 20px rgba(255,255,255,0.1);}
+        .btn-start.active { background: var(--danger-color); color: #fff; box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);}
+        .btn-stop { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color);}
+
+        /* Floating Mini Timer */
+        .floating-timer { position: fixed; bottom: 90px; right: 20px; background: var(--danger-color); color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 900; font-family: monospace; font-size: 16px; box-shadow: 0 10px 20px rgba(255, 59, 48, 0.4); z-index: 9999; display: none; cursor: pointer; animation: floatUp 0.3s ease;}
+        @keyframes floatUp { from{transform: translateY(20px); opacity:0;} to{transform: translateY(0); opacity:1;} }
+        @media (min-width: 768px) { .floating-timer { bottom: 30px; right: 40px; font-size: 20px; padding: 15px 25px;} }
+
+        /* Lofi Widget */
+        .lofi-widget { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin-top: 10px; font-weight: 800; transition: 0.3s;}
+        .lofi-widget.active { border-color: var(--info-color); background: rgba(50, 173, 230, 0.1);}
+
+        /* --- Accordion (Syllabus) --- */
+        .accordion-container { display: flex; flex-direction: column; gap: 15px; }
+        .acc-item { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s; }
+        .acc-item.active { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow); background: var(--card-bg);}
         
-        .t-btns { display: flex; gap: 6px; margin-top: 10px; justify-content: center;}
-        .t-btn { flex: 1; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 700; transition: 0.3s;}
-        .t-btn:hover { background: rgba(255,255,255,0.1); }
-        .btn-active { background: var(--accent-color); color: #000; border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);}
-        .btn-active:hover { background: #00cc6a; }
+        .acc-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .acc-title-wrap { flex: 1; margin-right: 15px;}
+        .acc-title { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;}
+        .mastery-badge { font-size: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.1); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.2);}
         
-        /* Deadline & Speed */
-        .m-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; }
-        .m-title { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; display:flex; justify-content:center; align-items: center; gap:5px;}
-        .m-val { font-size: 20px; font-weight: 800; color: var(--text-main); }
-        .deadline-edit { cursor: pointer; background: var(--input-bg); border-radius: 6px; padding: 3px 6px; border: 1px solid var(--border-color); font-size: 11px; transition: 0.2s;}
-        .deadline-edit:hover { border-color: var(--info-color);}
-        #deadline-picker { position: absolute; opacity: 0; width: 0; height: 0; }
-
-        /* Summary Grid */
-        .summary-card { margin-bottom: 12px; padding: 18px; border-radius: 16px;}
-        .summary-card h3 { margin: 0 0 15px 0; font-size: 15px; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;}
-        .paper-row { margin-bottom: 15px; }
-        .paper-row:last-child { margin-bottom: 0; }
-        .paper-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .paper-name { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        .target-toggle { cursor: pointer; font-size: 14px; opacity: 0.3; transition: 0.3s; }
-        .target-toggle.active { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-color)); }
-        .rev-badge { background: var(--input-bg); color: var(--text-muted); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px; border: 1px solid var(--border-color); }
-        .paper-bar-container { display: flex; align-items: center; gap: 10px; margin-bottom: 4px;}
-        .paper-bar-bg { flex: 1; background: var(--input-bg); height: 6px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1);}
-        .paper-bar-fill { background: var(--accent-color); height: 100%; width: 0%; transition: 0.8s; }
-        .paper-percent { font-size: 11px; font-weight: 800; color: var(--text-main); width: 30px; text-align: right; }
-        .prac-summary { font-size: 10px; color: var(--prac-color); display: flex; align-items: center; gap: 6px; justify-content: flex-end; font-weight: 600;}
-        .prac-bar-bg { width: 50px; background: var(--input-bg); height: 4px; border-radius: 2px; overflow: hidden; }
-        .prac-bar-fill { background: var(--prac-color); height: 100%; width: 0%; }
-        .paper-excluded { opacity: 0.3; filter: grayscale(1); }
-
-        /* Tabs & Details (Right Panel) */
-        .right-panel { border-radius: 24px; padding: 25px;}
-        .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 10px; margin-bottom: 25px; padding-bottom: 8px; scrollbar-width: none;}
-        .tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 13px; flex-shrink: 0; transition: 0.3s;}
-        .tab-btn.active { background: var(--accent-color); color: #000; border-color: var(--accent-color); box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);}
-
-        .subject-content { display: none; }
-        .subject-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
-
-        .subject-controls { display: flex; justify-content: space-between; align-items: center; background: var(--input-bg); padding: 12px 18px; border-radius: 14px; margin-bottom: 20px; font-size: 13px; border: 1px solid var(--border-color); font-weight: 600;}
-        .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 6px 15px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;}
-        .add-topic-btn:hover { transform: scale(1.05);}
-
-        /* Mobile Wrapping List */
-        .chapter-list { list-style: none; padding: 0; margin: 0; }
-        .chapter-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); gap: 15px; transition: 0.2s; border-radius: 12px;}
-        .chapter-item:hover { background: rgba(255,255,255,0.03); }
-        .chapter-item:last-child { border-bottom: none; }
+        .acc-prog-bg { width: 100%; background: rgba(255,255,255,0.15); height: 6px; border-radius: 6px; overflow: hidden;}
+        .acc-prog-fill { height: 100%; background: var(--accent-color); width: 0%; transition: 0.8s;}
         
-        .chapter-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 150px;}
-        .star-btn { cursor: pointer; font-size: 18px; opacity: 0.2; filter: grayscale(1); transition: 0.3s;}
+        .acc-right { display: flex; align-items: center; gap: 15px; }
+        .acc-percent { font-size: 16px; font-weight: 900; color: var(--accent-color);}
+        .acc-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s; }
+        .acc-item.active .acc-chevron { transform: rotate(180deg); color: var(--accent-color); }
+        
+        .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.15); }
+        .subject-controls { padding: 15px; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center;}
+        
+        .chapter-list { list-style: none; padding: 0 15px 15px 15px; margin: 0; }
+        .chapter-item { background: var(--card-bg); padding: 18px; border-radius: 16px; margin-top: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px;}
+        .c-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;}
+        .c-name { font-size: 15px; font-weight: 700; line-height: 1.4; flex: 1; word-break: break-word;}
+        .star-btn { font-size: 20px; opacity: 0.2; cursor: pointer; transition: 0.3s; filter: grayscale(1);}
         .star-btn.active { opacity: 1; filter: grayscale(0); transform: scale(1.2);}
-        .chapter-name { font-size: 14px; font-weight: 600; line-height: 1.4; word-break: break-word; white-space: normal;}
-        .chapter-name.hard-topic { color: var(--danger-color); }
-
-        .chapter-action { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;}
         
-        .prac-btn { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; height: 32px; padding: 0 12px; cursor: pointer; font-size: 12px; font-weight: 700; color: var(--text-muted); transition: 0.3s; display: flex; align-items: center; gap: 5px;}
-        .prac-btn.active { background: rgba(255, 138, 0, 0.15); border-color: var(--prac-color); color: var(--prac-color); }
+        .c-actions { display: flex; gap: 10px; flex-wrap: wrap; background: var(--input-bg); padding: 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05);}
+        .action-btn { flex: 1; min-width: 70px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); border-radius: 10px; padding: 8px 0; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s;}
+        .action-btn.active.prac { color: var(--prac-color); border-color: var(--prac-color); background: rgba(255, 149, 0, 0.15);}
+        
+        select.c-select { flex: 1; min-width: 80px; appearance: none; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 10px; padding: 8px 10px; font-size: 12px; font-weight: 800; outline: none; text-align: center;}
+        
+        .rev-wrap { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; flex: 1; min-width: 90px;}
+        .rev-wrap button { background: transparent; border: none; color: var(--text-muted); padding: 0 10px; cursor: pointer; font-weight: bold; font-size: 16px;}
+        .rev-wrap span { flex: 1; text-align: center; font-size: 11px; font-weight: 800; color: var(--text-main);}
 
-        .rev-control { display: flex; align-items: center; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; height: 32px; }
-        .rev-btn { background: transparent; border: none; color: var(--text-muted); padding: 0 10px; cursor: pointer; font-weight: bold; font-size: 16px; }
-        .rev-btn:hover { color: var(--rev-color); }
-        .rev-count { font-size: 11px; font-weight: 700; color: var(--text-main); min-width: 55px; text-align: center; }
-        .rev-count.active { color: var(--rev-color); }
+        /* --- Profile / Settings Screen --- */
+        .profile-section { margin-bottom: 25px; }
+        .p-title { font-size: 13px; color: var(--info-color); font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; margin-left: 10px;}
+        .setting-group { background: var(--input-bg); border-radius: 20px; border: 1px solid var(--border-color); overflow: hidden;}
+        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color);}
+        .setting-row:last-child { border-bottom: none;}
+        .setting-label { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; flex: 1;}
+        .setting-val input, .setting-val select { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; font-weight: 800; outline: none; width: 100%; text-align: center;}
+        .setting-val input[type="text"] { width: 120px; text-align: left; }
+        
+        /* App Skins Grid */
+        .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; padding: 15px;}
+        .skin-card { background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;}
+        .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 20px var(--accent-glow);}
+        .skin-icon { font-size: 28px; margin-bottom: 8px;}
+        .skin-name { font-size: 12px; font-weight: 800; color: var(--text-main);}
 
-        select.status-select {
-            appearance: none; height: 32px; background: var(--input-bg); color: var(--text-main);
-            border: 1px solid var(--border-color); padding: 0 30px 0 12px; border-radius: 10px; cursor: pointer; outline: none; font-weight: 700; font-size: 12px;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat; background-position: right 8px center; background-size: 12px;
+        /* Toggle Switch */
+        .toggle-switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border-radius: 34px; transition: .4s; border: 1px solid var(--border-color);}
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 3px; background-color: var(--text-main); border-radius: 50%; transition: .4s; }
+        input:checked + .slider { background-color: var(--accent-color); }
+        input:checked + .slider:before { transform: translateX(18px); background-color: #000;}
+
+        .btn-danger { width: 100%; padding: 15px; background: rgba(255, 59, 48, 0.15); color: var(--danger-color); border: 1px solid rgba(255, 59, 48, 0.3); border-radius: 16px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s;}
+
+        /* --- Mobile Bottom Navigation --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: var(--nav-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid var(--border-color); 
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 12px 10px 25px 10px; z-index: 1000;
         }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 60px; }
+        .nav-icon { font-size: 22px; transition: 0.3s;}
+        .nav-label { font-size: 10px; font-weight: 700; opacity: 0; transform: translateY(5px); transition: 0.3s;}
+        
+        .nav-item.active { color: var(--accent-color); }
+        .nav-item.active .nav-icon { transform: translateY(-5px); filter: drop-shadow(0 4px 10px var(--accent-glow)); font-size: 24px;}
+        .nav-item.active .nav-label { opacity: 1; transform: translateY(-2px);}
 
-        /* Settings Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center;}
-        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 24px; width: 90%; max-width: 380px; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.5);}
-        .modal h3 { margin: 0 0 10px; color: var(--info-color); font-size: 20px;}
-        .weight-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 14px; font-weight: 600; padding-bottom: 10px; border-bottom: 1px dashed var(--border-color);}
-        .weight-row input { width: 70px; padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-weight: bold; text-align: center;}
-        .modal-btns { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px;}
-        .modal-btns button { padding: 10px 20px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; font-size: 14px;}
-        .btn-cancel { background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color) !important;}
-        .btn-save { background: var(--accent-color); color: #000; }
-
-        .reset-btn { width: 100%; margin-top: 20px; background: transparent; color: var(--danger-color); border: 1px dashed var(--danger-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s;}
-        .reset-btn:hover { background: rgba(255, 61, 0, 0.1); }
-
-        /* Responsive Mobile View */
-        @media (max-width: 768px) {
-            .header h1 { font-size: 20px; }
-            .right-panel { padding: 15px;}
-            .chapter-item { flex-direction: column; align-items: flex-start; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 16px; margin-bottom: 12px; border: 1px solid var(--border-color);}
-            .chapter-info { width: 100%; margin-bottom: 10px; align-items: flex-start;}
-            .chapter-name { flex: 1; margin-top: 2px;} 
-            .chapter-action { width: 100%; justify-content: flex-start; background: var(--input-bg); padding: 10px; border-radius: 12px; overflow-x: auto; scrollbar-width: none;}
-            .chapter-action::-webkit-scrollbar { display: none;}
-            select.status-select { flex-shrink: 0; }
-            .overall-val-container { font-size: 42px;}
-        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="main-layout">
+<div class="layout-wrapper">
+    <!-- ================= DESKTOP SIDE NAV ================= -->
+    <nav class="side-nav">
+        <div class="side-logo">🩺 Mission DMC</div>
+        <div class="side-nav-item active" onclick="navTo('home', null, this)">
+            <span class="side-icon">🏠</span> <span>Dashboard</span>
+        </div>
+        <div class="side-nav-item" onclick="navTo('syllabus', null, this)">
+            <span class="side-icon">📚</span> <span>Syllabus</span>
+        </div>
+        <div class="side-nav-item" onclick="navTo('timer', null, this)">
+            <span class="side-icon">⏱️</span> <span>Focus Zone</span>
+        </div>
+        <div class="side-nav-item" onclick="navTo('profile', null, this)">
+            <span class="side-icon">⚙️</span> <span>Settings</span>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN APP CONTAINER ================= -->
+    <div class="app-container" id="main-scroll">
         
-        <!-- LEFT PANEL -->
-        <div class="left-panel">
+        <!-- Floating Timer (Visible if timer runs and user is on another screen) -->
+        <div class="floating-timer" id="floating-timer" onclick="navTo('timer')">00:00:00</div>
+
+        <!-- ================= 1. HOME SCREEN ================= -->
+        <div id="screen-home" class="screen active">
             <div class="header">
-                <div>
-                    <div class="greeting" id="greeting-msg">Good Morning</div>
-                    <h1>My Mission 🩺</h1>
-                    <div class="quote" id="motivational-quote">"Push yourself, because no one else is going to do it for you."</div>
+                <div class="profile-info">
+                    <div class="avatar-box" id="disp-avatar">👨‍⚕️</div>
+                    <div>
+                        <div class="greeting" id="greeting-msg">Good Morning</div>
+                        <h1 id="disp-name">Dr. Irfun</h1>
+                    </div>
+                </div>
+                <div class="badges-wrap">
+                    <div class="level-badge" id="level-badge">🌟 Lvl 1</div>
                     <div class="streak-badge">🔥 <span id="streak-count">0</span> Day Streak</div>
                 </div>
-                <div class="header-actions">
-                    <button class="icon-btn" onclick="openSettings()" title="Set Custom Weights">⚙️</button>
-                    <button class="icon-btn theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Toggle Theme">☀️</button>
-                </div>
             </div>
 
-            <div class="card notes-section">
-                <span style="font-size: 18px;">📌</span>
-                <input type="text" id="daily-note" class="notes-input" placeholder="আজকের টার্গেট এখানে লিখো..." oninput="saveNote()">
-            </div>
-
-            <!-- DUAL FOCUS HUB -->
-            <div class="stats-grid">
+            <!-- Dashboard Grid (Expands on Desktop) -->
+            <div class="dashboard-grid">
                 
-                <!-- Custom Pomodoro -->
-                <div class="timer-card">
-                    <span class="t-badge">🍅</span>
-                    <div class="t-title">Focus Time <span class="deadline-edit" onclick="editPomoTime()" title="Change Timer Duration">✏️</span></div>
-                    <div class="t-val" id="pomo-display" style="color: var(--danger-color);">25:00</div>
-                    <div class="t-prog-bg"><div class="t-prog-fill" id="pomo-bar"></div></div>
-                    <div class="t-sub" id="pomo-status">Ready</div>
-                    <div class="t-btns">
-                        <button class="t-btn" id="pomo-play" onclick="togglePomo()">Start</button>
-                        <button class="t-btn" onclick="resetPomo()">Reset</button>
+                <!-- Progress & Stats Col -->
+                <div style="display:flex; flex-direction: column; gap: 20px;">
+                    <div class="overall-card" id="master-box">
+                        <div class="overall-title">Target Progression</div>
+                        <div class="overall-val-container"><span id="overall-val">0</span>%</div>
+                        <div class="overall-bar-bg"><div class="overall-bar-fill" id="overall-bar"></div></div>
+                        <div class="target-note">
+                            <span>🎯 Custom Weights Applied</span>
+                            <span class="dynamic-target-badge" id="disp-target">HSC '26</span>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- YPT Stopwatch -->
-                <div class="timer-card">
-                    <span class="t-badge">⏱️</span>
-                    <div class="t-title">YPT Tracker</div>
-                    <div class="t-val" id="ypt-display" style="color: var(--info-color);">00:00:00</div>
-                    <div class="t-prog-bg" style="background:transparent;"></div>
-                    <div class="t-sub" style="color:var(--text-muted)">Today: <span id="ypt-total" style="color:var(--info-color)">0h 0m</span></div>
-                    <div class="t-btns">
-                        <button class="t-btn" id="ypt-play" onclick="toggleYPT()" style="width:100%">▶ Start Session</button>
+
+                    <div class="stats-grid">
+                        <div class="m-card">
+                            <div class="m-title">Deadline <span class="deadline-edit" onclick="document.getElementById('deadline-picker').showPicker()">✏️</span></div>
+                            <input type="date" id="deadline-picker" onchange="saveDeadline()" style="position: absolute; opacity: 0; width: 0; height: 0;">
+                            <div class="m-val" id="syl-countdown" style="color: var(--accent-color);">-- d</div>
+                        </div>
+                        <div class="m-card">
+                            <div class="m-title">Req. Speed</div>
+                            <div class="m-val" id="speed-active" style="color: var(--info-color);">-- ch/d</div>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                <!-- Todo & Chart Col -->
+                <div style="display:flex; flex-direction: column; gap: 20px;">
+                    <div class="card todo-card">
+                        <div class="todo-header">✅ Daily Micro-Targets</div>
+                        <div class="todo-input-wrap">
+                            <input type="text" id="todo-input" class="todo-input" placeholder="Add a quick task..." onkeypress="if(event.key==='Enter') addTodo()">
+                            <button class="todo-add" onclick="addTodo()">Add</button>
+                        </div>
+                        <ul class="todo-list" id="todo-list"></ul>
+                    </div>
 
-            <div class="overall-card">
-                <div class="overall-title">⚖️ Weighted Progress</div>
-                <div class="overall-val-container"><span id="overall-val">0</span>%</div>
-                <div class="overall-bar-bg"><div class="overall-bar-fill" id="overall-bar"></div></div>
-                <div class="target-note">
-                    <span>🎯 Custom Subject Weights</span>
-                    <span style="color: var(--accent-color); font-weight: bold;">HSC '26</span>
+                    <div class="card chart-card">
+                        <div class="chart-title">📊 7-Day Study Heatmap</div>
+                        <div class="chart-container" id="weekly-chart"></div>
+                    </div>
+                </div>
+
+            </div> <!-- End Dashboard Grid -->
+        </div>
+
+        <!-- ================= 2. SYLLABUS SCREEN ================= -->
+        <div id="screen-syllabus" class="screen">
+            <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">📚 Syllabus Tracker</h2>
+            <div class="accordion-container" id="accordion-container">
+                <!-- Accordions Injected Here via JS -->
+            </div>
+        </div>
+
+        <!-- ================= 3. TIMER SCREEN ================= -->
+        <div id="screen-timer" class="screen">
+            <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⏱️ Deep Focus Zone</h2>
+            
+            <div class="card" style="padding: 40px 20px; text-align: center;">
+                <div class="timer-circle-wrap">
+                    <div class="timer-circle" id="timer-circle">
+                        <div class="t-val" id="ypt-display">00:00:00</div>
+                        <div class="t-sub" id="ypt-status">Ready to Study</div>
+                    </div>
+                </div>
+                
+                <div class="timer-controls">
+                    <button class="t-btn btn-start" id="ypt-start-btn" onclick="toggleTimer()">▶ Start</button>
+                    <button class="t-btn btn-stop" onclick="resetTimer()">■ Reset</button>
                 </div>
             </div>
 
             <div class="stats-grid">
                 <div class="m-card">
-                    <div class="m-title">Deadline <span class="deadline-edit" onclick="document.getElementById('deadline-picker').showPicker()">✏️</span></div>
-                    <input type="date" id="deadline-picker" onchange="saveDeadline()">
-                    <div class="m-val" id="syl-countdown" style="color: var(--accent-color);">-- d</div>
+                    <div class="m-title">Today's Focus</div>
+                    <div class="m-val" id="ypt-study-total" style="color: var(--info-color);">0h 0m</div>
                 </div>
                 <div class="m-card">
-                    <div class="m-title">Req. Speed</div>
-                    <div class="m-val" id="speed-active" style="color: var(--info-color);">-- ch/d</div>
+                    <div class="m-title">Lifetime Level</div>
+                    <div class="m-val" id="lifetime-total" style="color: var(--rev-color);">Lvl 1</div>
                 </div>
             </div>
 
-            <div id="summary-grid"></div>
-            <button class="reset-btn" onclick="resetData()">🗑️ Reset All Data</button>
+            <div class="lofi-widget" id="lofi-widget" onclick="toggleLofi()">
+                <div style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px;">
+                    <span style="font-size: 22px;">🎧</span> Lofi Focus Audio
+                </div>
+                <span id="lofi-state" style="font-size:12px; font-weight:800; color:var(--text-muted); text-transform: uppercase;">▶ Play</span>
+            </div>
+            <div id="lofi-container" style="display:none;"></div>
         </div>
 
-        <!-- RIGHT PANEL -->
-        <div class="right-panel card">
-            <div class="tabs" id="tabs-container"></div>
-            <div id="content-container"></div>
+        <!-- ================= 4. PROFILE SCREEN ================= -->
+        <div id="screen-profile" class="screen">
+            <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⚙️ Preferences</h2>
+            
+            <div class="dashboard-grid">
+                <!-- Col 1 -->
+                <div>
+                    <div class="profile-section">
+                        <div class="p-title">👤 Your Profile</div>
+                        <div class="setting-group">
+                            <div class="setting-row">
+                                <span class="setting-label">Name</span>
+                                <span class="setting-val"><input type="text" id="inp-name" placeholder="Your Name" onchange="saveProfile()"></span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Target/Goal</span>
+                                <span class="setting-val"><input type="text" id="inp-target" placeholder="e.g. DMC '26" onchange="saveProfile()"></span>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">Avatar</span>
+                                <span class="setting-val">
+                                    <select id="inp-avatar" onchange="saveProfile()" style="padding: 6px; width: 60px;">
+                                        <option value="👨‍⚕️">👨‍⚕️</option><option value="👩‍⚕️">👩‍⚕️</option>
+                                        <option value="🎓">🎓</option><option value="⚽">⚽</option>
+                                        <option value="🦸‍♂️">🦸‍♂️</option><option value="💻">💻</option>
+                                        <option value="🥷">🥷</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="p-title">⚖️ Subject Weights</div>
+                        <div class="setting-group">
+                            <div class="setting-row"><span class="setting-label">📐 Physics</span><span class="setting-val"><input type="number" step="0.1" id="w-phy" onchange="saveWeights()"></span></div>
+                            <div class="setting-row"><span class="setting-label">🧪 Chemistry</span><span class="setting-val"><input type="number" step="0.1" id="w-chem" onchange="saveWeights()"></span></div>
+                            <div class="setting-row"><span class="setting-label">🧬 Biology</span><span class="setting-val"><input type="number" step="0.1" id="w-bio" onchange="saveWeights()"></span></div>
+                            <div class="setting-row"><span class="setting-label">➗ Math</span><span class="setting-val"><input type="number" step="0.1" id="w-math" onchange="saveWeights()"></span></div>
+                            <div class="setting-row"><span class="setting-label">📖 Eng/GK</span><span class="setting-val"><input type="number" step="0.1" id="w-med" onchange="saveWeights()"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <div class="profile-section">
+                        <div class="p-title">🎭 App Skins & Themes</div>
+                        <div class="skins-grid" id="skins-grid">
+                            <div class="skin-card" data-skin="default" onclick="setAppSkin('default')">
+                                <div class="skin-icon">🔵</div><div class="skin-name">Classic</div>
+                            </div>
+                            <div class="skin-card" data-skin="doom" onclick="setAppSkin('doom')">
+                                <div class="skin-icon">🦹‍♂️</div><div class="skin-name">Dr. Doom</div>
+                            </div>
+                            <div class="skin-card" data-skin="football" onclick="setAppSkin('football')">
+                                <div class="skin-icon">⚽</div><div class="skin-name">Pitch Green</div>
+                            </div>
+                            <div class="skin-card" data-skin="cyberpunk" onclick="setAppSkin('cyberpunk')">
+                                <div class="skin-icon">🌃</div><div class="skin-name">Neon Punk</div>
+                            </div>
+                            <div class="skin-card" data-skin="galaxy" onclick="setAppSkin('galaxy')">
+                                <div class="skin-icon">🌌</div><div class="skin-name">Galaxy</div>
+                            </div>
+                            <div class="skin-card" data-skin="ocean" onclick="setAppSkin('ocean')">
+                                <div class="skin-icon">🌊</div><div class="skin-name">Ocean Deep</div>
+                            </div>
+                            <div class="skin-card" data-skin="nature" onclick="setAppSkin('nature')">
+                                <div class="skin-icon">🌿</div><div class="skin-name">Nature Zen</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="p-title">🎨 Appearance Base</div>
+                        <div class="setting-group">
+                            <div class="setting-row">
+                                <span class="setting-label">🌙 Enable Light Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="p-title">💾 Data Management</div>
+                        <div class="setting-group">
+                            <div class="setting-row" onclick="exportData()" style="cursor: pointer;">
+                                <span class="setting-label" style="color: var(--info-color);">📤 Backup Progress</span>
+                            </div>
+                            <div class="setting-row" onclick="document.getElementById('import-file').click()" style="cursor: pointer;">
+                                <span class="setting-label" style="color: var(--accent-color);">📥 Restore Data File</span>
+                                <input type="file" id="import-file" style="display:none" onchange="importData(event)" accept=".json">
+                            </div>
+                        </div>
+                        <button class="btn-danger" onclick="resetData()" style="margin-top: 15px;">🗑️ Factory Reset App</button>
+                    </div>
+                </div>
+            </div> <!-- Grid End -->
         </div>
 
     </div>
-</div>
 
-<!-- Settings Modal -->
-<div class="modal" id="settingsModal">
-    <div class="modal-content">
-        <h3>⚙️ Custom Subject Weights</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-top:-5px; margin-bottom: 20px; line-height: 1.4;">যে সাবজেক্টের চ্যাপ্টার যত বড়, তার মান তত বেশি দাও। (যেমন: Chemistry 2.5)</p>
-        
-        <div class="weight-row"><span>Physics</span> <input type="number" step="0.1" id="w-phy"></div>
-        <div class="weight-row"><span>Chemistry</span> <input type="number" step="0.1" id="w-chem"></div>
-        <div class="weight-row"><span>Biology</span> <input type="number" step="0.1" id="w-bio"></div>
-        <div class="weight-row"><span>Mathematics</span> <input type="number" step="0.1" id="w-math"></div>
-        <div class="weight-row"><span>English & GK</span> <input type="number" step="0.1" id="w-med"></div>
-        
-        <div class="modal-btns">
-            <button class="btn-cancel" onclick="closeSettings()">Cancel</button>
-            <button class="btn-save" onclick="saveWeights()">Save & Apply</button>
+    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="navTo('home', this)">
+            <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
         </div>
-    </div>
+        <div class="nav-item" onclick="navTo('syllabus', this)">
+            <span class="nav-icon">📚</span><span class="nav-label">Syllabus</span>
+        </div>
+        <div class="nav-item" onclick="navTo('timer', this)">
+            <span class="nav-icon">⏱️</span><span class="nav-label">Focus</span>
+        </div>
+        <div class="nav-item" onclick="navTo('profile', this)">
+            <span class="nav-icon">⚙️</span><span class="nav-label">Profile</span>
+        </div>
+    </nav>
+
 </div>
 
 <script>
-    // --- Dynamic Greeting, Quote & Streak ---
-    const quotes = [
-        "Push yourself, because no one else is going to do it for you.",
-        "Success doesn’t just find you. You have to go out and get it.",
-        "Dream it. Wish it. Do it.",
-        "Wake up with determination. Go to bed with satisfaction.",
-        "Do something today that your future self will thank you for.",
-        "It’s going to be hard, but hard does not mean impossible."
-    ];
-    document.getElementById('motivational-quote').innerText = '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
+    // ==========================================
+    // 1. CUSTOM PROFILE & SKINS LOGIC
+    // ==========================================
+    let profileData = JSON.parse(localStorage.getItem('dmcProfileData')) || { name: 'Dr. Irfun', target: "HSC '26", avatar: '👨‍⚕️' };
+    let currentSkin = localStorage.getItem('dmcSkin') || 'default';
 
+    function initProfile() {
+        document.getElementById('disp-name').innerText = profileData.name;
+        document.getElementById('disp-target').innerText = profileData.target;
+        document.getElementById('disp-avatar').innerText = profileData.avatar;
+        
+        document.getElementById('inp-name').value = profileData.name;
+        document.getElementById('inp-target').value = profileData.target;
+        document.getElementById('inp-avatar').value = profileData.avatar;
+    }
+
+    function saveProfile() {
+        profileData.name = document.getElementById('inp-name').value || 'Student';
+        profileData.target = document.getElementById('inp-target').value || 'Target';
+        profileData.avatar = document.getElementById('inp-avatar').value;
+        localStorage.setItem('dmcProfileData', JSON.stringify(profileData));
+        initProfile();
+    }
+
+    function setAppSkin(skinName) {
+        currentSkin = skinName;
+        document.documentElement.setAttribute('data-skin', skinName);
+        localStorage.setItem('dmcSkin', skinName);
+        
+        document.querySelectorAll('.skin-card').forEach(c => c.classList.remove('active'));
+        let activeCard = document.querySelector(`.skin-card[data-skin="${skinName}"]`);
+        if(activeCard) activeCard.classList.add('active');
+    }
+    
+    document.documentElement.setAttribute('data-skin', currentSkin);
+    initProfile();
+    let initialCard = document.querySelector(`.skin-card[data-skin="${currentSkin}"]`);
+    if(initialCard) initialCard.classList.add('active');
+
+    // ==========================================
+    // 2. MICRO-TASKS (TODO LIST) LOGIC
+    // ==========================================
+    let todos = JSON.parse(localStorage.getItem('dmcTodos')) || [];
+    function renderTodos() {
+        const list = document.getElementById('todo-list'); list.innerHTML = '';
+        if(todos.length === 0) { list.innerHTML = '<li style="font-size:12px; color:var(--text-muted); text-align:center; padding: 10px;">No targets set for today. Add one above!</li>'; return; }
+        todos.forEach((t, i) => {
+            list.innerHTML += `
+            <li class="todo-item ${t.done ? 'done' : ''}">
+                <input type="checkbox" class="todo-cb" ${t.done ? 'checked' : ''} onchange="toggleTodo(${i})">
+                <span style="flex:1;">${t.text}</span>
+                <button class="todo-del" onclick="delTodo(${i})">×</button>
+            </li>`;
+        });
+    }
+    function addTodo() {
+        let inp = document.getElementById('todo-input'); let val = inp.value.trim();
+        if(val) { todos.push({text: val, done: false}); localStorage.setItem('dmcTodos', JSON.stringify(todos)); inp.value = ''; renderTodos(); }
+    }
+    function toggleTodo(i) { todos[i].done = !todos[i].done; localStorage.setItem('dmcTodos', JSON.stringify(todos)); renderTodos(); }
+    function delTodo(i) { todos.splice(i, 1); localStorage.setItem('dmcTodos', JSON.stringify(todos)); renderTodos(); }
+    renderTodos();
+
+    // ==========================================
+    // 3. APP NAVIGATION LOGIC (SPA)
+    // ==========================================
+    let currentActiveScreen = 'home';
+    function navTo(screenId, mobileNavEl, desktopNavEl) {
+        currentActiveScreen = screenId;
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(`screen-${screenId}`).classList.add('active');
+        
+        // Update Mobile Nav
+        if(mobileNavEl) {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(n => n.classList.remove('active'));
+            mobileNavEl.classList.add('active');
+        } else {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(n => {
+                n.classList.remove('active');
+                if(n.querySelector('.nav-label').innerText.toLowerCase() === screenId) n.classList.add('active');
+            });
+        }
+
+        // Update Desktop Nav
+        if(desktopNavEl) {
+            document.querySelectorAll('.side-nav-item').forEach(n => n.classList.remove('active'));
+            desktopNavEl.classList.add('active');
+        } else {
+            document.querySelectorAll('.side-nav-item').forEach(n => {
+                n.classList.remove('active');
+                if(n.innerText.toLowerCase().includes(screenId)) n.classList.add('active');
+            });
+        }
+        
+        if(screenId === 'home') { refreshDashboards(); renderWeeklyChart(); }
+        if(screenId === 'syllabus') buildAccordion();
+        
+        document.getElementById('main-scroll').scrollTo(0, 0);
+        updateFloatingTimer();
+    }
+
+    // ==========================================
+    // 4. CORE DATA, DATE, STREAKS & CHART
+    // ==========================================
     const hour = new Date().getHours();
     const greetEl = document.getElementById('greeting-msg');
-    if(hour < 12) greetEl.innerText = 'Good Morning';
-    else if(hour < 18) greetEl.innerText = 'Good Afternoon';
-    else greetEl.innerText = 'Good Evening';
+    if(hour < 12) greetEl.innerText = 'Good Morning,';
+    else if(hour < 18) greetEl.innerText = 'Good Afternoon,';
+    else greetEl.innerText = 'Good Evening,';
 
     let todayStr = new Date().toDateString();
-    let lastLogin = localStorage.getItem('dmcLastLogin');
-    let streak = parseInt(localStorage.getItem('dmcStreak')) || 0;
-    
-    if (lastLogin !== todayStr) {
-        let yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-        if (lastLogin === yesterday.toDateString()) { streak++; } else { streak = 1; }
-        localStorage.setItem('dmcLastLogin', todayStr);
+    let totalStudySecs = parseInt(localStorage.getItem('dmcYptStudySecs')) || 0;
+    let weekHistory = JSON.parse(localStorage.getItem('dmcWeekHistory')) || {};
+    if(!weekHistory[todayStr]) weekHistory[todayStr] = totalStudySecs;
+
+    if(localStorage.getItem('dmcLastDate') !== todayStr) {
+        localStorage.setItem('dmcLastDate', todayStr); 
+        localStorage.setItem('dmcYptStudySecs', 0);
+        
+        todos = []; localStorage.setItem('dmcTodos', JSON.stringify(todos)); renderTodos();
+
+        let lastLogin = localStorage.getItem('dmcLastLogin'); 
+        let streak = parseInt(localStorage.getItem('dmcStreak')) || 0;
+        if (lastLogin) { 
+            let yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+            if (lastLogin === yesterday.toDateString()) { streak++; } else { streak = 1; }
+        } else { streak = 1; }
+        
+        localStorage.setItem('dmcLastLogin', todayStr); 
         localStorage.setItem('dmcStreak', streak);
+        totalStudySecs = 0; weekHistory[todayStr] = 0;
+        localStorage.setItem('dmcWeekHistory', JSON.stringify(weekHistory));
     }
-    document.getElementById('streak-count').innerText = streak;
+    document.getElementById('streak-count').innerText = parseInt(localStorage.getItem('dmcStreak')) || 1;
 
-    // --- Theme ---
-    let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
-    function toggleTheme() {
-        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        localStorage.setItem('missionDmcTheme', currentTheme);
-        document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+    let lifetimeSecs = parseInt(localStorage.getItem('dmcLifetimeSecs')) || 0;
+    function updateLevelUI() {
+        let hrs = lifetimeSecs / 3600; let level = Math.floor(Math.sqrt(hrs)) + 1;
+        document.getElementById('level-badge').innerText = `🌟 Lvl ${level}`;
+        document.getElementById('lifetime-total').innerText = `Lvl ${level}`;
     }
+    updateLevelUI();
 
-    // --- DUAL TIMERS ---
-    function fmtTime(sec) {
-        let h = Math.floor(sec / 3600); let m = Math.floor((sec % 3600) / 60); let s = sec % 60;
-        if(h > 0) return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-        return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-    }
+    function renderWeeklyChart() {
+        const chart = document.getElementById('weekly-chart');
+        chart.innerHTML = '';
+        let days = [];
+        for(let i=6; i>=0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push(d.toDateString()); }
+        let maxSecs = 1; 
+        days.forEach(d => { if(weekHistory[d] > maxSecs) maxSecs = weekHistory[d]; });
 
-    // 1. Customizable Pomodoro
-    let customPomoMin = parseInt(localStorage.getItem('dmcPomoMin')) || 25;
-    let pomoTotalSec = customPomoMin * 60;
-    let pomoTime = pomoTotalSec; 
-    let pomoInt; let isPomoRunning = false;
-    
-    function updatePomoUI() { 
-        document.getElementById('pomo-display').innerText = fmtTime(pomoTime); 
-        let pct = ((pomoTotalSec - pomoTime) / pomoTotalSec) * 100;
-        document.getElementById('pomo-bar').style.width = `${pct}%`;
-    }
+        days.forEach(d => {
+            let secs = weekHistory[d] || 0;
+            let pct = (secs / maxSecs) * 100;
+            if(pct < 5 && secs > 0) pct = 5; 
+            
+            let h = Math.floor(secs / 3600); let m = Math.floor((secs % 3600) / 60);
+            let timeStr = h > 0 ? `${h}h` : `${m}m`;
+            if(secs === 0) timeStr = '0';
+            
+            let dayName = d.split(' ')[0];
+            let isToday = (d === todayStr) ? 'today' : '';
 
-    function editPomoTime() {
-        if(isPomoRunning) { alert("Please pause or stop the timer first!"); return; }
-        let input = prompt("কত মিনিটের ফোকাস সেশন করতে চাও? (যেমন: 45, 60, 90)", customPomoMin);
-        if(input && !isNaN(input) && input > 0) {
-            customPomoMin = parseInt(input);
-            localStorage.setItem('dmcPomoMin', customPomoMin);
-            resetPomo();
-        }
-    }
-
-    function togglePomo() {
-        let btn = document.getElementById('pomo-play'); let sts = document.getElementById('pomo-status');
-        if(isPomoRunning) {
-            clearInterval(pomoInt); isPomoRunning = false;
-            btn.innerText = "Resume"; btn.classList.remove('btn-active'); sts.innerText = "Paused";
-        } else {
-            pomoInt = setInterval(() => {
-                if(pomoTime > 0) { pomoTime--; updatePomoUI(); }
-                else { clearInterval(pomoInt); isPomoRunning = false; alert("🎯 Focus Session Complete! Take a break."); resetPomo(); }
-            }, 1000);
-            isPomoRunning = true; btn.innerText = "Pause"; btn.classList.add('btn-active'); sts.innerText = "Focusing...";
-        }
-    }
-    function resetPomo() { 
-        clearInterval(pomoInt); isPomoRunning = false; 
-        pomoTotalSec = customPomoMin * 60; pomoTime = pomoTotalSec; 
-        updatePomoUI(); document.getElementById('pomo-play').innerText = "Start"; document.getElementById('pomo-play').classList.remove('btn-active'); document.getElementById('pomo-status').innerText = "Ready"; 
-    }
-
-    // 2. YPT Stopwatch
-    let yptSecs = 0; let yptInt; let isYptRunning = false;
-    let yptTotalToday = parseInt(localStorage.getItem('dmcYptTotal')) || 0;
-    if(localStorage.getItem('dmcYptDate') !== todayStr) { yptTotalToday = 0; localStorage.setItem('dmcYptDate', todayStr); }
-    
-    function fmtYptTotal(sec) { let h = Math.floor(sec/3600); let m = Math.floor((sec%3600)/60); return `${h}h ${m}m`; }
-    function updateYptUI() { 
-        document.getElementById('ypt-display').innerText = fmtTime(yptSecs); 
-        document.getElementById('ypt-total').innerText = fmtYptTotal(yptTotalToday);
-    }
-    
-    function toggleYPT() {
-        let btn = document.getElementById('ypt-play');
-        if(isYptRunning) {
-            clearInterval(yptInt); isYptRunning = false;
-            btn.innerText = "▶ Start Session"; btn.classList.remove('btn-active');
-            localStorage.setItem('dmcYptTotal', yptTotalToday);
-        } else {
-            yptInt = setInterval(() => {
-                yptSecs++; yptTotalToday++; updateYptUI();
-                if(yptSecs % 10 === 0) localStorage.setItem('dmcYptTotal', yptTotalToday);
-            }, 1000);
-            isYptRunning = true; btn.innerText = "⏸ Pause"; btn.classList.add('btn-active');
-        }
-    }
-    updatePomoUI(); updateYptUI();
-
-    // --- Syllabus & Data ---
-    let uWeights = JSON.parse(localStorage.getItem('dmcSubjectWeights')) || { phy: 1.5, chem: 2.5, bio: 1.5, math: 1.5, med: 0.5 };
-
-    const groups = [
-        { id: 'bio', wKey: 'bio', title: 'Biology', papers: [{id:'bio1', name:'Botany (Paper I)'}, {id:'bio2', name:'Zoology (Paper II)'}] },
-        { id: 'chem', wKey: 'chem', title: 'Chemistry', papers: [{id:'chem1', name:'Chemistry (Paper I)'}, {id:'chem2', name:'Chemistry (Paper II)'}] },
-        { id: 'phy', wKey: 'phy', title: 'Physics', papers: [{id:'physics1', name:'Physics (Paper I)'}, {id:'physics2', name:'Physics (Paper II)'}] },
-        { id: 'math', wKey: 'math', title: 'Mathematics', papers: [{id:'math1', name:'Math (Paper I)'}, {id:'math2', name:'Math (Paper II)'}] },
-        { id: 'med', wKey: 'med', title: 'Medical Prep', papers: [{id:'medEng', name:'English'}, {id:'medGK', name:'GK'}] }
-    ];
-
-    const syllabusData = {
-        "physics1": { name: "Phy 1st", wKey: 'phy', chapters: ["ভৌতজগৎ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি", "মহাকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস"] },
-        "physics2": { name: "Phy 2nd", wKey: 'phy', chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "চৌম্বক ক্রিয়া", "আবেশ", "জ্যামিতিক আলোক", "ভৌত আলোক", "আধুনিক পদার্থবিজ্ঞান", "পরমাণু ও নিউক্লিয়ার", "সেমিকন্ডাক্টর", "জ্যোতির্বিজ্ঞান"] },
-        "chem1": { name: "Chem 1st", wKey: 'chem', chapters: ["ল্যাবরেটরি", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
-        "chem2": { name: "Chem 2nd", wKey: 'chem', chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
-        "math1": { name: "Math 1st", wKey: 'math', chapters: ["ম্যাট্রিক্স", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস-সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণ", "ফাংশন", "অন্তরীকরণ", "যোগজীকরণ"] },
-        "math2": { name: "Math 2nd", wKey: 'math', chapters: ["বাস্তব সংখ্যা", "যোগাশ্রয়ী", "জটিল সংখ্যা", "বহুপদী", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক", "স্থিতিবিদ্যা", "সমতলে বস্তুকণা", "বিস্তার পরিমাপ"] },
-        "bio1": { name: "Botany", wKey: 'bio', chapters: ["কোষ", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল-ছত্রাক", "ব্রায়োফাইটা", "নগ্নবীজী", "টিস্যু", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "পরিবেশ"] },
-        "bio2": { name: "Zoology", wKey: 'bio', chapters: ["প্রাণীর শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "পরিপাক", "রক্ত ও সঞ্চালন", "শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন", "স্নায়বিক সমন্বয়", "ধারাবাহিকতা", "প্রতিরক্ষা", "জিনতত্ত্ব", "আচরণ"] },
-        "medEng": { name: "English", wKey: 'med', chapters: ["Parts of Speech", "Tense", "Right Forms", "Voice", "Narration", "Correction", "Synonym-Antonym", "Spelling", "Phrases", "Preposition"] },
-        "medGK": { name: "GK", wKey: 'med', chapters: ["প্রাচীন বাংলা", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ", "সংবিধান", "অর্থনীতি", "সংস্কৃতি", "আন্তর্জাতিক"] }
-    };
-
-    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChapters')) || { medEng: [], medGK: [] };
-    syllabusData.medEng.chapters.push(...customChapters.medEng);
-    syllabusData.medGK.chapters.push(...customChapters.medGK);
-
-    let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV4')) || {};
-    
-    let savedDeadline = localStorage.getItem('missionDmcDeadline') || "2026-10-31";
-    document.getElementById('deadline-picker').value = savedDeadline;
-    function saveDeadline() { let n = document.getElementById('deadline-picker').value; if(n){ localStorage.setItem('missionDmcDeadline', n); savedDeadline = n; refreshDashboards(); } }
-    document.getElementById('daily-note').value = localStorage.getItem('missionDmcNote') || "";
-
-    function getRevText(num) { return num === 0 ? 'Rev 0' : `Rev ${num}`; }
-    function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? '#facc15' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
-
-    // --- Settings Modal ---
-    function openSettings() {
-        document.getElementById('w-phy').value = uWeights.phy; document.getElementById('w-chem').value = uWeights.chem;
-        document.getElementById('w-bio').value = uWeights.bio; document.getElementById('w-math').value = uWeights.math;
-        document.getElementById('w-med').value = uWeights.med; document.getElementById('settingsModal').style.display = 'flex';
-    }
-    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-    function saveWeights() {
-        uWeights = { phy: parseFloat(document.getElementById('w-phy').value)||1, chem: parseFloat(document.getElementById('w-chem').value)||1, bio: parseFloat(document.getElementById('w-bio').value)||1, math: parseFloat(document.getElementById('w-math').value)||1, med: parseFloat(document.getElementById('w-med').value)||1 };
-        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); closeSettings(); refreshDashboards();
-    }
-
-    // --- UI Builders ---
-    function buildSummary() {
-        const summaryGrid = document.getElementById('summary-grid');
-        summaryGrid.innerHTML = '';
-        groups.forEach(group => {
-            let cardHtml = `<div class="card summary-card"><h3>${group.title}</h3>`;
-            group.papers.forEach(paper => {
-                const subId = paper.id; const subjData = syllabusData[subId]; const isTargeted = !excludedSubjects.includes(subId);
-                let totalCh = subjData.chapters.length; let compCh = 0; let totalRevs = 0; let pracCount = 0;
-                subjData.chapters.forEach((_, i) => { 
-                    let c = savedProgress[`${subId}-ch-${i}`] || {val:0, rev:0, prac:false}; 
-                    compCh += (c.val / 100); totalRevs += c.rev; if(c.prac) pracCount++;
-                });
-                let percent = totalCh > 0 ? Math.round((compCh / totalCh) * 100) : 0;
-                let avgRev = totalCh > 0 ? Math.floor(totalRevs / totalCh) : 0;
-                let pracPercent = totalCh > 0 ? Math.round((pracCount / totalCh) * 100) : 0;
-
-                cardHtml += `
-                    <div class="paper-row ${isTargeted ? '' : 'paper-excluded'}">
-                        <div class="paper-header">
-                            <div class="paper-name"><span class="target-toggle ${isTargeted ? 'active' : ''}" onclick="toggleTarget('${subId}')">${isTargeted ? '🎯' : '⭕'}</span>${paper.name}</div>
-                            <div class="rev-badge">${getRevText(avgRev)}</div>
-                        </div>
-                        <div class="paper-bar-container">
-                            <div class="paper-bar-bg"><div class="paper-bar-fill" style="width: ${percent}%;"></div></div>
-                            <div class="paper-percent">${percent}%</div>
-                        </div>
-                        <div class="prac-summary">📝 Prac: ${pracPercent}% <div class="prac-bar-bg"><div class="prac-bar-fill" style="width: ${pracPercent}%;"></div></div></div>
-                    </div>`;
-            });
-            summaryGrid.innerHTML += cardHtml + `</div>`;
+            chart.innerHTML += `
+            <div class="bar-wrap">
+                <div class="bar" style="height: 100%;">
+                    <div class="bar-val">${timeStr}</div>
+                    <div class="bar-fill ${isToday}" style="height: ${pct}%;"></div>
+                </div>
+                <div class="bar-label">${dayName}</div>
+            </div>`;
         });
     }
 
-    function buildTabs() {
-        const tabsContainer = document.getElementById('tabs-container'); const contentContainer = document.getElementById('content-container');
-        tabsContainer.innerHTML = ''; contentContainer.innerHTML = '';
-        let isFirst = true;
+    // ==========================================
+    // 5. THEME TOGGLE (Light/Dark Base)
+    // ==========================================
+    let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = (currentTheme === 'light');
+    
+    function toggleTheme() {
+        currentTheme = document.getElementById('theme-toggle').checked ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('missionDmcTheme', currentTheme);
+    }
+
+    // ==========================================
+    // 6. TIMER & FLOATING TIMER
+    // ==========================================
+    let isRunning = false; let timerInt; let currentSessionSecs = 0;
+
+    function fmtTimeHms(sec) {
+        let h = Math.floor(sec / 3600); let m = Math.floor((sec % 3600) / 60); let s = sec % 60;
+        return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    }
+    function fmtTimeHm(sec) { let h = Math.floor(sec/3600); let m = Math.floor((sec%3600)/60); return `${h}h ${m}m`; }
+
+    function updateTimerUI() {
+        let tStr = fmtTimeHms(currentSessionSecs);
+        document.getElementById('ypt-display').innerText = tStr;
+        document.getElementById('floating-timer').innerText = "⏱️ " + tStr;
+        document.getElementById('ypt-study-total').innerText = fmtTimeHm(totalStudySecs);
+    }
+
+    function updateFloatingTimer() {
+        let fTimer = document.getElementById('floating-timer');
+        if(isRunning && currentActiveScreen !== 'timer') { fTimer.style.display = 'block'; } 
+        else { fTimer.style.display = 'none'; }
+    }
+
+    function toggleTimer() {
+        let btn = document.getElementById('ypt-start-btn'); let circle = document.getElementById('timer-circle'); let sts = document.getElementById('ypt-status');
+        if(isRunning) {
+            clearInterval(timerInt); isRunning = false;
+            btn.innerText = "▶ Resume"; btn.classList.remove('active');
+            circle.classList.remove('active'); sts.innerText = "Paused";
+            localStorage.setItem('dmcYptStudySecs', totalStudySecs);
+            localStorage.setItem('dmcLifetimeSecs', lifetimeSecs);
+            weekHistory[todayStr] = totalStudySecs; localStorage.setItem('dmcWeekHistory', JSON.stringify(weekHistory));
+            updateLevelUI(); renderWeeklyChart();
+        } else {
+            timerInt = setInterval(() => {
+                currentSessionSecs++; totalStudySecs++; lifetimeSecs++; updateTimerUI();
+                if(currentSessionSecs % 10 === 0) {
+                    localStorage.setItem('dmcYptStudySecs', totalStudySecs);
+                    localStorage.setItem('dmcLifetimeSecs', lifetimeSecs);
+                    weekHistory[todayStr] = totalStudySecs; localStorage.setItem('dmcWeekHistory', JSON.stringify(weekHistory));
+                    updateLevelUI(); renderWeeklyChart();
+                }
+            }, 1000);
+            isRunning = true; btn.innerText = "⏸ Pause"; btn.classList.add('active');
+            circle.classList.add('active'); sts.innerText = "Deep Focus...";
+        }
+        updateFloatingTimer();
+    }
+
+    function resetTimer() {
+        clearInterval(timerInt); isRunning = false; currentSessionSecs = 0;
+        let btn = document.getElementById('ypt-start-btn');
+        btn.innerText = "▶ Start"; btn.classList.remove('active');
+        document.getElementById('timer-circle').classList.remove('active');
+        document.getElementById('ypt-status').innerText = "Ready to Study";
+        updateTimerUI(); updateFloatingTimer();
+    }
+    updateTimerUI();
+
+    let lofiPlaying = false;
+    function toggleLofi() {
+        let container = document.getElementById('lofi-container'); let stateText = document.getElementById('lofi-state'); let widget = document.getElementById('lofi-widget');
+        if(!lofiPlaying) {
+            container.innerHTML = `<iframe width="0" height="0" src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
+            stateText.innerText = "⏸ Pause"; stateText.style.color = "var(--accent-color)"; widget.classList.add('active'); lofiPlaying = true;
+        } else {
+            container.innerHTML = ''; stateText.innerText = "▶ Play"; stateText.style.color = "var(--text-muted)"; widget.classList.remove('active'); lofiPlaying = false;
+        }
+    }
+
+    // ==========================================
+    // 7. SYLLABUS DATA & ACCORDION (BUG FREE)
+    // ==========================================
+    let uWeights = JSON.parse(localStorage.getItem('dmcSubjectWeights')) || { phy: 1.5, chem: 2.5, bio: 1.5, math: 1.5, med: 0.5 };
+    
+    document.getElementById('w-phy').value = uWeights.phy; document.getElementById('w-chem').value = uWeights.chem;
+    document.getElementById('w-bio').value = uWeights.bio; document.getElementById('w-math').value = uWeights.math;
+    document.getElementById('w-med').value = uWeights.med;
+
+    function saveWeights() {
+        uWeights = { phy: parseFloat(document.getElementById('w-phy').value)||1, chem: parseFloat(document.getElementById('w-chem').value)||1, bio: parseFloat(document.getElementById('w-bio').value)||1, math: parseFloat(document.getElementById('w-math').value)||1, med: parseFloat(document.getElementById('w-med').value)||1 };
+        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); refreshDashboards(); buildAccordion();
+    }
+
+    const syllabusData = {
+        "phy": { name: "Physics", icon: "📐", wKey: 'phy', chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস", "তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "চৌম্বক ক্রিয়া", "আবেশ", "জ্যামিতিক আলোক", "ভৌত আলোক", "আধুনিক পদার্থবিজ্ঞান", "পরমাণু ও নিউক্লিয়ার", "সেমিকন্ডাক্টর"] },
+        "chem": { name: "Chemistry", icon: "🧪", wKey: 'chem', chapters: ["ল্যাবরেটরি", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন", "পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
+        "math": { name: "Mathematics", icon: "➗", wKey: 'math', chapters: ["ম্যাট্রিক্স", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস-সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণ", "ফাংশন", "অন্তরীকরণ", "যোগজীকরণ", "বাস্তব সংখ্যা", "জটিল সংখ্যা", "বহুপদী", "কনিক", "স্থিতিবিদ্যা", "সমতলে বস্তুকণা"] },
+        "bio": { name: "Biology", icon: "🧬", wKey: 'bio', chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা", "নগ্নবীজী", "টিস্যু", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "পরিবেশ", "প্রাণীর শ্রেণিবিন্যাস", "পরিপাক", "রক্ত ও সঞ্চালন", "শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন", "স্নায়বিক সমন্বয়", "প্রতিরক্ষা", "জিনতত্ত্ব"] },
+        "med": { name: "English & GK", icon: "📖", wKey: 'med', chapters: ["Parts of Speech", "Tense", "Right Forms", "Voice", "Narration", "Correction", "Synonym-Antonym", "Spelling", "Phrases", "Preposition", "প্রাচীন বাংলা", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ", "সংবিধান", "অর্থনীতি", "সংস্কৃতি"] }
+    };
+
+    let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV6')) || {};
+
+    let savedDeadline = localStorage.getItem('missionDmcDeadline') || "2026-10-31";
+    document.getElementById('deadline-picker').value = savedDeadline;
+    function saveDeadline() { let n = document.getElementById('deadline-picker').value; if(n){ localStorage.setItem('missionDmcDeadline', n); savedDeadline = n; refreshDashboards(); } }
+
+    function getRevText(num) { return num === 0 ? 'R0' : `R${num}`; }
+    function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? 'var(--warning-color)' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
+
+    function getMastery(pct) {
+        if(pct < 30) return "Novice";
+        if(pct < 70) return "Scholar";
+        if(pct < 100) return "Advanced";
+        return "Master 🏆";
+    }
+
+    function buildAccordion() {
+        const container = document.getElementById('accordion-container');
+        container.innerHTML = ''; 
+        
         for (const [key, subject] of Object.entries(syllabusData)) {
-            const btn = document.createElement('button'); btn.className = `tab-btn ${isFirst ? 'active' : ''}`; btn.innerText = subject.name; btn.onclick = () => switchTab(key);
-            tabsContainer.appendChild(btn);
+            let totalCh = subject.chapters.length; let compCh = 0;
+            subject.chapters.forEach((_, i) => { let c = savedProgress[`${key}-ch-${i}`]; if(c) compCh += (c.val / 100); });
+            let percent = totalCh > 0 ? Math.round((compCh / totalCh) * 100) : 0;
+            const isTargeted = !excludedSubjects.includes(key);
 
-            const contentDiv = document.createElement('div'); contentDiv.className = `subject-content ${isFirst ? 'active' : ''}`; contentDiv.id = `content-${key}`;
-            let headerHtml = `<div class="subject-controls">
-                <label style="cursor:pointer; display:flex; gap:8px;"><input type="checkbox" class="exclude-cb" onchange="toggleExcludeBox('${key}', this)" ${excludedSubjects.includes(key) ? 'checked' : ''}> Target থেকে বাদ দিন</label>
-                ${(key === 'medEng' || key === 'medGK') ? `<button class="add-topic-btn" onclick="addCustomChapter('${key}')">+ Add Topic</button>` : ''}
-            </div>`;
+            let accHtml = `
+            <div class="acc-item" id="acc-${key}">
+                <div class="acc-header" onclick="toggleAccordion('${key}')">
+                    <div class="acc-title-wrap">
+                        <div class="acc-title">${subject.icon} ${subject.name} <span class="mastery-badge">${getMastery(percent)}</span></div>
+                        <div class="acc-prog-bg"><div class="acc-prog-fill" style="width:${percent}%"></div></div>
+                    </div>
+                    <div class="acc-right">
+                        <div class="acc-percent">${percent}%</div>
+                        <div class="acc-chevron">▼</div>
+                    </div>
+                </div>
+                <div class="acc-body" id="body-${key}">
+                    <div class="subject-controls">
+                        <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color);"><input type="checkbox" onchange="toggleExcludeBox('${key}', this)" ${!isTargeted ? 'checked' : ''}> Exclude Subject</label>
+                    </div>
+                    <ul class="chapter-list">`;
 
-            let chaptersHtml = '';
             subject.chapters.forEach((chapter, index) => {
                 const chapterId = `${key}-ch-${index}`; const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
-                chaptersHtml += `
+                accHtml += `
                     <li class="chapter-item">
-                        <div class="chapter-info">
+                        <div class="c-header">
                             <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)">⭐</span>
-                            <span class="chapter-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                            <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
                         </div>
-                        <div class="chapter-action">
-                            <button class="prac-btn ${cData.prac ? 'active' : ''}" onclick="togglePrac('${chapterId}', this)">📝 Prac</button>
-                            <div class="rev-control">
-                                <button class="rev-btn" onclick="changeRev('${chapterId}', -1)">-</button>
-                                <span class="rev-count ${cData.rev > 0 ? 'active' : ''}" id="rev-${chapterId}">${getRevText(cData.rev)}</span>
-                                <button class="rev-btn" onclick="changeRev('${chapterId}', 1)">+</button>
+                        <div class="c-actions">
+                            <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="togglePrac('${chapterId}', this)">📝 Prac</div>
+                            
+                            <div class="rev-wrap">
+                                <button onclick="changeRev('${chapterId}', -1)">-</button>
+                                <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
+                                <button onclick="changeRev('${chapterId}', 1)">+</button>
                             </div>
-                            <select class="status-select" id="${chapterId}" onchange="updateProg('${chapterId}', this)" style="color: ${getColor(cData.val)}">
+
+                            <select class="c-select" id="${chapterId}" onchange="updateProg('${key}', '${chapterId}', this)" style="color: ${getColor(cData.val)}">
                                 <option value="0" ${cData.val == 0 ? 'selected' : ''}>0%</option>
                                 <option value="25" ${cData.val == 25 ? 'selected' : ''}>25%</option>
                                 <option value="50" ${cData.val == 50 ? 'selected' : ''}>50%</option>
@@ -534,24 +897,45 @@
                         </div>
                     </li>`;
             });
-            contentDiv.innerHTML = headerHtml + `<ul class="chapter-list">${chaptersHtml}</ul>`; contentContainer.appendChild(contentDiv); isFirst = false;
+            accHtml += `</ul></div></div>`;
+            container.innerHTML += accHtml;
         }
     }
 
-    // --- Actions ---
-    function switchTab(activeKey) {
-        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); if (b.innerText === syllabusData[activeKey].name) b.classList.add('active'); });
-        document.querySelectorAll('.subject-content').forEach(c => c.classList.remove('active')); document.getElementById(`content-${activeKey}`).classList.add('active');
+    function toggleAccordion(key) {
+        let body = document.getElementById(`body-${key}`); let item = document.getElementById(`acc-${key}`);
+        document.querySelectorAll('.acc-body').forEach(el => {
+            if(el.id !== `body-${key}`) { el.style.maxHeight = null; el.parentElement.classList.remove('active'); }
+        });
+        if (body.style.maxHeight) { body.style.maxHeight = null; item.classList.remove('active'); } 
+        else { body.style.maxHeight = body.scrollHeight + "px"; item.classList.add('active'); 
+               setTimeout(() => { if(body.style.maxHeight) body.style.maxHeight = body.scrollHeight + "px"; }, 300); }
     }
-    function saveNote() { localStorage.setItem('missionDmcNote', document.getElementById('daily-note').value); }
-    function addCustomChapter(k) { let t = prompt("New Topic:"); if(t && t.trim()!=="") { customChapters[k].push(t.trim()); localStorage.setItem('missionDmcCustomChapters', JSON.stringify(customChapters)); location.reload(); } }
-    function toggleTarget(k) { if(excludedSubjects.includes(k)) excludedSubjects = excludedSubjects.filter(i => i !== k); else excludedSubjects.push(k); localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); const cb = document.querySelector(`#content-${k} .exclude-cb`); if(cb) cb.checked = excludedSubjects.includes(k); refreshDashboards(); }
-    function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); }
-    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV4', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
-    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV4', JSON.stringify(savedProgress)); el.classList.toggle('active'); refreshDashboards(); }
-    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV4', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); if(n > 0) s.classList.add('active'); else s.classList.remove('active'); } refreshDashboards(); }
-    function updateProg(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].val = parseInt(el.value); localStorage.setItem('missionDmcProgressV4', JSON.stringify(savedProgress)); el.style.color = getColor(el.value); refreshDashboards(); }
 
+    function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); buildAccordion(); }
+    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
+    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
+    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
+    
+    function updateProg(subjectKey, chapterId, el) { 
+        if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0, prac:false }; 
+        savedProgress[chapterId].val = parseInt(el.value); 
+        localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); 
+        el.style.color = getColor(el.value); 
+        
+        let subj = syllabusData[subjectKey]; let comp = 0;
+        subj.chapters.forEach((_, i) => { let c = savedProgress[`${subjectKey}-ch-${i}`]; if(c) comp += (c.val/100); });
+        let pct = subj.chapters.length > 0 ? Math.round((comp / subj.chapters.length)*100) : 0;
+        
+        let item = document.getElementById(`acc-${subjectKey}`);
+        item.querySelector('.acc-percent').innerText = pct + "%";
+        item.querySelector('.acc-prog-fill').style.width = pct + "%";
+        item.querySelector('.mastery-badge').innerText = getMastery(pct);
+        
+        refreshDashboards(); 
+    }
+
+    // --- DASHBOARD CALCULATIONS ---
     function calculateMasterProgress() {
         let actW = 0; let compW = 0; let totalRaw = 0; let compRaw = 0;
         for (const [key, subj] of Object.entries(syllabusData)) {
@@ -562,7 +946,8 @@
             }
         }
         const pct = actW > 0 ? Math.round((compW / actW) * 100) : 0;
-        document.getElementById('overall-val').innerText = pct; document.getElementById('overall-bar').style.width = `${pct}%`;
+        document.getElementById('overall-val').innerText = pct; 
+        document.getElementById('overall-bar').style.width = `${pct}%`;
 
         const dDate = new Date(`${savedDeadline}T23:59:59`).getTime();
         const dLeft = Math.ceil((dDate - new Date().getTime()) / (1000 * 60 * 60 * 24));
@@ -571,10 +956,53 @@
         document.getElementById('speed-active').innerText = (dLeft > 0 && remRaw > 0) ? (remRaw / dLeft).toFixed(1) + " ch/d" : "Done";
     }
 
-    function refreshDashboards() { buildSummary(); calculateMasterProgress(); }
-    function resetData() { if(confirm("Are you sure? All progress will be deleted!")) { localStorage.clear(); location.reload(); } }
+    function refreshDashboards() { calculateMasterProgress(); renderWeeklyChart(); }
+    
+    // --- DATA MANAGEMENT ---
+    function exportData() {
+        const data = {
+            profile: localStorage.getItem('dmcProfileData'),
+            progress: localStorage.getItem('missionDmcProgressV6'),
+            excluded: localStorage.getItem('missionDmcExcluded'),
+            weights: localStorage.getItem('dmcSubjectWeights'),
+            skin: localStorage.getItem('dmcSkin'),
+            studySecs: localStorage.getItem('dmcLifetimeSecs'),
+            weekHistory: localStorage.getItem('dmcWeekHistory'),
+            todos: localStorage.getItem('dmcTodos')
+        };
+        const blob = new Blob([JSON.stringify(data)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = `Mission_DMC_Backup_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        alert("✅ Backup successfully downloaded!");
+    }
 
-    buildTabs(); refreshDashboards();
+    function importData(event) {
+        const file = event.target.files[0]; if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if(data.profile) localStorage.setItem('dmcProfileData', data.profile);
+                if(data.progress) localStorage.setItem('missionDmcProgressV6', data.progress);
+                if(data.excluded) localStorage.setItem('missionDmcExcluded', data.excluded);
+                if(data.weights) localStorage.setItem('dmcSubjectWeights', data.weights);
+                if(data.skin) localStorage.setItem('dmcSkin', data.skin);
+                if(data.studySecs) localStorage.setItem('dmcLifetimeSecs', data.studySecs);
+                if(data.weekHistory) localStorage.setItem('dmcWeekHistory', data.weekHistory);
+                if(data.todos) localStorage.setItem('dmcTodos', data.todos);
+                alert("🎉 Data Restored Successfully! Reloading...");
+                location.reload();
+            } catch (err) { alert("❌ Invalid Backup File!"); }
+        };
+        reader.readAsText(file);
+    }
+
+    function resetData() { if(confirm("Are you sure? ALL DATA including timer history will be deleted!")) { localStorage.clear(); location.reload(); } }
+
+    // Init App
+    navTo('home');
 </script>
 </body>
 </html>
