@@ -2,7 +2,7 @@
 <html lang="bn" data-theme="dark" data-skin="default">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Dr. Irfun's Mission DMC</title>
     <style>
         /* --- HIGH-CONTRAST APP VARIABLES --- */
@@ -14,7 +14,9 @@
             --accent-color: #00ff88; --accent-glow: rgba(0, 255, 136, 0.4);
             --danger-color: #ff4757; --warning-color: #ffcc00; --info-color: #32ade6;
             --rev-color: #bf5af2; --prac-color: #ff9500; --input-bg: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(10, 10, 15, 0.95);
+            
+            /* iOS Adaptive Translucent Nav Background */
+            --nav-bg: rgba(25, 25, 30, 0.35);
             --glass-blur: blur(30px);
         }
 
@@ -25,33 +27,41 @@
             --accent-color: #059669; --accent-glow: rgba(5, 150, 105, 0.3);
             --danger-color: #dc2626; --warning-color: #d97706; --info-color: #0284c7;
             --rev-color: #7c3aed; --prac-color: #ea580c; --input-bg: rgba(0, 0, 0, 0.05);
-            --nav-bg: rgba(255, 255, 255, 0.95);
+            
+            /* Light Mode Glass Nav */
+            --nav-bg: rgba(255, 255, 255, 0.4);
         }
 
-        /* --- 7 Premium Skins --- */
+        /* --- 7 Premium Skins (Nav transparency synced) --- */
         [data-skin="doom"] {
             --bg-base: #030503; --card-bg: rgba(10, 20, 10, 0.8); --border-color: rgba(46, 204, 113, 0.2);
             --text-main: #f0fff0; --accent-color: #2ecc71; --accent-glow: rgba(46, 204, 113, 0.5); --info-color: #27ae60;
+            --nav-bg: rgba(10, 25, 10, 0.35);
         }
         [data-skin="football"] {
             --bg-base: #040d04; --card-bg: rgba(15, 30, 15, 0.8); --border-color: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff; --accent-color: #69f0ae; --accent-glow: rgba(105, 240, 174, 0.4); --info-color: #40c4ff;
+            --nav-bg: rgba(10, 25, 10, 0.35);
         }
         [data-skin="cyberpunk"] {
             --bg-base: #070112; --card-bg: rgba(20, 5, 45, 0.8); --border-color: rgba(255, 0, 255, 0.25);
             --text-main: #ffffff; --accent-color: #ff00ff; --accent-glow: rgba(255, 0, 255, 0.6); --info-color: #00f0ff;
+            --nav-bg: rgba(20, 5, 45, 0.35);
         }
         [data-skin="galaxy"] {
             --bg-base: #0f0c29; --card-bg: rgba(36, 36, 62, 0.85); --border-color: rgba(185, 43, 39, 0.3);
             --text-main: #ffffff; --accent-color: #ff4b2b; --accent-glow: rgba(255, 75, 43, 0.5); --info-color: #1565C0;
+            --nav-bg: rgba(36, 36, 62, 0.35);
         }
         [data-skin="ocean"] {
             --bg-base: #001220; --card-bg: rgba(0, 31, 63, 0.85); --border-color: rgba(0, 255, 255, 0.15);
             --text-main: #ffffff; --accent-color: #00e5ff; --accent-glow: rgba(0, 229, 255, 0.5); --info-color: #29b6f6;
+            --nav-bg: rgba(0, 31, 63, 0.35);
         }
         [data-skin="nature"] {
             --bg-base: #0d1a10; --card-bg: rgba(20, 40, 25, 0.85); --border-color: rgba(174, 213, 129, 0.15);
             --text-main: #f1f8e9; --accent-color: #cddc39; --accent-glow: rgba(205, 220, 57, 0.4); --info-color: #4db6ac;
+            --nav-bg: rgba(20, 40, 25, 0.35);
         }
 
         /* Global Resets */
@@ -59,7 +69,7 @@
         body { 
             background-color: var(--bg-base); color: var(--text-main); 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; padding: 0; overflow-x: hidden; height: 100vh;
+            margin: 0; padding: 0; overflow-x: hidden; display: flex; flex-direction: column; height: 100vh;
         }
 
         /* Disable Animations Class */
@@ -76,15 +86,15 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-        /* --- Core Layout & FIX for Side Nav Bug --- */
+        /* --- Core Layout --- */
         .layout-wrapper { display: flex; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; }
         
-        /* THIS LINE FIXES THE ISSUE: Hides side nav completely on Mobile */
         .side-nav { display: none; } 
 
         .app-container { 
             flex: 1; overflow-y: auto; overflow-x: hidden;
-            padding: 45px 15px 120px 15px; /* Bump Safe Padding */
+            /* Extra bottom padding to clear the new floating dock */
+            padding: 45px 15px calc(130px + env(safe-area-inset-bottom)) 15px; 
             position: relative; scrollbar-width: none; z-index: 1; width: 100%;
         }
         .app-container::-webkit-scrollbar { display: none; }
@@ -207,8 +217,7 @@
         .subj-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s; }
         .subj-box.open .subj-chevron { transform: rotate(180deg); color: var(--accent-color); }
         
-        .subj-body { display: none; padding: 0 15px 15px 15px; background: rgba(0,0,0,0.2); }
-        .subj-box.open .subj-body { display: flex; flex-direction: column; gap: 12px; animation: fadeIn 0.3s ease;}
+        .subj-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0,0,0,0.15); }
         
         .subject-controls { padding: 12px 0; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center;}
         .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 11px; transition: 0.2s;}
@@ -256,7 +265,7 @@
         .setting-val input:focus { border-color: var(--accent-color); }
         .setting-val input[type="text"] { width: 150px; text-align: left; }
         
-        /* 7 Skins Grid */
+        /* App Skins Grid (All 7 Restored) */
         .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; padding: 15px;}
         .skin-card { background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;}
         .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 15px var(--accent-glow);}
@@ -278,21 +287,30 @@
         .btn-danger { width: 100%; padding: 15px; background: rgba(255, 59, 48, 0.15); color: var(--danger-color); border: 1px solid rgba(255, 59, 48, 0.3); border-radius: 16px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s;}
         .btn-danger:hover { background: var(--danger-color); color: #fff;}
 
-        /* --- Bottom Navigation Bar --- */
+        /* --- iOS HOME SCREEN STYLE DOCK (Fixed) --- */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: var(--nav-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-top: 1px solid var(--border-color); 
+            position: fixed; 
+            bottom: max(20px, env(safe-area-inset-bottom)); 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 92%; 
+            max-width: 420px; 
+            background: var(--nav-bg); 
+            backdrop-filter: saturate(200%) blur(30px); 
+            -webkit-backdrop-filter: saturate(200%) blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 40px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1);
             display: flex; justify-content: space-around; align-items: center;
-            padding: 12px 10px 25px 10px; z-index: 1000;
+            padding: 10px 10px; z-index: 1000; height: 75px;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 60px; }
-        .nav-icon { font-size: 22px; transition: 0.3s;}
-        .nav-label { font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(5px); transition: 0.3s;}
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 60px; position: relative;}
+        .nav-icon { font-size: 22px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s;}
+        .nav-label { font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(10px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; bottom: -10px; pointer-events: none;}
         
         .nav-item.active { color: var(--accent-color); }
-        .nav-item.active .nav-icon { transform: translateY(-5px); filter: drop-shadow(0 4px 10px var(--accent-glow)); font-size: 24px;}
-        .nav-item.active .nav-label { opacity: 1; transform: translateY(-2px);}
+        .nav-item.active .nav-icon { transform: translateY(-12px) scale(1.15); filter: drop-shadow(0 4px 8px var(--accent-glow)); font-size: 24px;}
+        .nav-item.active .nav-label { opacity: 1; transform: translateY(2px);}
 
         /* Mobile specific fixes */
         @media (max-width: 768px) {
@@ -311,7 +329,7 @@
 
 <!-- Wrapper for Desktop Adaptive Layout -->
 <div class="layout-wrapper">
-    <!-- Desktop Side Nav (HIDDEN ON MOBILE NOW) -->
+    <!-- Desktop Side Nav (HIDDEN ON MOBILE) -->
     <nav class="side-nav">
         <div class="side-logo">🩺 Mission DMC</div>
         <div class="side-nav-item active" onclick="navTo('home', null, this)"><span class="side-icon">🏠</span> <span>Dashboard</span></div>
@@ -495,7 +513,7 @@
                     <!-- App Skins (All 7 Restored) -->
                     <div class="profile-section">
                         <div class="p-title">🎭 App Skins & Themes</div>
-                        <div class="skins-grid" id="skins-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div class="skins-grid" id="skins-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
                             <div class="card skin-card" data-skin="default" onclick="setAppSkin('default')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🔵</div><div style="font-size: 12px; font-weight: 800;">Classic Dark</div></div>
                             <div class="card skin-card" data-skin="doom" onclick="setAppSkin('doom')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🦹‍♂️</div><div style="font-size: 12px; font-weight: 800;">Dr. Doom</div></div>
                             <div class="card skin-card" data-skin="football" onclick="setAppSkin('football')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">⚽</div><div style="font-size: 12px; font-weight: 800;">Pitch Green</div></div>
@@ -552,12 +570,12 @@
                         <button class="btn-danger" onclick="resetData()" style="margin-top: 15px;">🗑️ Factory Reset App</button>
                     </div>
                 </div>
-            </div>
+            </div> <!-- Grid End -->
         </div>
 
     </div>
 
-    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <!-- ================= MOBILE BOTTOM NAVIGATION (iOS STYLE FLOATING) ================= -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="navTo('home', this, null)">
             <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
