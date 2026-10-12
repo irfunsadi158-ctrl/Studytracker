@@ -15,9 +15,9 @@
             --danger-color: #ff4757; --warning-color: #ffcc00; --info-color: #32ade6;
             --rev-color: #bf5af2; --prac-color: #ff9500; --input-bg: rgba(255, 255, 255, 0.08);
             
-            /* iOS Adaptive Translucent Nav Background */
-            --nav-bg: rgba(25, 25, 30, 0.35);
-            --glass-blur: blur(30px);
+            /* iOS Glass Nav Background */
+            --nav-bg: rgba(20, 20, 25, 0.5);
+            --glass-blur: blur(25px);
         }
 
         [data-theme="light"] {
@@ -28,40 +28,39 @@
             --danger-color: #dc2626; --warning-color: #d97706; --info-color: #0284c7;
             --rev-color: #7c3aed; --prac-color: #ea580c; --input-bg: rgba(0, 0, 0, 0.05);
             
-            /* Light Mode Glass Nav */
-            --nav-bg: rgba(255, 255, 255, 0.4);
+            --nav-bg: rgba(255, 255, 255, 0.6);
         }
 
-        /* --- 7 Premium Skins (Nav transparency synced) --- */
+        /* --- 7 Premium Skins --- */
         [data-skin="doom"] {
             --bg-base: #030503; --card-bg: rgba(10, 20, 10, 0.8); --border-color: rgba(46, 204, 113, 0.2);
             --text-main: #f0fff0; --accent-color: #2ecc71; --accent-glow: rgba(46, 204, 113, 0.5); --info-color: #27ae60;
-            --nav-bg: rgba(10, 25, 10, 0.35);
+            --nav-bg: rgba(10, 20, 10, 0.5);
         }
         [data-skin="football"] {
             --bg-base: #040d04; --card-bg: rgba(15, 30, 15, 0.8); --border-color: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff; --accent-color: #69f0ae; --accent-glow: rgba(105, 240, 174, 0.4); --info-color: #40c4ff;
-            --nav-bg: rgba(10, 25, 10, 0.35);
+            --nav-bg: rgba(15, 30, 15, 0.5);
         }
         [data-skin="cyberpunk"] {
             --bg-base: #070112; --card-bg: rgba(20, 5, 45, 0.8); --border-color: rgba(255, 0, 255, 0.25);
             --text-main: #ffffff; --accent-color: #ff00ff; --accent-glow: rgba(255, 0, 255, 0.6); --info-color: #00f0ff;
-            --nav-bg: rgba(20, 5, 45, 0.35);
+            --nav-bg: rgba(20, 5, 45, 0.5);
         }
         [data-skin="galaxy"] {
             --bg-base: #0f0c29; --card-bg: rgba(36, 36, 62, 0.85); --border-color: rgba(185, 43, 39, 0.3);
             --text-main: #ffffff; --accent-color: #ff4b2b; --accent-glow: rgba(255, 75, 43, 0.5); --info-color: #1565C0;
-            --nav-bg: rgba(36, 36, 62, 0.35);
+            --nav-bg: rgba(36, 36, 62, 0.5);
         }
         [data-skin="ocean"] {
             --bg-base: #001220; --card-bg: rgba(0, 31, 63, 0.85); --border-color: rgba(0, 255, 255, 0.15);
             --text-main: #ffffff; --accent-color: #00e5ff; --accent-glow: rgba(0, 229, 255, 0.5); --info-color: #29b6f6;
-            --nav-bg: rgba(0, 31, 63, 0.35);
+            --nav-bg: rgba(0, 31, 63, 0.5);
         }
         [data-skin="nature"] {
             --bg-base: #0d1a10; --card-bg: rgba(20, 40, 25, 0.85); --border-color: rgba(174, 213, 129, 0.15);
             --text-main: #f1f8e9; --accent-color: #cddc39; --accent-glow: rgba(205, 220, 57, 0.4); --info-color: #4db6ac;
-            --nav-bg: rgba(20, 40, 25, 0.35);
+            --nav-bg: rgba(20, 40, 25, 0.5);
         }
 
         /* Global Resets */
@@ -69,7 +68,7 @@
         body { 
             background-color: var(--bg-base); color: var(--text-main); 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; padding: 0; overflow-x: hidden; display: flex; flex-direction: column; height: 100vh;
+            margin: 0; padding: 0; overflow-x: hidden; height: 100vh;
         }
 
         /* Disable Animations Class */
@@ -86,15 +85,13 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-        /* --- Core Layout --- */
+        /* --- Core Layout & FIX for Side Nav Bug --- */
         .layout-wrapper { display: flex; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; }
-        
         .side-nav { display: none; } 
 
         .app-container { 
             flex: 1; overflow-y: auto; overflow-x: hidden;
-            /* Extra bottom padding to clear the new floating dock */
-            padding: 45px 15px calc(130px + env(safe-area-inset-bottom)) 15px; 
+            padding: 45px 15px 130px 15px; 
             position: relative; scrollbar-width: none; z-index: 1; width: 100%;
         }
         .app-container::-webkit-scrollbar { display: none; }
@@ -113,7 +110,6 @@
             .side-nav-item { display: flex; align-items: center; gap: 15px; padding: 15px 20px; border-radius: 14px; color: var(--text-muted); font-weight: 700; cursor: pointer; transition: 0.3s;}
             .side-nav-item:hover { background: var(--input-bg); color: var(--text-main); }
             .side-nav-item.active { background: var(--accent-color); color: #000; box-shadow: 0 5px 15px var(--accent-glow); }
-            
             .app-container { padding: 40px; }
             .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; align-items: start;}
         }
@@ -199,10 +195,11 @@
         .lofi-widget { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-weight: 800; transition: 0.3s;}
         .lofi-widget.active { border-color: var(--info-color); background: rgba(50, 173, 230, 0.1); box-shadow: 0 0 20px rgba(50,173,230,0.2);}
 
-        /* --- THE ULTIMATE 3-LEVEL ACCORDION --- */
+        /* --- THE ULTIMATE 3-LEVEL ACCORDION (PURE CSS NO-CRASH) --- */
         .syllabus-container { display: flex; flex-direction: column; gap: 15px; }
         
-        .subj-box { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s; }
+        /* Level 1: Subject Box */
+        .subj-box { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s ease; }
         .subj-box.open { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow); background: var(--card-bg);}
         
         .subj-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
@@ -214,31 +211,35 @@
         
         .subj-right { display: flex; align-items: center; gap: 12px; }
         .subj-percent { font-size: 16px; font-weight: 900; color: var(--accent-color);}
-        .subj-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s; }
-        .subj-box.open .subj-chevron { transform: rotate(180deg); color: var(--accent-color); }
+        .subj-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s ease; }
+        .subj-box.open > .subj-header .subj-chevron { transform: rotate(180deg); color: var(--accent-color); }
         
-        .subj-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0,0,0,0.15); }
+        /* CSS Only Transition for Subject Body */
+        .subj-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease; padding: 0 15px; background: rgba(0,0,0,0.2); }
+        .subj-box.open > .subj-body { max-height: 6000px; opacity: 1; padding: 10px 15px 15px 15px; }
         
-        .subject-controls { padding: 12px 0; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center;}
+        .subject-controls { padding: 12px 0; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
         .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 11px; transition: 0.2s;}
-        .add-topic-btn:hover { transform: scale(1.05); }
         
-        .paper-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.3s;}
+        /* Level 2: Paper Box */
+        .papers-wrapper { display: flex; flex-direction: column; gap: 10px; }
+        .paper-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.3s ease;}
         .paper-box.open { border-color: var(--info-color); }
+        
         .paper-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(255,255,255,0.02);}
         .paper-title { font-size: 14px; font-weight: 800; color: var(--info-color); letter-spacing: 1px; text-transform: uppercase;}
         .paper-right { display: flex; align-items: center; gap: 10px; }
         .paper-percent { font-size: 14px; font-weight: 900; color: var(--text-main);}
-        .paper-chevron { font-size: 12px; color: var(--text-muted); transition: transform 0.3s; }
-        .paper-box.open .paper-chevron { transform: rotate(180deg); color: var(--info-color); }
+        .paper-chevron { font-size: 12px; color: var(--text-muted); transition: transform 0.3s ease; }
+        .paper-box.open > .paper-header .paper-chevron { transform: rotate(180deg); color: var(--info-color); }
 
-        .paper-body { display: none; padding: 0 12px 12px 12px; }
-        .paper-box.open .paper-body { display: block; animation: fadeIn 0.3s ease;}
+        /* CSS Only Transition for Paper Body */
+        .paper-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease; padding: 0 12px; }
+        .paper-box.open > .paper-body { max-height: 3000px; opacity: 1; padding: 5px 12px 12px 12px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
-        .chapter-list { list-style: none; padding: 0; margin: 0; }
-        .chapter-item { background: var(--input-bg); padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 12px; transition: 0.2s;}
+        /* Level 3: Chapters */
+        .chapter-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;}
+        .chapter-item { background: var(--input-bg); padding: 15px; border-radius: 12px; margin-top: 5px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 12px; transition: 0.2s;}
         .c-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;}
         .c-name { font-size: 14px; font-weight: 700; line-height: 1.4; flex: 1; word-break: break-word;}
         .star-btn { font-size: 18px; opacity: 0.2; cursor: pointer; transition: 0.3s; filter: grayscale(1);}
@@ -266,7 +267,7 @@
         .setting-val input[type="text"] { width: 150px; text-align: left; }
         
         /* App Skins Grid (All 7 Restored) */
-        .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; padding: 15px;}
+        .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; padding: 15px;}
         .skin-card { background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;}
         .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 15px var(--accent-glow);}
         .skin-icon { font-size: 28px; margin-bottom: 8px;}
@@ -287,30 +288,26 @@
         .btn-danger { width: 100%; padding: 15px; background: rgba(255, 59, 48, 0.15); color: var(--danger-color); border: 1px solid rgba(255, 59, 48, 0.3); border-radius: 16px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s;}
         .btn-danger:hover { background: var(--danger-color); color: #fff;}
 
-        /* --- iOS HOME SCREEN STYLE DOCK (Fixed) --- */
+        /* --- PERFECT iOS FLOATING GLASS DOCK --- */
         .bottom-nav {
             position: fixed; 
             bottom: max(20px, env(safe-area-inset-bottom)); 
-            left: 50%; 
-            transform: translateX(-50%);
-            width: 92%; 
-            max-width: 420px; 
+            left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; 
             background: var(--nav-bg); 
-            backdrop-filter: saturate(200%) blur(30px); 
-            -webkit-backdrop-filter: saturate(200%) blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            border-radius: 40px; 
+            backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 40px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1);
             display: flex; justify-content: space-around; align-items: center;
-            padding: 10px 10px; z-index: 1000; height: 75px;
+            padding: 8px 10px; z-index: 1000; height: 75px;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 60px; position: relative;}
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 65px; height: 100%; position: relative;}
         .nav-icon { font-size: 22px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s;}
         .nav-label { font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(10px); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; bottom: -10px; pointer-events: none;}
         
         .nav-item.active { color: var(--accent-color); }
-        .nav-item.active .nav-icon { transform: translateY(-12px) scale(1.15); filter: drop-shadow(0 4px 8px var(--accent-glow)); font-size: 24px;}
-        .nav-item.active .nav-label { opacity: 1; transform: translateY(2px);}
+        .nav-item.active .nav-icon { transform: translateY(-10px) scale(1.1); filter: drop-shadow(0 4px 8px var(--accent-glow)); font-size: 24px;}
+        .nav-item.active .nav-label { opacity: 1; transform: translateY(0);}
 
         /* Mobile specific fixes */
         @media (max-width: 768px) {
@@ -327,15 +324,14 @@
 <div class="bg-orb orb-1"></div>
 <div class="bg-orb orb-2"></div>
 
-<!-- Wrapper for Desktop Adaptive Layout -->
 <div class="layout-wrapper">
-    <!-- Desktop Side Nav (HIDDEN ON MOBILE) -->
+    <!-- Desktop Side Nav -->
     <nav class="side-nav">
         <div class="side-logo">🩺 Mission DMC</div>
-        <div class="side-nav-item active" onclick="navTo('home', null, this)"><span class="side-icon">🏠</span> <span>Dashboard</span></div>
-        <div class="side-nav-item" onclick="navTo('syllabus', null, this)"><span class="side-icon">📚</span> <span>Syllabus</span></div>
-        <div class="side-nav-item" onclick="navTo('timer', null, this)"><span class="side-icon">⏱️</span> <span>Focus Hub</span></div>
-        <div class="side-nav-item" onclick="navTo('profile', null, this)"><span class="side-icon">⚙️</span> <span>Settings</span></div>
+        <div class="side-nav-item active" onclick="haptic(); navTo('home', null, this)"><span class="side-icon">🏠</span> <span>Dashboard</span></div>
+        <div class="side-nav-item" onclick="haptic(); navTo('syllabus', null, this)"><span class="side-icon">📚</span> <span>Syllabus</span></div>
+        <div class="side-nav-item" onclick="haptic(); navTo('timer', null, this)"><span class="side-icon">⏱️</span> <span>Focus Hub</span></div>
+        <div class="side-nav-item" onclick="haptic(); navTo('profile', null, this)"><span class="side-icon">⚙️</span> <span>Settings</span></div>
     </nav>
 
     <!-- Main Container -->
@@ -344,7 +340,6 @@
         <!-- ================= 1. HOME SCREEN ================= -->
         <div id="screen-home" class="screen active">
             
-            <!-- HEADER (NOTCH SAFE & CLEAN) -->
             <div class="header">
                 <div class="profile-info">
                     <div class="avatar-box" id="disp-avatar">👨‍⚕️</div>
@@ -360,7 +355,6 @@
                 <div class="streak-badge">🔥 <span id="streak-count">0</span> Day Streak</div>
             </div>
 
-            <!-- Dashboard Grid -->
             <div class="dashboard-grid">
                 
                 <div style="display:flex; flex-direction: column; gap: 20px;">
@@ -376,7 +370,7 @@
 
                     <div class="stats-grid">
                         <div class="m-card">
-                            <div class="m-title">Deadline <span class="deadline-edit" onclick="document.getElementById('deadline-picker').showPicker()">✏️</span></div>
+                            <div class="m-title">Deadline <span class="deadline-edit" onclick="haptic(); document.getElementById('deadline-picker').showPicker()">✏️</span></div>
                             <input type="date" id="deadline-picker" onchange="saveDeadline()" style="position: absolute; opacity: 0; width: 0; height: 0;">
                             <div class="m-val" id="syl-countdown" style="color: var(--accent-color);">-- d</div>
                         </div>
@@ -392,7 +386,7 @@
                         <div class="todo-header">✅ Daily Micro-Targets</div>
                         <div class="todo-input-wrap">
                             <input type="text" id="todo-input" class="todo-input" placeholder="Add a quick task..." onkeypress="if(event.key==='Enter') addTodo()">
-                            <button class="todo-add" onclick="addTodo()">Add</button>
+                            <button class="todo-add" onclick="haptic(); addTodo()">Add</button>
                         </div>
                         <ul class="todo-list" id="todo-list"></ul>
                     </div>
@@ -406,15 +400,15 @@
             </div> 
         </div>
 
-        <!-- ================= 2. SYLLABUS SCREEN (3-LEVEL NESTED) ================= -->
+        <!-- ================= 2. SYLLABUS SCREEN (BUG-FREE NESTED) ================= -->
         <div id="screen-syllabus" class="screen">
             <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">📚 Syllabus Tracker</h2>
             <div class="accordion-container" id="syllabus-container">
-                <!-- Data Injected via JS Safely -->
+                <!-- Safe DOM Injection -->
             </div>
         </div>
 
-        <!-- ================= 3. TIMER SCREEN (DUAL FOCUS) ================= -->
+        <!-- ================= 3. TIMER SCREEN ================= -->
         <div id="screen-timer" class="screen">
             <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⏱️ Focus Hub</h2>
             
@@ -422,12 +416,12 @@
                 <!-- Custom Pomodoro -->
                 <div class="timer-box card">
                     <span class="t-badge">🍅</span>
-                    <div class="t-title">Pomodoro <span class="pomo-edit" onclick="editPomoTime()">✏️ Edit</span></div>
+                    <div class="t-title">Pomodoro <span class="pomo-edit" onclick="haptic(); editPomoTime()">✏️ Edit</span></div>
                     <div class="t-val" id="pomo-display" style="color: var(--danger-color);">25:00</div>
                     <div class="t-prog-bg"><div class="t-prog-fill" id="pomo-bar"></div></div>
                     <div class="timer-controls">
-                        <button class="t-btn btn-start" id="pomo-play" onclick="togglePomo()">Start</button>
-                        <button class="t-btn btn-stop" onclick="resetPomo()">Reset</button>
+                        <button class="t-btn btn-start" id="pomo-play" onclick="haptic(); togglePomo()">Start</button>
+                        <button class="t-btn btn-stop" onclick="haptic(); resetPomo()">Reset</button>
                     </div>
                 </div>
                 
@@ -438,7 +432,7 @@
                     <div class="t-val" id="ypt-display" style="color: var(--info-color);">00:00:00</div>
                     <div class="t-prog-bg" style="background:transparent;"></div>
                     <div class="timer-controls">
-                        <button class="t-btn btn-start" id="ypt-play" onclick="toggleYPT()" style="width:100%">▶ Start Session</button>
+                        <button class="t-btn btn-start" id="ypt-play" onclick="haptic(); toggleYPT()" style="width:100%">▶ Start Session</button>
                     </div>
                 </div>
             </div>
@@ -459,7 +453,7 @@
                     <div style="font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 22px;">🎧</span> Focus Audio
                     </div>
-                    <button id="lofi-play-btn" onclick="toggleLofi()" style="background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s;">▶ Play</button>
+                    <button id="lofi-play-btn" onclick="haptic(); toggleLofi()" style="background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s;">▶ Play</button>
                 </div>
                 <div id="lofi-container" style="display:none;"></div>
             </div>
@@ -513,14 +507,14 @@
                     <!-- App Skins (All 7 Restored) -->
                     <div class="profile-section">
                         <div class="p-title">🎭 App Skins & Themes</div>
-                        <div class="skins-grid" id="skins-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
-                            <div class="card skin-card" data-skin="default" onclick="setAppSkin('default')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🔵</div><div style="font-size: 12px; font-weight: 800;">Classic Dark</div></div>
-                            <div class="card skin-card" data-skin="doom" onclick="setAppSkin('doom')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🦹‍♂️</div><div style="font-size: 12px; font-weight: 800;">Dr. Doom</div></div>
-                            <div class="card skin-card" data-skin="football" onclick="setAppSkin('football')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">⚽</div><div style="font-size: 12px; font-weight: 800;">Pitch Green</div></div>
-                            <div class="card skin-card" data-skin="cyberpunk" onclick="setAppSkin('cyberpunk')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌃</div><div style="font-size: 12px; font-weight: 800;">Neon Punk</div></div>
-                            <div class="card skin-card" data-skin="galaxy" onclick="setAppSkin('galaxy')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌌</div><div style="font-size: 12px; font-weight: 800;">Galaxy</div></div>
-                            <div class="card skin-card" data-skin="ocean" onclick="setAppSkin('ocean')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌊</div><div style="font-size: 12px; font-weight: 800;">Ocean Deep</div></div>
-                            <div class="card skin-card" data-skin="nature" onclick="setAppSkin('nature')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌿</div><div style="font-size: 12px; font-weight: 800;">Nature Zen</div></div>
+                        <div class="skins-grid" id="skins-grid">
+                            <div class="skin-card" data-skin="default" onclick="haptic(); setAppSkin('default')"><div class="skin-icon">🔵</div><div class="skin-name">Classic Dark</div></div>
+                            <div class="skin-card" data-skin="doom" onclick="haptic(); setAppSkin('doom')"><div class="skin-icon">🦹‍♂️</div><div class="skin-name">Doctor Doom</div></div>
+                            <div class="skin-card" data-skin="football" onclick="haptic(); setAppSkin('football')"><div class="skin-icon">⚽</div><div class="skin-name">Pitch Green</div></div>
+                            <div class="skin-card" data-skin="cyberpunk" onclick="haptic(); setAppSkin('cyberpunk')"><div class="skin-icon">🌃</div><div class="skin-name">Neon Punk</div></div>
+                            <div class="skin-card" data-skin="galaxy" onclick="haptic(); setAppSkin('galaxy')"><div class="skin-icon">🌌</div><div class="skin-name">Galaxy</div></div>
+                            <div class="skin-card" data-skin="ocean" onclick="haptic(); setAppSkin('ocean')"><div class="skin-icon">🌊</div><div class="skin-name">Ocean Deep</div></div>
+                            <div class="skin-card" data-skin="nature" onclick="haptic(); setAppSkin('nature')"><div class="skin-icon">🌿</div><div class="skin-name">Nature Zen</div></div>
                         </div>
                     </div>
 
@@ -531,25 +525,32 @@
                             <div class="setting-row">
                                 <span class="setting-label">🌙 Enable Light Mode</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
+                                    <input type="checkbox" id="theme-toggle" onchange="haptic(); toggleTheme()">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                             <div class="setting-row">
                                 <span class="setting-label">🚀 Disable Animations</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="anim-toggle" onchange="toggleAnim()">
+                                    <input type="checkbox" id="anim-toggle" onchange="haptic(); toggleAnim()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-row">
+                                <span class="setting-label">📳 Haptic Feedback (Vibration)</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="haptic-toggle" onchange="toggleHaptic()">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                             <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 15px;">
                                 <span class="setting-label">✨ Custom Accent Color</span>
-                                <div class="color-picker" id="color-picker" style="display: flex; gap: 15px; flex-wrap: wrap;">
-                                    <div class="color-dot active" style="background: #00ff88;" onclick="setThemeColor('#00ff88', this)"></div>
-                                    <div class="color-dot" style="background: #32ade6;" onclick="setThemeColor('#32ade6', this)"></div>
-                                    <div class="color-dot" style="background: #bf5af2;" onclick="setThemeColor('#bf5af2', this)"></div>
-                                    <div class="color-dot" style="background: #ff9500;" onclick="setThemeColor('#ff9500', this)"></div>
-                                    <div class="color-dot" style="background: #ff3b30;" onclick="setThemeColor('#ff3b30', this)"></div>
+                                <div class="color-picker" id="color-picker">
+                                    <div class="color-dot active" style="background: #00ff88;" onclick="haptic(); setThemeColor('#00ff88', this)"></div>
+                                    <div class="color-dot" style="background: #32ade6;" onclick="haptic(); setThemeColor('#32ade6', this)"></div>
+                                    <div class="color-dot" style="background: #bf5af2;" onclick="haptic(); setThemeColor('#bf5af2', this)"></div>
+                                    <div class="color-dot" style="background: #ff9500;" onclick="haptic(); setThemeColor('#ff9500', this)"></div>
+                                    <div class="color-dot" style="background: #ff3b30;" onclick="haptic(); setThemeColor('#ff3b30', this)"></div>
                                 </div>
                             </div>
                         </div>
@@ -559,40 +560,54 @@
                     <div class="profile-section">
                         <div class="p-title">💾 Data Management</div>
                         <div class="setting-group">
-                            <div class="setting-row" onclick="exportData()" style="cursor: pointer;">
+                            <div class="setting-row" onclick="haptic(); exportData()" style="cursor: pointer;">
                                 <span class="setting-label" style="color: var(--info-color);">📤 Backup Progress</span>
                             </div>
-                            <div class="setting-row" onclick="document.getElementById('import-file').click()" style="cursor: pointer;">
+                            <div class="setting-row" onclick="haptic(); document.getElementById('import-file').click()" style="cursor: pointer;">
                                 <span class="setting-label" style="color: var(--accent-color);">📥 Restore Data File</span>
                                 <input type="file" id="import-file" style="display:none" onchange="importData(event)" accept=".json">
                             </div>
                         </div>
-                        <button class="btn-danger" onclick="resetData()" style="margin-top: 15px;">🗑️ Factory Reset App</button>
+                        <button class="btn-danger" onclick="haptic(); resetData()" style="margin-top: 15px;">🗑️ Factory Reset App</button>
                     </div>
                 </div>
-            </div> <!-- Grid End -->
+            </div>
         </div>
 
     </div>
 
-    <!-- ================= MOBILE BOTTOM NAVIGATION (iOS STYLE FLOATING) ================= -->
+    <!-- ================= iOS STYLE FLOATING NAVIGATION ================= -->
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="navTo('home', this, null)">
+        <div class="nav-item active" onclick="haptic(); navTo('home', this, null)">
             <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
         </div>
-        <div class="nav-item" onclick="navTo('syllabus', this, null)">
+        <div class="nav-item" onclick="haptic(); navTo('syllabus', this, null)">
             <span class="nav-icon">📚</span><span class="nav-label">Syllabus</span>
         </div>
-        <div class="nav-item" onclick="navTo('timer', this, null)">
+        <div class="nav-item" onclick="haptic(); navTo('timer', this, null)">
             <span class="nav-icon">⏱️</span><span class="nav-label">Focus</span>
         </div>
-        <div class="nav-item" onclick="navTo('profile', this, null)">
+        <div class="nav-item" onclick="haptic(); navTo('profile', this, null)">
             <span class="nav-icon">⚙️</span><span class="nav-label">Settings</span>
         </div>
     </nav>
 </div>
 
 <script>
+    // --- Haptic Feedback Function ---
+    let hapticEnabled = localStorage.getItem('dmcHaptic') !== 'false';
+    document.getElementById('haptic-toggle').checked = hapticEnabled;
+    
+    function toggleHaptic() {
+        hapticEnabled = document.getElementById('haptic-toggle').checked;
+        localStorage.setItem('dmcHaptic', hapticEnabled);
+        if(hapticEnabled && navigator.vibrate) navigator.vibrate(40);
+    }
+    
+    function haptic() {
+        if(hapticEnabled && navigator.vibrate) { navigator.vibrate(30); }
+    }
+
     // ==========================================
     // 1. CUSTOM PROFILE & SKINS LOGIC
     // ==========================================
@@ -636,7 +651,7 @@
     initProfile(); setAppSkin(currentSkin);
 
     // ==========================================
-    // 2. MICRO-TASKS (TODO LIST) LOGIC
+    // 2. MICRO-TASKS LOGIC
     // ==========================================
     let todos = JSON.parse(localStorage.getItem('dmcTodos')) || [];
     function renderTodos() {
@@ -645,9 +660,9 @@
         todos.forEach((t, i) => {
             list.innerHTML += `
             <li class="todo-item ${t.done ? 'done' : ''}">
-                <input type="checkbox" class="todo-cb" ${t.done ? 'checked' : ''} onchange="toggleTodo(${i})">
+                <input type="checkbox" class="todo-cb" ${t.done ? 'checked' : ''} onchange="haptic(); toggleTodo(${i})">
                 <span style="flex:1;">${t.text}</span>
-                <button class="todo-del" onclick="delTodo(${i})">×</button>
+                <button class="todo-del" onclick="haptic(); delTodo(${i})">×</button>
             </li>`;
         });
     }
@@ -687,8 +702,6 @@
         }
         
         if(screenId === 'home') { refreshDashboards(); renderWeeklyChart(); }
-        if(screenId === 'syllabus') buildAccordion();
-        
         document.getElementById('main-scroll').scrollTo(0, 0);
     }
 
@@ -698,13 +711,11 @@
     const hour = new Date().getHours();
     const greetEl = document.getElementById('greeting-msg');
     
-    // Greeting format fix
     if(hour < 12) greetEl.innerText = `Good Morning`;
     else if(hour < 18) greetEl.innerText = `Good Afternoon`;
     else greetEl.innerText = `Good Evening`;
 
     let todayStr = new Date().toDateString();
-
     let totalStudySecs = parseInt(localStorage.getItem('dmcYptStudySecs')) || 0;
     let weekHistory = JSON.parse(localStorage.getItem('dmcWeekHistory')) || {};
     if(!weekHistory[todayStr]) weekHistory[todayStr] = totalStudySecs;
@@ -819,7 +830,6 @@
         if(el) el.classList.add('active');
         
         document.querySelector('.orb-1').style.background = color;
-        buildAccordion(); 
     }
 
     // ==========================================
@@ -854,7 +864,7 @@
         } else {
             pomoInt = setInterval(() => {
                 if(pomoTime > 0) { pomoTime--; updatePomoUI(); }
-                else { clearInterval(pomoInt); isPomoRunning = false; alert("🍅 Focus Session Complete!"); resetPomo(); }
+                else { clearInterval(pomoInt); isPomoRunning = false; if(hapticEnabled && navigator.vibrate) navigator.vibrate([200, 100, 200]); alert("🍅 Focus Session Complete!"); resetPomo(); }
             }, 1000);
             isPomoRunning = true; btn.innerText = "Pause"; btn.classList.add('active');
         }
@@ -910,7 +920,7 @@
     }
 
     // ==========================================
-    // 7. 3-LEVEL NESTED SYLLABUS DATA (BUG-FREE V11)
+    // 7. 3-LEVEL NESTED SYLLABUS DATA (BULLETPROOF PURE CSS SYSTEM)
     // ==========================================
     let uWeights = JSON.parse(localStorage.getItem('dmcSubjectWeights')) || { phy: 1.5, chem: 2.5, bio: 1.5, math: 1.5, med: 0.5 };
     
@@ -920,7 +930,7 @@
 
     function saveWeights() {
         uWeights = { phy: parseFloat(document.getElementById('w-phy').value)||1, chem: parseFloat(document.getElementById('w-chem').value)||1, bio: parseFloat(document.getElementById('w-bio').value)||1, math: parseFloat(document.getElementById('w-math').value)||1, med: parseFloat(document.getElementById('w-med').value)||1 };
-        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); refreshDashboards(); buildAccordion();
+        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); refreshDashboards(); updateProgDOMOnly();
     }
 
     const syllabusData = {
@@ -961,22 +971,19 @@
         }
     };
 
-    // Safely load Custom Chapters into a new Extra Topics paper without crashing
-    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChaptersV11')) || {};
+    // Safely load Custom Chapters without duplicating papers
+    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChaptersV12')) || {};
     for(let key in customChapters) {
         if(customChapters[key].length > 0 && syllabusData[key]) {
-            syllabusData[key].papers.push({ name: "Extra Topics", chapters: customChapters[key] });
+            let hasExtra = syllabusData[key].papers.some(p => p.name === "Extra Topics");
+            if(!hasExtra) {
+                syllabusData[key].papers.push({ name: "Extra Topics", chapters: customChapters[key] });
+            }
         }
     }
 
     let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV11')) || {};
-    
-    // Quick Migration
-    if(Object.keys(savedProgress).length === 0) {
-        let oldProg = JSON.parse(localStorage.getItem('missionDmcProgressV10')) || JSON.parse(localStorage.getItem('missionDmcProgressV9')) || {};
-        savedProgress = oldProg; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress));
-    }
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV12')) || {};
 
     let savedDeadline = localStorage.getItem('missionDmcDeadline') || "2026-10-31";
     document.getElementById('deadline-picker').value = savedDeadline;
@@ -986,104 +993,119 @@
     function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? 'var(--warning-color)' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
     function getMastery(pct) { if(pct < 30) return "Novice"; if(pct < 70) return "Scholar"; if(pct < 100) return "Advanced"; return "Master 🏆"; }
 
-    // --- 3-LEVEL NESTED ACCORDION BUILDER ---
+    // --- BULLETPROOF ACCORDION BUILDER ---
     function buildAccordion() {
         const container = document.getElementById('syllabus-container');
         container.innerHTML = ''; 
         
-        try {
-            for (const [subjKey, subject] of Object.entries(syllabusData)) {
-                let totalSubjCh = 0; let compSubjCh = 0;
-                subject.papers.forEach((paper, pIndex) => {
-                    totalSubjCh += paper.chapters.length;
-                    paper.chapters.forEach((_, cIndex) => {
-                        let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
-                        if(c) compSubjCh += (c.val / 100);
-                    });
+        for (const [subjKey, subject] of Object.entries(syllabusData)) {
+            let totalSubjCh = 0; let compSubjCh = 0;
+            subject.papers.forEach((paper, pIndex) => {
+                totalSubjCh += paper.chapters.length;
+                paper.chapters.forEach((_, cIndex) => {
+                    let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                    if(c) {
+                        let val = parseInt(c.val) || 0;
+                        compSubjCh += (val / 100);
+                    }
                 });
-                let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
-                const isTargeted = !excludedSubjects.includes(subjKey);
+            });
+            let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
+            const isTargeted = !excludedSubjects.includes(subjKey);
 
-                let accHtml = `
-                <div class="subj-box" id="subj-box-${subjKey}">
-                    <div class="subj-header" onclick="toggleSubj('${subjKey}')">
-                        <div class="subj-title-wrap">
-                            <div class="subj-title">${subject.icon} ${subject.name} <span class="mastery-badge">${getMastery(subjPercent)}</span></div>
-                            <div class="subj-prog-bg"><div class="subj-prog-fill" style="width:${subjPercent}%"></div></div>
-                        </div>
-                        <div class="subj-right">
-                            <div class="subj-percent">${subjPercent}%</div>
-                            <div class="subj-chevron">▼</div>
+            let accHtml = `
+            <div class="subj-box" id="subj-box-${subjKey}">
+                <div class="subj-header" onclick="haptic(); toggleSubj('${subjKey}')">
+                    <div class="subj-title-wrap">
+                        <div class="subj-title">${subject.icon} ${subject.name} <span class="mastery-badge" id="mastery-${subjKey}">${getMastery(subjPercent)}</span></div>
+                        <div class="subj-prog-bg"><div class="subj-prog-fill" id="s-fill-${subjKey}" style="width:${subjPercent}%"></div></div>
+                    </div>
+                    <div class="subj-right">
+                        <div class="subj-percent" id="s-pct-${subjKey}">${subjPercent}%</div>
+                        <div class="subj-chevron">▼</div>
+                    </div>
+                </div>
+                <div class="subj-body" id="subj-body-${subjKey}">
+                    <div class="subject-controls">
+                        <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color); font-weight:800; font-size:13px;"><input type="checkbox" onchange="haptic(); toggleExcludeBox('${subjKey}', this)" ${excludedSubjects.includes(subjKey) ? 'checked' : ''}> Exclude Subject</label>
+                        <button class="add-topic-btn" onclick="haptic(); addCustomChapter('${subjKey}')">+ Add Topic</button>
+                    </div>
+                    <div class="papers-wrapper">`;
+
+            subject.papers.forEach((paper, pIndex) => {
+                let totalPCh = paper.chapters.length; let compPCh = 0;
+                paper.chapters.forEach((_, cIndex) => { 
+                    let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                    if(c) {
+                        let val = parseInt(c.val) || 0;
+                        compPCh += (val / 100); 
+                    }
+                });
+                let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
+
+                accHtml += `
+                <div class="paper-box" id="paper-box-${subjKey}-${pIndex}">
+                    <div class="paper-header" onclick="haptic(); togglePaper('${subjKey}', ${pIndex})">
+                        <div class="paper-title">${paper.name}</div>
+                        <div class="paper-right">
+                            <div class="paper-percent" id="p-pct-${subjKey}-${pIndex}">${pPercent}%</div>
+                            <div class="paper-chevron">▼</div>
                         </div>
                     </div>
-                    <div class="subj-body" id="subj-body-${subjKey}">
-                        <div class="subject-controls">
-                            <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color); font-weight:800; font-size:13px;"><input type="checkbox" onchange="toggleExcludeBox('${subjKey}', this)" ${excludedSubjects.includes(subjKey) ? 'checked' : ''}> Exclude Subject</label>
-                            <button class="add-topic-btn" onclick="addCustomChapter('${subjKey}')">+ Add Topic</button>
-                        </div>`;
+                    <div class="paper-body" id="paper-body-${subjKey}-${pIndex}">
+                        <ul class="chapter-list">`;
 
-                subject.papers.forEach((paper, pIndex) => {
-                    let totalPCh = paper.chapters.length; let compPCh = 0;
-                    paper.chapters.forEach((_, cIndex) => { let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; if(c) compPCh += (c.val / 100); });
-                    let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
-
+                paper.chapters.forEach((chapter, cIndex) => {
+                    const chapterId = `${subjKey}-p${pIndex}-ch-${cIndex}`; 
+                    const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
+                    let safeVal = parseInt(cData.val) || 0;
+                    
                     accHtml += `
-                    <div class="paper-box" id="paper-box-${subjKey}-${pIndex}">
-                        <div class="paper-header" onclick="togglePaper('${subjKey}', ${pIndex})">
-                            <div class="paper-title">${paper.name}</div>
-                            <div class="paper-right">
-                                <div class="paper-percent">${pPercent}%</div>
-                                <div class="paper-chevron">▼</div>
+                        <li class="chapter-item">
+                            <div class="c-header">
+                                <span class="star-btn ${cData.star ? 'active' : ''}" onclick="haptic(); toggleStar('${chapterId}', this)">⭐</span>
+                                <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
                             </div>
-                        </div>
-                        <div class="paper-body" id="paper-body-${subjKey}-${pIndex}">
-                            <ul class="chapter-list">`;
-
-                    paper.chapters.forEach((chapter, cIndex) => {
-                        const chapterId = `${subjKey}-p${pIndex}-ch-${cIndex}`; 
-                        const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
-                        
-                        accHtml += `
-                            <li class="chapter-item">
-                                <div class="c-header">
-                                    <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)">⭐</span>
-                                    <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                            <div class="c-actions">
+                                <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="haptic(); togglePrac('${chapterId}', this)">📝 Prac</div>
+                                <div class="rev-wrap">
+                                    <button onclick="haptic(); changeRev('${chapterId}', -1)">-</button>
+                                    <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
+                                    <button onclick="haptic(); changeRev('${chapterId}', 1)">+</button>
                                 </div>
-                                <div class="c-actions">
-                                    <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="togglePrac('${chapterId}', this)">📝 Prac</div>
-                                    <div class="rev-wrap">
-                                        <button onclick="changeRev('${chapterId}', -1)">-</button>
-                                        <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
-                                        <button onclick="changeRev('${chapterId}', 1)">+</button>
-                                    </div>
-                                    <select class="c-select" id="${chapterId}" onchange="updateProg('${subjKey}', ${pIndex}, '${chapterId}', this)" style="color: ${getColor(cData.val)}">
-                                        <option value="0" ${cData.val == 0 ? 'selected' : ''}>0%</option>
-                                        <option value="25" ${cData.val == 25 ? 'selected' : ''}>25%</option>
-                                        <option value="50" ${cData.val == 50 ? 'selected' : ''}>50%</option>
-                                        <option value="75" ${cData.val == 75 ? 'selected' : ''}>75%</option>
-                                        <option value="100" ${cData.val == 100 ? 'selected' : ''}>100%</option>
-                                    </select>
-                                </div>
-                            </li>`;
-                    });
-                    accHtml += `</ul></div></div>`; 
+                                <select class="c-select" id="${chapterId}" onchange="updateProg('${subjKey}', ${pIndex}, '${chapterId}', this)" style="color: ${getColor(safeVal)}">
+                                    <option value="0" ${safeVal == 0 ? 'selected' : ''}>0%</option>
+                                    <option value="25" ${safeVal == 25 ? 'selected' : ''}>25%</option>
+                                    <option value="50" ${safeVal == 50 ? 'selected' : ''}>50%</option>
+                                    <option value="75" ${safeVal == 75 ? 'selected' : ''}>75%</option>
+                                    <option value="100" ${safeVal == 100 ? 'selected' : ''}>100%</option>
+                                </select>
+                            </div>
+                        </li>`;
                 });
-                accHtml += `</div></div>`; 
-                container.innerHTML += accHtml;
-            }
-        } catch(e) {
-            container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger-color);">Error loading syllabus data. Please Factory Reset.</div>`;
+                accHtml += `</ul></div></div>`; 
+            });
+            accHtml += `</div></div></div>`; 
+            container.innerHTML += accHtml;
         }
     }
 
+    // --- ACCORDION AUTO-CLOSE (CSS-BASED & GLITCH FREE) ---
     function toggleSubj(key) {
         let box = document.getElementById(`subj-box-${key}`);
-        document.querySelectorAll('.subj-box').forEach(el => { if(el.id !== `subj-box-${key}`) el.classList.remove('open'); });
+        // Close all other subjects
+        document.querySelectorAll('.subj-box').forEach(el => { 
+            if(el.id !== `subj-box-${key}`) el.classList.remove('open'); 
+        });
         box.classList.toggle('open');
     }
 
     function togglePaper(subjKey, pIndex) {
         let box = document.getElementById(`paper-box-${subjKey}-${pIndex}`);
+        // Close all other papers inside THIS subject
+        document.querySelectorAll(`#subj-body-${subjKey} .paper-box`).forEach(el => {
+            if(el.id !== `paper-box-${subjKey}-${pIndex}`) el.classList.remove('open');
+        });
         box.classList.toggle('open');
     }
 
@@ -1092,29 +1114,60 @@
         if(t && t.trim()!=="") {
             if(!customChapters[subjKey]) customChapters[subjKey] = [];
             customChapters[subjKey].push(t.trim());
-            localStorage.setItem('missionDmcCustomChaptersV11', JSON.stringify(customChapters));
+            localStorage.setItem('missionDmcCustomChaptersV12', JSON.stringify(customChapters));
             location.reload();
         }
     }
 
-    function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); buildAccordion(); }
-    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
-    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
-    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
+    function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); updateProgDOMOnly(); }
+    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
+    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
+    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
     
+    // --- SMART DOM UPDATE FOR SMOOTHNESS & CELEBRATION ---
     function updateProg(subjKey, pIndex, chapterId, el) { 
         if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0, prac:false }; 
         savedProgress[chapterId].val = parseInt(el.value); 
-        localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); 
+        localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); 
         el.style.color = getColor(el.value); 
         
-        refreshDashboards();
+        // 100% Celebration Haptic
+        if(el.value === "100" && hapticEnabled && navigator.vibrate) {
+            navigator.vibrate([100, 50, 100, 50, 200]);
+        }
         
-        let isSubjOpen = document.getElementById(`subj-box-${subjKey}`).classList.contains('open');
-        let isPaperOpen = document.getElementById(`paper-box-${subjKey}-${pIndex}`).classList.contains('open');
-        buildAccordion();
-        if(isSubjOpen) toggleSubj(subjKey);
-        if(isPaperOpen) togglePaper(subjKey, pIndex);
+        updateProgDOMOnly();
+        refreshDashboards(); 
+    }
+
+    function updateProgDOMOnly() {
+        for (const [subjKey, subject] of Object.entries(syllabusData)) {
+            let totalSubjCh = 0; let compSubjCh = 0;
+            subject.papers.forEach((paper, pIndex) => {
+                let totalPCh = paper.chapters.length; let compPCh = 0;
+                paper.chapters.forEach((_, cIndex) => {
+                    let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                    if(c) { 
+                        let v = parseInt(c.val) || 0;
+                        compPCh += (v / 100); 
+                        compSubjCh += (v / 100); 
+                    }
+                });
+                totalSubjCh += totalPCh;
+                let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
+                let pPctEl = document.getElementById(`p-pct-${subjKey}-${pIndex}`);
+                if(pPctEl) pPctEl.innerText = pPercent + "%";
+            });
+
+            let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
+            let sPctEl = document.getElementById(`s-pct-${subjKey}`);
+            let sFillEl = document.getElementById(`s-fill-${subjKey}`);
+            let sBadgeEl = document.getElementById(`mastery-${subjKey}`);
+            
+            if(sPctEl) sPctEl.innerText = subjPercent + "%";
+            if(sFillEl) sFillEl.style.width = subjPercent + "%";
+            if(sBadgeEl) sBadgeEl.innerText = getMastery(subjPercent);
+        }
     }
 
     // --- DASHBOARD CALCULATIONS ---
@@ -1127,7 +1180,10 @@
                     let chCount = paper.chapters.length; actW += (chCount * w); totalRaw += chCount;
                     paper.chapters.forEach((_, cIndex) => {
                         let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
-                        if(c) { compW += ((c.val / 100) * w); compRaw += (c.val / 100); }
+                        if(c) { 
+                            let v = parseInt(c.val) || 0;
+                            compW += ((v / 100) * w); compRaw += (v / 100); 
+                        }
                     });
                 });
             }
@@ -1148,9 +1204,9 @@
     // --- DATA MANAGEMENT ---
     function exportData() {
         const data = {
-            profile: localStorage.getItem('dmcProfileData'), progress: localStorage.getItem('missionDmcProgressV11'), excluded: localStorage.getItem('missionDmcExcluded'),
+            profile: localStorage.getItem('dmcProfileData'), progress: localStorage.getItem('missionDmcProgressV12'), excluded: localStorage.getItem('missionDmcExcluded'),
             weights: localStorage.getItem('dmcSubjectWeights'), skin: localStorage.getItem('dmcSkin'), studySecs: localStorage.getItem('dmcLifetimeSecs'),
-            weekHistory: localStorage.getItem('dmcWeekHistory'), todos: localStorage.getItem('dmcTodos'), customCh: localStorage.getItem('missionDmcCustomChaptersV11')
+            weekHistory: localStorage.getItem('dmcWeekHistory'), todos: localStorage.getItem('dmcTodos'), customCh: localStorage.getItem('missionDmcCustomChaptersV12')
         };
         const blob = new Blob([JSON.stringify(data)], {type: "application/json"}); const url = URL.createObjectURL(blob);
         const a = document.createElement("a"); a.href = url; a.download = `Mission_DMC_Backup_${new Date().toISOString().split('T')[0]}.json`;
@@ -1162,11 +1218,11 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if(data.profile) localStorage.setItem('dmcProfileData', data.profile); if(data.progress) localStorage.setItem('missionDmcProgressV11', data.progress);
+                if(data.profile) localStorage.setItem('dmcProfileData', data.profile); if(data.progress) localStorage.setItem('missionDmcProgressV12', data.progress);
                 if(data.excluded) localStorage.setItem('missionDmcExcluded', data.excluded); if(data.weights) localStorage.setItem('dmcSubjectWeights', data.weights);
                 if(data.skin) localStorage.setItem('dmcSkin', data.skin); if(data.studySecs) localStorage.setItem('dmcLifetimeSecs', data.studySecs);
                 if(data.weekHistory) localStorage.setItem('dmcWeekHistory', data.weekHistory); if(data.todos) localStorage.setItem('dmcTodos', data.todos);
-                if(data.customCh) localStorage.setItem('missionDmcCustomChaptersV11', data.customCh);
+                if(data.customCh) localStorage.setItem('missionDmcCustomChaptersV12', data.customCh);
                 alert("🎉 Data Restored Successfully! Reloading..."); location.reload();
             } catch (err) { alert("❌ Invalid Backup File!"); }
         }; reader.readAsText(file);
@@ -1175,6 +1231,7 @@
     function resetData() { if(confirm("Are you sure? ALL DATA including timer history will be deleted!")) { localStorage.clear(); location.reload(); } }
 
     // Init App
+    buildAccordion();
     navTo('home');
 </script>
 </body>
