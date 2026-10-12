@@ -3,71 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dr. Irfun's Ultimate Dashboard</title>
+    <title>Dr. Irfun's Mission DMC</title>
     <style>
         /* --- HIGH-CONTRAST APP VARIABLES --- */
         :root {
             --bg-base: #000000; --bg-surface: #0a0a0c; 
-            --card-bg: rgba(20, 20, 25, 0.85);
+            --card-bg: rgba(20, 20, 25, 0.75); 
             --border-color: rgba(255, 255, 255, 0.12);
-            --text-main: #ffffff; --text-muted: #a1a1aa;
+            --text-main: #ffffff; --text-muted: #a1a1aa; 
             --accent-color: #00ff88; --accent-glow: rgba(0, 255, 136, 0.4);
             --danger-color: #ff4757; --warning-color: #ffcc00; --info-color: #32ade6;
-            --rev-color: #bf5af2; --prac-color: #ff9500; --input-bg: rgba(0, 0, 0, 0.4);
+            --rev-color: #bf5af2; --prac-color: #ff9500; --input-bg: rgba(255, 255, 255, 0.08);
             --nav-bg: rgba(10, 10, 15, 0.95);
-            --overall-grad: linear-gradient(135deg, #091221 0%, #173673 100%);
             --glass-blur: blur(30px);
         }
 
         [data-theme="light"] {
             --bg-base: #f2f2f7; --bg-surface: #ffffff; 
-            --card-bg: rgba(255, 255, 255, 0.95); --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.85); --border-color: rgba(0, 0, 0, 0.1);
             --text-main: #111827; --text-muted: #4b5563; 
             --accent-color: #059669; --accent-glow: rgba(5, 150, 105, 0.3);
             --danger-color: #dc2626; --warning-color: #d97706; --info-color: #0284c7;
             --rev-color: #7c3aed; --prac-color: #ea580c; --input-bg: rgba(0, 0, 0, 0.05);
             --nav-bg: rgba(255, 255, 255, 0.95);
-            --overall-grad: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
         }
 
-        /* Skins */
+        /* --- 7 Premium Skins --- */
         [data-skin="doom"] {
-            --bg-base: #030503; --bg-surface: #070c07; --card-bg: rgba(10, 20, 10, 0.9); --border-color: rgba(46, 204, 113, 0.2);
-            --text-main: #f0fff0; --text-muted: #81c784; --accent-color: #2ecc71; --accent-glow: rgba(46, 204, 113, 0.5);
-            --danger-color: #e74c3c; --info-color: #27ae60; --rev-color: #8e44ad; --prac-color: #e67e22; --input-bg: rgba(0, 0, 0, 0.6);
-            --nav-bg: rgba(5, 10, 5, 0.95); --overall-grad: linear-gradient(135deg, #000000 0%, #063b15 100%);
+            --bg-base: #030503; --card-bg: rgba(10, 20, 10, 0.8); --border-color: rgba(46, 204, 113, 0.2);
+            --text-main: #f0fff0; --accent-color: #2ecc71; --accent-glow: rgba(46, 204, 113, 0.5); --info-color: #27ae60;
         }
         [data-skin="football"] {
-            --bg-base: #040d04; --bg-surface: #0a1a0a; --card-bg: rgba(15, 30, 15, 0.9); --border-color: rgba(255, 255, 255, 0.15);
-            --text-main: #ffffff; --text-muted: #aed581; --accent-color: #69f0ae; --accent-glow: rgba(105, 240, 174, 0.4);
-            --danger-color: #ff3d00; --info-color: #40c4ff; --rev-color: #e040fb; --prac-color: #ff9100; --input-bg: rgba(0, 0, 0, 0.5);
-            --nav-bg: rgba(5, 15, 5, 0.95); --overall-grad: linear-gradient(135deg, #004d40 0%, #0091ea 100%);
+            --bg-base: #040d04; --card-bg: rgba(15, 30, 15, 0.8); --border-color: rgba(255, 255, 255, 0.15);
+            --text-main: #ffffff; --accent-color: #69f0ae; --accent-glow: rgba(105, 240, 174, 0.4); --info-color: #40c4ff;
         }
         [data-skin="cyberpunk"] {
-            --bg-base: #070112; --bg-surface: #0e0224; --card-bg: rgba(20, 5, 45, 0.9); --border-color: rgba(255, 0, 255, 0.25);
-            --text-main: #ffffff; --text-muted: #e1bee7; --accent-color: #ff00ff; --accent-glow: rgba(255, 0, 255, 0.6);
-            --danger-color: #ff003c; --info-color: #00f0ff; --rev-color: #b000ff; --prac-color: #ff5e00; --input-bg: rgba(0, 0, 0, 0.6);
-            --nav-bg: rgba(10, 2, 25, 0.95); --overall-grad: linear-gradient(135deg, #2a004f 0%, #d8004f 100%);
+            --bg-base: #070112; --card-bg: rgba(20, 5, 45, 0.8); --border-color: rgba(255, 0, 255, 0.25);
+            --text-main: #ffffff; --accent-color: #ff00ff; --accent-glow: rgba(255, 0, 255, 0.6); --info-color: #00f0ff;
         }
         [data-skin="galaxy"] {
-            --bg-base: #0f0c29; --bg-surface: #1e133d; --card-bg: rgba(36, 36, 62, 0.85); --border-color: rgba(185, 43, 39, 0.3);
-            --text-main: #ffffff; --text-muted: #d8b4e2; --accent-color: #ff4b2b; --accent-glow: rgba(255, 75, 43, 0.5);
-            --danger-color: #ff416c; --info-color: #1565C0; --rev-color: #8E2DE2; --prac-color: #F37335; --input-bg: rgba(0, 0, 0, 0.5);
-            --nav-bg: rgba(15, 12, 41, 0.95); --overall-grad: linear-gradient(135deg, #240b36 0%, #c31432 100%);
+            --bg-base: #0f0c29; --card-bg: rgba(36, 36, 62, 0.85); --border-color: rgba(185, 43, 39, 0.3);
+            --text-main: #ffffff; --accent-color: #ff4b2b; --accent-glow: rgba(255, 75, 43, 0.5); --info-color: #1565C0;
         }
         [data-skin="ocean"] {
-            --bg-base: #001220; --bg-surface: #001e36; --card-bg: rgba(0, 31, 63, 0.85); --border-color: rgba(0, 255, 255, 0.15);
-            --text-main: #ffffff; --text-muted: #80deea; --accent-color: #00e5ff; --accent-glow: rgba(0, 229, 255, 0.5);
-            --danger-color: #ff1744; --info-color: #29b6f6; --rev-color: #b388ff; --prac-color: #ffc400; --input-bg: rgba(0, 0, 0, 0.4);
-            --nav-bg: rgba(0, 18, 32, 0.95); --overall-grad: linear-gradient(135deg, #001f3f 0%, #00acc1 100%);
+            --bg-base: #001220; --card-bg: rgba(0, 31, 63, 0.85); --border-color: rgba(0, 255, 255, 0.15);
+            --text-main: #ffffff; --accent-color: #00e5ff; --accent-glow: rgba(0, 229, 255, 0.5); --info-color: #29b6f6;
         }
         [data-skin="nature"] {
-            --bg-base: #0d1a10; --bg-surface: #122616; --card-bg: rgba(20, 40, 25, 0.85); --border-color: rgba(174, 213, 129, 0.15);
-            --text-main: #f1f8e9; --text-muted: #aed581; --accent-color: #cddc39; --accent-glow: rgba(205, 220, 57, 0.4);
-            --danger-color: #ff7043; --info-color: #4db6ac; --rev-color: #9575cd; --prac-color: #ffb74d; --input-bg: rgba(0, 0, 0, 0.5);
-            --nav-bg: rgba(13, 26, 16, 0.95); --overall-grad: linear-gradient(135deg, #1b5e20 0%, #827717 100%);
+            --bg-base: #0d1a10; --card-bg: rgba(20, 40, 25, 0.85); --border-color: rgba(174, 213, 129, 0.15);
+            --text-main: #f1f8e9; --accent-color: #cddc39; --accent-glow: rgba(205, 220, 57, 0.4); --info-color: #4db6ac;
         }
 
+        /* Global Resets */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent;}
         body { 
             background-color: var(--bg-base); color: var(--text-main); 
@@ -75,169 +62,187 @@
             margin: 0; padding: 0; overflow-x: hidden; height: 100vh;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
+        /* Disable Animations Class */
+        .no-anim, .no-anim * { animation: none !important; transition: none !important; }
+        .no-anim .bg-orb { display: none !important; }
+
+        /* --- Animated Background Orbs --- */
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.4; animation: floatOrb 15s infinite alternate ease-in-out;}
+        .orb-1 { width: 350px; height: 350px; background: var(--accent-color); top: -100px; left: -100px; }
+        .orb-2 { width: 450px; height: 450px; background: var(--info-color); bottom: -100px; right: -100px; animation-delay: -7s;}
+        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(80px, 80px) scale(1.2); } }
+
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-        /* --- Adaptive Layout: Mobile First --- */
-        .layout-wrapper { display: flex; height: 100vh; width: 100vw; }
+        /* --- Core Layout & FIX for Side Nav Bug --- */
+        .layout-wrapper { display: flex; height: 100vh; width: 100vw; flex-direction: column; overflow: hidden; }
         
-        .side-nav { display: none; } /* Hidden on mobile */
-        
+        /* THIS LINE FIXES THE ISSUE: Hides side nav completely on Mobile */
+        .side-nav { display: none; } 
+
         .app-container { 
             flex: 1; overflow-y: auto; overflow-x: hidden;
-            padding: 20px 15px 120px 15px; 
-            position: relative; scrollbar-width: none;
+            padding: 45px 15px 120px 15px; /* Bump Safe Padding */
+            position: relative; scrollbar-width: none; z-index: 1; width: 100%;
         }
         .app-container::-webkit-scrollbar { display: none; }
 
-        .screen { display: none; animation: fadeSlide 0.4s ease; }
+        .screen { display: none; animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .screen.active { display: flex; flex-direction: column; gap: 20px; }
 
-        @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(15px); filter: blur(3px);} 100% { opacity: 1; transform: translateY(0); filter: blur(0);} }
 
-        /* --- Desktop & Tablet Layout --- */
-        @media (min-width: 768px) {
-            .bottom-nav { display: none !important; } /* Hide bottom nav on desktop */
-            .side-nav { 
-                display: flex; flex-direction: column; width: 250px; background: var(--bg-surface); 
-                border-right: 1px solid var(--border-color); padding: 30px 20px; gap: 15px;
-            }
-            .side-logo { font-size: 20px; font-weight: 900; color: var(--accent-color); margin-bottom: 30px; display: flex; align-items: center; gap: 10px;}
-            .side-nav-item { 
-                display: flex; align-items: center; gap: 15px; padding: 12px 20px; border-radius: 12px; 
-                color: var(--text-muted); font-weight: 700; cursor: pointer; transition: 0.3s;
-            }
+        /* Desktop Layout */
+        @media (min-width: 992px) {
+            .layout-wrapper { flex-direction: row; }
+            .bottom-nav { display: none !important; }
+            .side-nav { display: flex; flex-direction: column; width: 260px; background: var(--nav-bg); border-right: 1px solid var(--border-color); padding: 30px 20px; gap: 15px; z-index: 5;}
+            .side-logo { font-size: 22px; font-weight: 900; color: var(--accent-color); margin-bottom: 30px; display: flex; align-items: center; gap: 10px;}
+            .side-nav-item { display: flex; align-items: center; gap: 15px; padding: 15px 20px; border-radius: 14px; color: var(--text-muted); font-weight: 700; cursor: pointer; transition: 0.3s;}
             .side-nav-item:hover { background: var(--input-bg); color: var(--text-main); }
             .side-nav-item.active { background: var(--accent-color); color: #000; box-shadow: 0 5px 15px var(--accent-glow); }
-            .side-icon { font-size: 20px; }
-
+            
             .app-container { padding: 40px; }
-            /* Grid layouts for large screens */
-            .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; align-items: start;}
-            .overall-card { grid-column: 1 / -1; } /* Spans full width */
+            .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; align-items: start;}
         }
 
-        /* --- Cards & UI Elements --- */
+        /* --- Premium Cards --- */
         .card { 
             background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); 
             border: 1px solid var(--border-color); border-radius: 24px; padding: 20px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05); transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: 0.3s;
         }
 
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .profile-info { display: flex; gap: 15px; align-items: center;}
-        .avatar-box { font-size: 35px; background: var(--input-bg); width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
-        .greeting { font-size: 13px; color: var(--info-color); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;}
-        .header h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;}
-        .badges-wrap { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;}
-        .level-badge { background: rgba(50, 173, 230, 0.15); color: var(--info-color); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(50, 173, 230, 0.3); }
-        .streak-badge { background: rgba(255, 59, 48, 0.15); color: var(--danger-color); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 59, 48, 0.3);}
-
-        /* Notes & To-Do */
-        .notes-section { display: flex; align-items: center; gap: 12px; padding: 18px; border-radius: 20px; background: var(--input-bg); border: 1px solid var(--border-color);}
-        .notes-input { flex: 1; background: transparent; border: none; color: var(--text-main); font-size: 14px; font-weight: 600; outline: none; }
+        /* --- Header --- */
+        .header { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 5px;}
+        .profile-info { display: flex; gap: 15px; align-items: center; flex: 1;}
+        .avatar-box { font-size: 30px; background: var(--input-bg); width: 60px; height: 60px; flex-shrink: 0; border-radius: 18px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
         
+        .header-text-wrap { display: flex; flex-direction: column; justify-content: center; }
+        .greeting { font-size: 12px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px;}
+        .header h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; word-break: break-word; line-height: 1.2;}
+
+        .badges-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;}
+        .level-badge { background: rgba(50, 173, 230, 0.15); color: var(--info-color); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(50, 173, 230, 0.3); }
+        .streak-badge { background: rgba(255, 59, 48, 0.15); color: var(--danger-color); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; border: 1px solid rgba(255, 59, 48, 0.3);}
+
+        /* --- Micro-Tasks (To-Do) --- */
         .todo-card { padding: 20px; border-radius: 24px;}
-        .todo-header { font-size: 14px; font-weight: 800; color: var(--info-color); margin-bottom: 15px; display: flex; justify-content: space-between; text-transform: uppercase;}
+        .todo-header { font-size: 14px; font-weight: 800; color: var(--info-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 1px;}
         .todo-input-wrap { display: flex; gap: 10px; margin-bottom: 15px; }
-        .todo-input { flex: 1; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 15px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none;}
-        .todo-add { background: var(--info-color); color: #000; border: none; padding: 0 15px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer;}
+        .todo-input { flex: 1; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px 15px; border-radius: 12px; font-size: 13px; font-weight: 600; outline: none; transition: 0.3s;}
+        .todo-input:focus { border-color: var(--info-color); }
+        .todo-add { background: var(--info-color); color: #000; border: none; padding: 0 15px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s;}
         .todo-list { list-style: none; padding: 0; margin: 0; max-height: 180px; overflow-y: auto;}
-        .todo-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; font-weight: 600; transition: 0.2s;}
+        .todo-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px dashed var(--border-color); font-size: 14px; font-weight: 600; transition: 0.2s;}
         .todo-item:last-child { border-bottom: none; }
         .todo-item.done { text-decoration: line-through; color: var(--text-muted); opacity: 0.6; }
         .todo-cb { width: 18px; height: 18px; cursor: pointer; accent-color: var(--info-color);}
-        .todo-del { margin-left: auto; cursor: pointer; color: var(--danger-color); font-size: 16px; background: none; border: none; font-weight: bold;}
+        .todo-del { margin-left: auto; cursor: pointer; color: var(--danger-color); font-size: 18px; background: none; border: none; font-weight: bold;}
 
-        /* Overall Progress */
-        .overall-card { background: var(--overall-grad); border-radius: 28px; padding: 30px; text-align: center; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative; overflow: hidden;}
-        .overall-title { font-size: 14px; font-weight: 800; margin-bottom: 15px; opacity: 0.9; text-transform: uppercase; letter-spacing: 2px;}
-        .overall-val-container { font-size: 65px; font-weight: 900; margin-bottom: 20px; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.4);}
-        .overall-bar-bg { background: rgba(255, 255, 255, 0.2); height: 12px; border-radius: 10px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        /* --- Overall Progress Card --- */
+        .overall-card { background: linear-gradient(135deg, rgba(30,30,40,0.6) 0%, rgba(10,20,40,0.8) 100%); border-radius: 28px; padding: 30px; text-align: center; color: #ffffff; box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative; overflow: hidden;}
+        .overall-title { font-size: 13px; font-weight: 800; margin-bottom: 15px; opacity: 0.9; text-transform: uppercase; letter-spacing: 2px;}
+        .overall-val-container { font-size: 60px; font-weight: 900; margin-bottom: 20px; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.4);}
+        .overall-bar-bg { background: rgba(255, 255, 255, 0.1); height: 10px; border-radius: 10px; width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
         .overall-bar-fill { background: var(--accent-color); height: 100%; width: 0%; border-radius: 10px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 20px var(--accent-glow);}
-        .target-note { font-size: 12px; margin-top: 15px; opacity: 0.95; display: flex; justify-content: space-between; font-weight: 600; align-items: center;}
-        .dynamic-target-badge { color: var(--bg-base); background: var(--accent-color); padding: 4px 12px; border-radius: 12px; font-weight: 800; box-shadow: 0 0 10px var(--accent-glow);}
+        .target-note { font-size: 12px; margin-top: 20px; opacity: 0.95; display: flex; justify-content: space-between; font-weight: 600; align-items: center;}
+        .dynamic-target-badge { color: #000; background: var(--accent-color); padding: 4px 12px; border-radius: 12px; font-weight: 800; box-shadow: 0 0 10px var(--accent-glow);}
 
-        /* Charts & Stats */
+        /* --- Weekly YPT Chart --- */
         .chart-card { padding: 20px; }
         .chart-title { font-size: 13px; color: var(--info-color); font-weight: 800; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; text-align: center;}
         .chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 100px; gap: 8px;}
         .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 8px;}
-        .bar { width: 100%; max-width: 35px; background: var(--input-bg); border-radius: 6px; display: flex; align-items: flex-end; justify-content: center; position: relative; transition: 0.3s;}
-        .bar-fill { width: 100%; background: var(--info-color); border-radius: 6px; min-height: 5px; transition: height 1s; opacity: 0.8;}
+        .bar { width: 100%; max-width: 30px; background: var(--input-bg); border-radius: 6px; display: flex; align-items: flex-end; justify-content: center; position: relative; transition: 0.3s;}
+        .bar-fill { width: 100%; background: var(--info-color); border-radius: 6px; min-height: 5px; transition: height 1s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0.8;}
         .bar-fill.today { background: var(--accent-color); opacity: 1; box-shadow: 0 0 12px var(--accent-glow);}
         .bar-label { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;}
-        .bar-val { font-size: 11px; position: absolute; top: -22px; color: var(--text-main); font-weight: 800; opacity: 0; transition: 0.3s;}
-        .bar-wrap:hover .bar-val { opacity: 1; transform: translateY(-5px);}
 
+        /* --- Stats Grid --- */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .m-card { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px; text-align: center; }
+        .m-card { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px; text-align: center; transition: 0.3s;}
         .m-title { font-size: 11px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 8px;}
         .m-val { font-size: 22px; font-weight: 900; color: var(--text-main); }
-        .deadline-edit { cursor: pointer; background: var(--card-bg); border-radius: 6px; padding: 2px 6px; border: 1px solid var(--border-color); font-size: 10px;}
+        .deadline-edit { cursor: pointer; background: var(--card-bg); border-radius: 6px; padding: 2px 6px; border: 1px solid var(--border-color); font-size: 10px; transition: 0.2s; margin-left: 5px;}
 
-        /* --- Timer Screen --- */
-        .timer-circle-wrap { display: flex; justify-content: center; align-items: center; padding: 40px 0; position: relative;}
-        .timer-circle { width: 300px; height: 300px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--input-bg); border: 2px solid var(--border-color); box-shadow: 0 0 40px rgba(0,0,0,0.1); z-index: 2; transition: 0.5s;}
-        .timer-circle.active { border-color: var(--danger-color); box-shadow: 0 0 60px rgba(255, 59, 48, 0.2); animation: pulseTimer 2s infinite; }
-        @keyframes pulseTimer { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        /* --- Timer Screen (Focus) --- */
+        .timer-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .timer-box { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 25px; text-align: center; position: relative;}
+        .t-badge { position: absolute; top: 15px; right: 15px; font-size: 20px;}
+        .t-title { font-size: 14px; font-weight: 800; color: var(--info-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 8px;}
+        .t-val { font-size: 50px; font-weight: 900; font-family: 'Courier New', Courier, monospace; letter-spacing: -2px; color: var(--text-main); margin: 15px 0; line-height: 1; text-shadow: 0 0 15px rgba(255,255,255,0.2);}
         
-        .t-val { font-size: 65px; font-weight: 900; font-family: 'Courier New', Courier, monospace; letter-spacing: -2px; color: var(--text-main); text-shadow: 0 0 20px rgba(255,255,255,0.2);}
-        .t-sub { font-size: 15px; font-weight: 800; color: var(--text-muted); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;}
+        .t-prog-bg { background: rgba(255,255,255,0.1); height: 6px; border-radius: 5px; overflow: hidden; margin-bottom: 15px; }
+        .t-prog-fill { background: var(--danger-color); height: 100%; width: 0%; transition: width 1s linear;}
         
-        .timer-controls { display: flex; gap: 15px; justify-content: center;}
-        .t-btn { padding: 16px 35px; border-radius: 20px; font-weight: 800; font-size: 16px; border: none; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
-        .btn-start { background: var(--text-main); color: var(--bg-base); box-shadow: 0 10px 20px rgba(255,255,255,0.1);}
-        .btn-start.active { background: var(--danger-color); color: #fff; box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);}
-        .btn-stop { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color);}
+        .timer-controls { display: flex; gap: 10px; justify-content: center;}
+        .t-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 14px; border: none; cursor: pointer; transition: 0.3s; text-transform: uppercase;}
+        .btn-start { background: var(--accent-color); color: #000; box-shadow: 0 5px 15px var(--accent-glow);}
+        .btn-start.active { background: var(--danger-color); color: #fff; box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);}
+        .btn-stop { background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color);}
+        .pomo-edit { font-size: 12px; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+        .pomo-edit:hover { opacity: 1; color: var(--accent-color); }
 
-        /* Floating Mini Timer */
-        .floating-timer { position: fixed; bottom: 90px; right: 20px; background: var(--danger-color); color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 900; font-family: monospace; font-size: 16px; box-shadow: 0 10px 20px rgba(255, 59, 48, 0.4); z-index: 9999; display: none; cursor: pointer; animation: floatUp 0.3s ease;}
-        @keyframes floatUp { from{transform: translateY(20px); opacity:0;} to{transform: translateY(0); opacity:1;} }
-        @media (min-width: 768px) { .floating-timer { bottom: 30px; right: 40px; font-size: 20px; padding: 15px 25px;} }
+        .lofi-widget { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-weight: 800; transition: 0.3s;}
+        .lofi-widget.active { border-color: var(--info-color); background: rgba(50, 173, 230, 0.1); box-shadow: 0 0 20px rgba(50,173,230,0.2);}
 
-        /* Lofi Widget */
-        .lofi-widget { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; margin-top: 10px; font-weight: 800; transition: 0.3s;}
-        .lofi-widget.active { border-color: var(--info-color); background: rgba(50, 173, 230, 0.1);}
-
-        /* --- Accordion (Syllabus) --- */
-        .accordion-container { display: flex; flex-direction: column; gap: 15px; }
-        .acc-item { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s; }
-        .acc-item.active { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow); background: var(--card-bg);}
+        /* --- THE ULTIMATE 3-LEVEL ACCORDION --- */
+        .syllabus-container { display: flex; flex-direction: column; gap: 15px; }
         
-        .acc-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .acc-title-wrap { flex: 1; margin-right: 15px;}
-        .acc-title { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;}
+        .subj-box { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s; }
+        .subj-box.open { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow); background: var(--card-bg);}
+        
+        .subj-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .subj-title-wrap { flex: 1; margin-right: 15px;}
+        .subj-title { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;}
         .mastery-badge { font-size: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.1); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.2);}
+        .subj-prog-bg { width: 100%; background: rgba(255,255,255,0.15); height: 6px; border-radius: 6px; overflow: hidden;}
+        .subj-prog-fill { height: 100%; background: var(--accent-color); width: 0%; transition: 0.8s; box-shadow: 0 0 10px var(--accent-glow);}
         
-        .acc-prog-bg { width: 100%; background: rgba(255,255,255,0.15); height: 6px; border-radius: 6px; overflow: hidden;}
-        .acc-prog-fill { height: 100%; background: var(--accent-color); width: 0%; transition: 0.8s;}
+        .subj-right { display: flex; align-items: center; gap: 12px; }
+        .subj-percent { font-size: 16px; font-weight: 900; color: var(--accent-color);}
+        .subj-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s; }
+        .subj-box.open .subj-chevron { transform: rotate(180deg); color: var(--accent-color); }
         
-        .acc-right { display: flex; align-items: center; gap: 15px; }
-        .acc-percent { font-size: 16px; font-weight: 900; color: var(--accent-color);}
-        .acc-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s; }
-        .acc-item.active .acc-chevron { transform: rotate(180deg); color: var(--accent-color); }
+        .subj-body { display: none; padding: 0 15px 15px 15px; background: rgba(0,0,0,0.2); }
+        .subj-box.open .subj-body { display: flex; flex-direction: column; gap: 12px; animation: fadeIn 0.3s ease;}
         
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.15); }
-        .subject-controls { padding: 15px; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center;}
+        .subject-controls { padding: 12px 0; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center;}
+        .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 11px; transition: 0.2s;}
+        .add-topic-btn:hover { transform: scale(1.05); }
         
-        .chapter-list { list-style: none; padding: 0 15px 15px 15px; margin: 0; }
-        .chapter-item { background: var(--card-bg); padding: 18px; border-radius: 16px; margin-top: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px;}
+        .paper-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.3s;}
+        .paper-box.open { border-color: var(--info-color); }
+        .paper-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(255,255,255,0.02);}
+        .paper-title { font-size: 14px; font-weight: 800; color: var(--info-color); letter-spacing: 1px; text-transform: uppercase;}
+        .paper-right { display: flex; align-items: center; gap: 10px; }
+        .paper-percent { font-size: 14px; font-weight: 900; color: var(--text-main);}
+        .paper-chevron { font-size: 12px; color: var(--text-muted); transition: transform 0.3s; }
+        .paper-box.open .paper-chevron { transform: rotate(180deg); color: var(--info-color); }
+
+        .paper-body { display: none; padding: 0 12px 12px 12px; }
+        .paper-box.open .paper-body { display: block; animation: fadeIn 0.3s ease;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chapter-list { list-style: none; padding: 0; margin: 0; }
+        .chapter-item { background: var(--input-bg); padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 12px; transition: 0.2s;}
         .c-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;}
-        .c-name { font-size: 15px; font-weight: 700; line-height: 1.4; flex: 1; word-break: break-word;}
-        .star-btn { font-size: 20px; opacity: 0.2; cursor: pointer; transition: 0.3s; filter: grayscale(1);}
-        .star-btn.active { opacity: 1; filter: grayscale(0); transform: scale(1.2);}
+        .c-name { font-size: 14px; font-weight: 700; line-height: 1.4; flex: 1; word-break: break-word;}
+        .star-btn { font-size: 18px; opacity: 0.2; cursor: pointer; transition: 0.3s; filter: grayscale(1);}
+        .star-btn.active { opacity: 1; filter: drop-shadow(0 0 8px var(--warning-color)); transform: scale(1.2);}
         
-        .c-actions { display: flex; gap: 10px; flex-wrap: wrap; background: var(--input-bg); padding: 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05);}
-        .action-btn { flex: 1; min-width: 70px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); border-radius: 10px; padding: 8px 0; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s;}
+        .c-actions { display: flex; gap: 8px; flex-wrap: wrap; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 12px;}
+        .action-btn { flex: 1; min-width: 65px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); border-radius: 8px; padding: 6px 0; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s;}
         .action-btn.active.prac { color: var(--prac-color); border-color: var(--prac-color); background: rgba(255, 149, 0, 0.15);}
         
-        select.c-select { flex: 1; min-width: 80px; appearance: none; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 10px; padding: 8px 10px; font-size: 12px; font-weight: 800; outline: none; text-align: center;}
+        select.c-select { flex: 1; min-width: 75px; appearance: none; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; padding: 6px; font-size: 11px; font-weight: 800; outline: none; text-align: center;}
         
-        .rev-wrap { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; flex: 1; min-width: 90px;}
-        .rev-wrap button { background: transparent; border: none; color: var(--text-muted); padding: 0 10px; cursor: pointer; font-weight: bold; font-size: 16px;}
+        .rev-wrap { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; flex: 1; min-width: 80px;}
+        .rev-wrap button { background: transparent; border: none; color: var(--text-muted); padding: 0 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s;}
         .rev-wrap span { flex: 1; text-align: center; font-size: 11px; font-weight: 800; color: var(--text-main);}
 
         /* --- Profile / Settings Screen --- */
@@ -247,27 +252,33 @@
         .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color);}
         .setting-row:last-child { border-bottom: none;}
         .setting-label { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 10px; flex: 1;}
-        .setting-val input, .setting-val select { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; font-weight: 800; outline: none; width: 100%; text-align: center;}
-        .setting-val input[type="text"] { width: 120px; text-align: left; }
+        .setting-val input, .setting-val select { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px; border-radius: 8px; font-weight: 800; outline: none; width: 100%; text-align: center; font-size: 14px; transition: 0.2s;}
+        .setting-val input:focus { border-color: var(--accent-color); }
+        .setting-val input[type="text"] { width: 150px; text-align: left; }
         
-        /* App Skins Grid */
-        .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; padding: 15px;}
+        /* 7 Skins Grid */
+        .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; padding: 15px;}
         .skin-card { background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;}
-        .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 20px var(--accent-glow);}
+        .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 15px var(--accent-glow);}
         .skin-icon { font-size: 28px; margin-bottom: 8px;}
-        .skin-name { font-size: 12px; font-weight: 800; color: var(--text-main);}
+        .skin-name { font-size: 11px; font-weight: 800; color: var(--text-main);}
+
+        .color-picker { display: flex; gap: 15px; flex-wrap: wrap;}
+        .color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.3s;}
+        .color-dot.active { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4);}
 
         /* Toggle Switch */
-        .toggle-switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); border-radius: 34px; transition: .4s; border: 1px solid var(--border-color);}
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 3px; background-color: var(--text-main); border-radius: 50%; transition: .4s; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 3px; background-color: var(--text-main); border-radius: 50%; transition: .4s; }
         input:checked + .slider { background-color: var(--accent-color); }
-        input:checked + .slider:before { transform: translateX(18px); background-color: #000;}
+        input:checked + .slider:before { transform: translateX(20px); background-color: #000;}
 
         .btn-danger { width: 100%; padding: 15px; background: rgba(255, 59, 48, 0.15); color: var(--danger-color); border: 1px solid rgba(255, 59, 48, 0.3); border-radius: 16px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s;}
+        .btn-danger:hover { background: var(--danger-color); color: #fff;}
 
-        /* --- Mobile Bottom Navigation --- */
+        /* --- Bottom Navigation Bar --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: var(--nav-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
@@ -277,68 +288,71 @@
         }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; transition: 0.3s; width: 60px; }
         .nav-icon { font-size: 22px; transition: 0.3s;}
-        .nav-label { font-size: 10px; font-weight: 700; opacity: 0; transform: translateY(5px); transition: 0.3s;}
+        .nav-label { font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(5px); transition: 0.3s;}
         
         .nav-item.active { color: var(--accent-color); }
         .nav-item.active .nav-icon { transform: translateY(-5px); filter: drop-shadow(0 4px 10px var(--accent-glow)); font-size: 24px;}
         .nav-item.active .nav-label { opacity: 1; transform: translateY(-2px);}
 
+        /* Mobile specific fixes */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 24px; }
+            .overall-val-container { font-size: 50px;}
+            .t-val { font-size: 46px;}
+            select.c-select { flex-shrink: 0; }
+        }
     </style>
 </head>
 <body>
 
+<!-- Animated Background Orbs -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+
+<!-- Wrapper for Desktop Adaptive Layout -->
 <div class="layout-wrapper">
-    <!-- ================= DESKTOP SIDE NAV ================= -->
+    <!-- Desktop Side Nav (HIDDEN ON MOBILE NOW) -->
     <nav class="side-nav">
         <div class="side-logo">🩺 Mission DMC</div>
-        <div class="side-nav-item active" onclick="navTo('home', null, this)">
-            <span class="side-icon">🏠</span> <span>Dashboard</span>
-        </div>
-        <div class="side-nav-item" onclick="navTo('syllabus', null, this)">
-            <span class="side-icon">📚</span> <span>Syllabus</span>
-        </div>
-        <div class="side-nav-item" onclick="navTo('timer', null, this)">
-            <span class="side-icon">⏱️</span> <span>Focus Zone</span>
-        </div>
-        <div class="side-nav-item" onclick="navTo('profile', null, this)">
-            <span class="side-icon">⚙️</span> <span>Settings</span>
-        </div>
+        <div class="side-nav-item active" onclick="navTo('home', null, this)"><span class="side-icon">🏠</span> <span>Dashboard</span></div>
+        <div class="side-nav-item" onclick="navTo('syllabus', null, this)"><span class="side-icon">📚</span> <span>Syllabus</span></div>
+        <div class="side-nav-item" onclick="navTo('timer', null, this)"><span class="side-icon">⏱️</span> <span>Focus Hub</span></div>
+        <div class="side-nav-item" onclick="navTo('profile', null, this)"><span class="side-icon">⚙️</span> <span>Settings</span></div>
     </nav>
 
-    <!-- ================= MAIN APP CONTAINER ================= -->
+    <!-- Main Container -->
     <div class="app-container" id="main-scroll">
         
-        <!-- Floating Timer (Visible if timer runs and user is on another screen) -->
-        <div class="floating-timer" id="floating-timer" onclick="navTo('timer')">00:00:00</div>
-
         <!-- ================= 1. HOME SCREEN ================= -->
         <div id="screen-home" class="screen active">
+            
+            <!-- HEADER (NOTCH SAFE & CLEAN) -->
             <div class="header">
                 <div class="profile-info">
                     <div class="avatar-box" id="disp-avatar">👨‍⚕️</div>
-                    <div>
+                    <div class="header-text-wrap">
                         <div class="greeting" id="greeting-msg">Good Morning</div>
                         <h1 id="disp-name">Dr. Irfun</h1>
                     </div>
                 </div>
-                <div class="badges-wrap">
-                    <div class="level-badge" id="level-badge">🌟 Lvl 1</div>
-                    <div class="streak-badge">🔥 <span id="streak-count">0</span> Day Streak</div>
-                </div>
+            </div>
+            
+            <div class="badges-wrap">
+                <div class="level-badge" id="level-badge">🌟 Lvl 1</div>
+                <div class="streak-badge">🔥 <span id="streak-count">0</span> Day Streak</div>
             </div>
 
-            <!-- Dashboard Grid (Expands on Desktop) -->
+            <!-- Dashboard Grid -->
             <div class="dashboard-grid">
                 
-                <!-- Progress & Stats Col -->
                 <div style="display:flex; flex-direction: column; gap: 20px;">
                     <div class="overall-card" id="master-box">
                         <div class="overall-title">Target Progression</div>
                         <div class="overall-val-container"><span id="overall-val">0</span>%</div>
                         <div class="overall-bar-bg"><div class="overall-bar-fill" id="overall-bar"></div></div>
                         <div class="target-note">
-                            <span>🎯 Custom Weights Applied</span>
-                            <span class="dynamic-target-badge" id="disp-target">HSC '26</span>
+                            <span>🎯 Weighted Stats</span>
+                            <span class="dynamic-target-badge" id="disp-target" style="color: #000; background: var(--accent-color); padding: 4px 12px; border-radius: 12px; font-weight: 800;">HSC '26</span>
                         </div>
                     </div>
 
@@ -355,7 +369,6 @@
                     </div>
                 </div>
 
-                <!-- Todo & Chart Col -->
                 <div style="display:flex; flex-direction: column; gap: 20px;">
                     <div class="card todo-card">
                         <div class="todo-header">✅ Daily Micro-Targets</div>
@@ -372,53 +385,66 @@
                     </div>
                 </div>
 
-            </div> <!-- End Dashboard Grid -->
+            </div> 
         </div>
 
-        <!-- ================= 2. SYLLABUS SCREEN ================= -->
+        <!-- ================= 2. SYLLABUS SCREEN (3-LEVEL NESTED) ================= -->
         <div id="screen-syllabus" class="screen">
             <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">📚 Syllabus Tracker</h2>
-            <div class="accordion-container" id="accordion-container">
-                <!-- Accordions Injected Here via JS -->
+            <div class="accordion-container" id="syllabus-container">
+                <!-- Data Injected via JS Safely -->
             </div>
         </div>
 
-        <!-- ================= 3. TIMER SCREEN ================= -->
+        <!-- ================= 3. TIMER SCREEN (DUAL FOCUS) ================= -->
         <div id="screen-timer" class="screen">
-            <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⏱️ Deep Focus Zone</h2>
+            <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⏱️ Focus Hub</h2>
             
-            <div class="card" style="padding: 40px 20px; text-align: center;">
-                <div class="timer-circle-wrap">
-                    <div class="timer-circle" id="timer-circle">
-                        <div class="t-val" id="ypt-display">00:00:00</div>
-                        <div class="t-sub" id="ypt-status">Ready to Study</div>
+            <div class="timer-row">
+                <!-- Custom Pomodoro -->
+                <div class="timer-box card">
+                    <span class="t-badge">🍅</span>
+                    <div class="t-title">Pomodoro <span class="pomo-edit" onclick="editPomoTime()">✏️ Edit</span></div>
+                    <div class="t-val" id="pomo-display" style="color: var(--danger-color);">25:00</div>
+                    <div class="t-prog-bg"><div class="t-prog-fill" id="pomo-bar"></div></div>
+                    <div class="timer-controls">
+                        <button class="t-btn btn-start" id="pomo-play" onclick="togglePomo()">Start</button>
+                        <button class="t-btn btn-stop" onclick="resetPomo()">Reset</button>
                     </div>
                 </div>
                 
-                <div class="timer-controls">
-                    <button class="t-btn btn-start" id="ypt-start-btn" onclick="toggleTimer()">▶ Start</button>
-                    <button class="t-btn btn-stop" onclick="resetTimer()">■ Reset</button>
+                <!-- YPT Stopwatch -->
+                <div class="timer-box card">
+                    <span class="t-badge">⏱️</span>
+                    <div class="t-title">YPT Tracker</div>
+                    <div class="t-val" id="ypt-display" style="color: var(--info-color);">00:00:00</div>
+                    <div class="t-prog-bg" style="background:transparent;"></div>
+                    <div class="timer-controls">
+                        <button class="t-btn btn-start" id="ypt-play" onclick="toggleYPT()" style="width:100%">▶ Start Session</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="stats-grid">
+            <div class="stats-grid" style="margin-top: 20px;">
                 <div class="m-card">
                     <div class="m-title">Today's Focus</div>
-                    <div class="m-val" id="ypt-study-total" style="color: var(--info-color);">0h 0m</div>
+                    <div class="m-val" id="today-study-total" style="color: var(--info-color);">0h 0m</div>
                 </div>
                 <div class="m-card">
                     <div class="m-title">Lifetime Level</div>
-                    <div class="m-val" id="lifetime-total" style="color: var(--rev-color);">Lvl 1</div>
+                    <div class="m-val" id="lifetime-total-disp" style="color: var(--rev-color);">Lvl 1</div>
                 </div>
             </div>
 
-            <div class="lofi-widget" id="lofi-widget" onclick="toggleLofi()">
-                <div style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px;">
-                    <span style="font-size: 22px;">🎧</span> Lofi Focus Audio
+            <div class="lofi-widget card" id="lofi-widget">
+                <div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 22px;">🎧</span> Focus Audio
+                    </div>
+                    <button id="lofi-play-btn" onclick="toggleLofi()" style="background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.2s;">▶ Play</button>
                 </div>
-                <span id="lofi-state" style="font-size:12px; font-weight:800; color:var(--text-muted); text-transform: uppercase;">▶ Play</span>
+                <div id="lofi-container" style="display:none;"></div>
             </div>
-            <div id="lofi-container" style="display:none;"></div>
         </div>
 
         <!-- ================= 4. PROFILE SCREEN ================= -->
@@ -426,8 +452,8 @@
             <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">⚙️ Preferences</h2>
             
             <div class="dashboard-grid">
-                <!-- Col 1 -->
                 <div>
+                    <!-- Profile Info -->
                     <div class="profile-section">
                         <div class="p-title">👤 Your Profile</div>
                         <div class="setting-group">
@@ -442,17 +468,17 @@
                             <div class="setting-row">
                                 <span class="setting-label">Avatar</span>
                                 <span class="setting-val">
-                                    <select id="inp-avatar" onchange="saveProfile()" style="padding: 6px; width: 60px;">
+                                    <select id="inp-avatar" onchange="saveProfile()" style="padding: 10px; width: 65px; font-size: 18px;">
                                         <option value="👨‍⚕️">👨‍⚕️</option><option value="👩‍⚕️">👩‍⚕️</option>
                                         <option value="🎓">🎓</option><option value="⚽">⚽</option>
-                                        <option value="🦸‍♂️">🦸‍♂️</option><option value="💻">💻</option>
-                                        <option value="🥷">🥷</option>
+                                        <option value="🦸‍♂️">🦸‍♂️</option><option value="🥷">🥷</option>
                                     </select>
                                 </span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Subject Weights -->
                     <div class="profile-section">
                         <div class="p-title">⚖️ Subject Weights</div>
                         <div class="setting-group">
@@ -465,37 +491,24 @@
                     </div>
                 </div>
 
-                <!-- Col 2 -->
                 <div>
+                    <!-- App Skins (All 7 Restored) -->
                     <div class="profile-section">
                         <div class="p-title">🎭 App Skins & Themes</div>
-                        <div class="skins-grid" id="skins-grid">
-                            <div class="skin-card" data-skin="default" onclick="setAppSkin('default')">
-                                <div class="skin-icon">🔵</div><div class="skin-name">Classic</div>
-                            </div>
-                            <div class="skin-card" data-skin="doom" onclick="setAppSkin('doom')">
-                                <div class="skin-icon">🦹‍♂️</div><div class="skin-name">Dr. Doom</div>
-                            </div>
-                            <div class="skin-card" data-skin="football" onclick="setAppSkin('football')">
-                                <div class="skin-icon">⚽</div><div class="skin-name">Pitch Green</div>
-                            </div>
-                            <div class="skin-card" data-skin="cyberpunk" onclick="setAppSkin('cyberpunk')">
-                                <div class="skin-icon">🌃</div><div class="skin-name">Neon Punk</div>
-                            </div>
-                            <div class="skin-card" data-skin="galaxy" onclick="setAppSkin('galaxy')">
-                                <div class="skin-icon">🌌</div><div class="skin-name">Galaxy</div>
-                            </div>
-                            <div class="skin-card" data-skin="ocean" onclick="setAppSkin('ocean')">
-                                <div class="skin-icon">🌊</div><div class="skin-name">Ocean Deep</div>
-                            </div>
-                            <div class="skin-card" data-skin="nature" onclick="setAppSkin('nature')">
-                                <div class="skin-icon">🌿</div><div class="skin-name">Nature Zen</div>
-                            </div>
+                        <div class="skins-grid" id="skins-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="card skin-card" data-skin="default" onclick="setAppSkin('default')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🔵</div><div style="font-size: 12px; font-weight: 800;">Classic Dark</div></div>
+                            <div class="card skin-card" data-skin="doom" onclick="setAppSkin('doom')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🦹‍♂️</div><div style="font-size: 12px; font-weight: 800;">Dr. Doom</div></div>
+                            <div class="card skin-card" data-skin="football" onclick="setAppSkin('football')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">⚽</div><div style="font-size: 12px; font-weight: 800;">Pitch Green</div></div>
+                            <div class="card skin-card" data-skin="cyberpunk" onclick="setAppSkin('cyberpunk')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌃</div><div style="font-size: 12px; font-weight: 800;">Neon Punk</div></div>
+                            <div class="card skin-card" data-skin="galaxy" onclick="setAppSkin('galaxy')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌌</div><div style="font-size: 12px; font-weight: 800;">Galaxy</div></div>
+                            <div class="card skin-card" data-skin="ocean" onclick="setAppSkin('ocean')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌊</div><div style="font-size: 12px; font-weight: 800;">Ocean Deep</div></div>
+                            <div class="card skin-card" data-skin="nature" onclick="setAppSkin('nature')" style="text-align: center; cursor: pointer; padding: 15px;"><div style="font-size: 28px; margin-bottom: 5px;">🌿</div><div style="font-size: 12px; font-weight: 800;">Nature Zen</div></div>
                         </div>
                     </div>
 
+                    <!-- Appearance & Animations -->
                     <div class="profile-section">
-                        <div class="p-title">🎨 Appearance Base</div>
+                        <div class="p-title">🎨 Appearance & Effects</div>
                         <div class="setting-group">
                             <div class="setting-row">
                                 <span class="setting-label">🌙 Enable Light Mode</span>
@@ -504,9 +517,27 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
+                            <div class="setting-row">
+                                <span class="setting-label">🚀 Disable Animations</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="anim-toggle" onchange="toggleAnim()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 15px;">
+                                <span class="setting-label">✨ Custom Accent Color</span>
+                                <div class="color-picker" id="color-picker" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                    <div class="color-dot active" style="background: #00ff88;" onclick="setThemeColor('#00ff88', this)"></div>
+                                    <div class="color-dot" style="background: #32ade6;" onclick="setThemeColor('#32ade6', this)"></div>
+                                    <div class="color-dot" style="background: #bf5af2;" onclick="setThemeColor('#bf5af2', this)"></div>
+                                    <div class="color-dot" style="background: #ff9500;" onclick="setThemeColor('#ff9500', this)"></div>
+                                    <div class="color-dot" style="background: #ff3b30;" onclick="setThemeColor('#ff3b30', this)"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Data Management -->
                     <div class="profile-section">
                         <div class="p-title">💾 Data Management</div>
                         <div class="setting-group">
@@ -521,27 +552,26 @@
                         <button class="btn-danger" onclick="resetData()" style="margin-top: 15px;">🗑️ Factory Reset App</button>
                     </div>
                 </div>
-            </div> <!-- Grid End -->
+            </div>
         </div>
 
     </div>
 
     <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="navTo('home', this)">
+        <div class="nav-item active" onclick="navTo('home', this, null)">
             <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
         </div>
-        <div class="nav-item" onclick="navTo('syllabus', this)">
+        <div class="nav-item" onclick="navTo('syllabus', this, null)">
             <span class="nav-icon">📚</span><span class="nav-label">Syllabus</span>
         </div>
-        <div class="nav-item" onclick="navTo('timer', this)">
+        <div class="nav-item" onclick="navTo('timer', this, null)">
             <span class="nav-icon">⏱️</span><span class="nav-label">Focus</span>
         </div>
-        <div class="nav-item" onclick="navTo('profile', this)">
-            <span class="nav-icon">⚙️</span><span class="nav-label">Profile</span>
+        <div class="nav-item" onclick="navTo('profile', this, null)">
+            <span class="nav-icon">⚙️</span><span class="nav-label">Settings</span>
         </div>
     </nav>
-
 </div>
 
 <script>
@@ -574,15 +604,18 @@
         document.documentElement.setAttribute('data-skin', skinName);
         localStorage.setItem('dmcSkin', skinName);
         
-        document.querySelectorAll('.skin-card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.skin-card').forEach(c => {
+            c.style.borderColor = "var(--border-color)"; c.style.boxShadow = "none";
+        });
         let activeCard = document.querySelector(`.skin-card[data-skin="${skinName}"]`);
-        if(activeCard) activeCard.classList.add('active');
+        if(activeCard) {
+            activeCard.style.borderColor = "var(--accent-color)";
+            activeCard.style.boxShadow = "0 0 15px var(--accent-glow)";
+        }
     }
     
     document.documentElement.setAttribute('data-skin', currentSkin);
-    initProfile();
-    let initialCard = document.querySelector(`.skin-card[data-skin="${currentSkin}"]`);
-    if(initialCard) initialCard.classList.add('active');
+    initProfile(); setAppSkin(currentSkin);
 
     // ==========================================
     // 2. MICRO-TASKS (TODO LIST) LOGIC
@@ -611,13 +644,10 @@
     // ==========================================
     // 3. APP NAVIGATION LOGIC (SPA)
     // ==========================================
-    let currentActiveScreen = 'home';
     function navTo(screenId, mobileNavEl, desktopNavEl) {
-        currentActiveScreen = screenId;
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(`screen-${screenId}`).classList.add('active');
         
-        // Update Mobile Nav
         if(mobileNavEl) {
             document.querySelectorAll('.bottom-nav .nav-item').forEach(n => n.classList.remove('active'));
             mobileNavEl.classList.add('active');
@@ -628,7 +658,6 @@
             });
         }
 
-        // Update Desktop Nav
         if(desktopNavEl) {
             document.querySelectorAll('.side-nav-item').forEach(n => n.classList.remove('active'));
             desktopNavEl.classList.add('active');
@@ -643,7 +672,6 @@
         if(screenId === 'syllabus') buildAccordion();
         
         document.getElementById('main-scroll').scrollTo(0, 0);
-        updateFloatingTimer();
     }
 
     // ==========================================
@@ -651,11 +679,14 @@
     // ==========================================
     const hour = new Date().getHours();
     const greetEl = document.getElementById('greeting-msg');
-    if(hour < 12) greetEl.innerText = 'Good Morning,';
-    else if(hour < 18) greetEl.innerText = 'Good Afternoon,';
-    else greetEl.innerText = 'Good Evening,';
+    
+    // Greeting format fix
+    if(hour < 12) greetEl.innerText = `Good Morning`;
+    else if(hour < 18) greetEl.innerText = `Good Afternoon`;
+    else greetEl.innerText = `Good Evening`;
 
     let todayStr = new Date().toDateString();
+
     let totalStudySecs = parseInt(localStorage.getItem('dmcYptStudySecs')) || 0;
     let weekHistory = JSON.parse(localStorage.getItem('dmcWeekHistory')) || {};
     if(!weekHistory[todayStr]) weekHistory[todayStr] = totalStudySecs;
@@ -684,7 +715,7 @@
     function updateLevelUI() {
         let hrs = lifetimeSecs / 3600; let level = Math.floor(Math.sqrt(hrs)) + 1;
         document.getElementById('level-badge').innerText = `🌟 Lvl ${level}`;
-        document.getElementById('lifetime-total').innerText = `Lvl ${level}`;
+        document.getElementById('lifetime-total-disp').innerText = Math.floor(hrs) + 'h';
     }
     updateLevelUI();
 
@@ -720,7 +751,7 @@
     }
 
     // ==========================================
-    // 5. THEME TOGGLE (Light/Dark Base)
+    // 5. THEME & ANIMATION TOGGLES
     // ==========================================
     let currentTheme = localStorage.getItem('missionDmcTheme') || 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -732,79 +763,136 @@
         localStorage.setItem('missionDmcTheme', currentTheme);
     }
 
-    // ==========================================
-    // 6. TIMER & FLOATING TIMER
-    // ==========================================
-    let isRunning = false; let timerInt; let currentSessionSecs = 0;
+    let animEnabled = localStorage.getItem('dmcAnim') !== 'false';
+    document.getElementById('anim-toggle').checked = !animEnabled;
+    function applyAnimState() {
+        if(!animEnabled) document.body.classList.add('no-anim');
+        else document.body.classList.remove('no-anim');
+    }
+    applyAnimState();
+    
+    function toggleAnim() {
+        animEnabled = !document.getElementById('anim-toggle').checked;
+        localStorage.setItem('dmcAnim', animEnabled);
+        applyAnimState();
+    }
 
+    let currentAccent = localStorage.getItem('dmcAccentColor') || '#00ff88';
+    document.documentElement.style.setProperty('--accent-color', currentAccent);
+    function hexToRgbA(hex, alpha){
+        let c; if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+            c= hex.substring(1).split(''); if(c.length== 3){ c= [c[0], c[0], c[1], c[1], c[2], c[2]]; }
+            c= '0x'+c.join(''); return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+alpha+')';
+        } return `rgba(0, 255, 136, ${alpha})`;
+    }
+    document.documentElement.style.setProperty('--accent-glow', hexToRgbA(currentAccent, 0.4));
+
+    document.querySelectorAll('.color-dot').forEach(d => {
+        if(d.style.backgroundColor === currentAccent || d.style.background === currentAccent) { d.classList.add('active'); }
+        else { d.classList.remove('active'); }
+    });
+
+    function setThemeColor(color, el) {
+        currentAccent = color; document.documentElement.style.setProperty('--accent-color', color);
+        document.documentElement.style.setProperty('--accent-glow', hexToRgbA(color, 0.4));
+        localStorage.setItem('dmcAccentColor', color);
+        
+        document.querySelectorAll('.color-dot').forEach(d => { d.classList.remove('active'); }); 
+        if(el) el.classList.add('active');
+        
+        document.querySelector('.orb-1').style.background = color;
+        buildAccordion(); 
+    }
+
+    // ==========================================
+    // 6. DUAL TIMERS
+    // ==========================================
     function fmtTimeHms(sec) {
         let h = Math.floor(sec / 3600); let m = Math.floor((sec % 3600) / 60); let s = sec % 60;
         return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
     }
     function fmtTimeHm(sec) { let h = Math.floor(sec/3600); let m = Math.floor((sec%3600)/60); return `${h}h ${m}m`; }
 
-    function updateTimerUI() {
-        let tStr = fmtTimeHms(currentSessionSecs);
-        document.getElementById('ypt-display').innerText = tStr;
-        document.getElementById('floating-timer').innerText = "⏱️ " + tStr;
-        document.getElementById('ypt-study-total').innerText = fmtTimeHm(totalStudySecs);
+    // POMODORO
+    let customPomoMin = parseInt(localStorage.getItem('dmcPomoMin')) || 25;
+    let pomoTotalSec = customPomoMin * 60; let pomoTime = pomoTotalSec; 
+    let pomoInt; let isPomoRunning = false;
+    
+    function updatePomoUI() { 
+        document.getElementById('pomo-display').innerText = fmtTimeHms(pomoTime); 
+        let pct = ((pomoTotalSec - pomoTime) / pomoTotalSec) * 100;
+        document.getElementById('pomo-bar').style.width = `${pct}%`;
     }
-
-    function updateFloatingTimer() {
-        let fTimer = document.getElementById('floating-timer');
-        if(isRunning && currentActiveScreen !== 'timer') { fTimer.style.display = 'block'; } 
-        else { fTimer.style.display = 'none'; }
+    function editPomoTime() {
+        if(isPomoRunning) { alert("Pause timer first!"); return; }
+        let input = prompt("Enter Focus Minutes (e.g., 25, 45, 60):", customPomoMin);
+        if(input && !isNaN(input) && input > 0) { customPomoMin = parseInt(input); localStorage.setItem('dmcPomoMin', customPomoMin); resetPomo(); }
     }
+    function togglePomo() {
+        let btn = document.getElementById('pomo-play');
+        if(isPomoRunning) {
+            clearInterval(pomoInt); isPomoRunning = false;
+            btn.innerText = "Resume"; btn.classList.remove('active');
+        } else {
+            pomoInt = setInterval(() => {
+                if(pomoTime > 0) { pomoTime--; updatePomoUI(); }
+                else { clearInterval(pomoInt); isPomoRunning = false; alert("🍅 Focus Session Complete!"); resetPomo(); }
+            }, 1000);
+            isPomoRunning = true; btn.innerText = "Pause"; btn.classList.add('active');
+        }
+    }
+    function resetPomo() { 
+        clearInterval(pomoInt); isPomoRunning = false; pomoTotalSec = customPomoMin * 60; pomoTime = pomoTotalSec; 
+        updatePomoUI(); document.getElementById('pomo-play').innerText = "Start"; document.getElementById('pomo-play').classList.remove('active'); 
+    }
+    updatePomoUI();
 
-    function toggleTimer() {
-        let btn = document.getElementById('ypt-start-btn'); let circle = document.getElementById('timer-circle'); let sts = document.getElementById('ypt-status');
-        if(isRunning) {
-            clearInterval(timerInt); isRunning = false;
-            btn.innerText = "▶ Resume"; btn.classList.remove('active');
-            circle.classList.remove('active'); sts.innerText = "Paused";
+    // YPT TRACKER
+    let isYptRunning = false; let yptInt; let yptSessionSecs = 0;
+    function updateYptUI() {
+        document.getElementById('ypt-display').innerText = fmtTimeHms(yptSessionSecs);
+        document.getElementById('today-study-total').innerText = fmtTimeHm(totalStudySecs);
+    }
+    function toggleYPT() {
+        let btn = document.getElementById('ypt-play');
+        if(isYptRunning) {
+            clearInterval(yptInt); isYptRunning = false;
+            btn.innerText = "▶ Resume Session"; btn.classList.remove('active');
             localStorage.setItem('dmcYptStudySecs', totalStudySecs);
             localStorage.setItem('dmcLifetimeSecs', lifetimeSecs);
             weekHistory[todayStr] = totalStudySecs; localStorage.setItem('dmcWeekHistory', JSON.stringify(weekHistory));
             updateLevelUI(); renderWeeklyChart();
         } else {
-            timerInt = setInterval(() => {
-                currentSessionSecs++; totalStudySecs++; lifetimeSecs++; updateTimerUI();
-                if(currentSessionSecs % 10 === 0) {
+            yptInt = setInterval(() => {
+                yptSessionSecs++; totalStudySecs++; lifetimeSecs++; updateYptUI();
+                if(yptSessionSecs % 10 === 0) {
                     localStorage.setItem('dmcYptStudySecs', totalStudySecs);
                     localStorage.setItem('dmcLifetimeSecs', lifetimeSecs);
                     weekHistory[todayStr] = totalStudySecs; localStorage.setItem('dmcWeekHistory', JSON.stringify(weekHistory));
-                    updateLevelUI(); renderWeeklyChart();
                 }
             }, 1000);
-            isRunning = true; btn.innerText = "⏸ Pause"; btn.classList.add('active');
-            circle.classList.add('active'); sts.innerText = "Deep Focus...";
+            isYptRunning = true; btn.innerText = "⏸ Pause Tracking"; btn.classList.add('active');
         }
-        updateFloatingTimer();
     }
-
-    function resetTimer() {
-        clearInterval(timerInt); isRunning = false; currentSessionSecs = 0;
-        let btn = document.getElementById('ypt-start-btn');
-        btn.innerText = "▶ Start"; btn.classList.remove('active');
-        document.getElementById('timer-circle').classList.remove('active');
-        document.getElementById('ypt-status').innerText = "Ready to Study";
-        updateTimerUI(); updateFloatingTimer();
-    }
-    updateTimerUI();
+    updateYptUI();
 
     let lofiPlaying = false;
     function toggleLofi() {
-        let container = document.getElementById('lofi-container'); let stateText = document.getElementById('lofi-state'); let widget = document.getElementById('lofi-widget');
+        let container = document.getElementById('lofi-container'); 
+        let btn = document.getElementById('lofi-play-btn'); 
         if(!lofiPlaying) {
             container.innerHTML = `<iframe width="0" height="0" src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
-            stateText.innerText = "⏸ Pause"; stateText.style.color = "var(--accent-color)"; widget.classList.add('active'); lofiPlaying = true;
+            if(btn) { btn.innerText = "⏸ Pause"; btn.classList.add('playing'); }
+            lofiPlaying = true;
         } else {
-            container.innerHTML = ''; stateText.innerText = "▶ Play"; stateText.style.color = "var(--text-muted)"; widget.classList.remove('active'); lofiPlaying = false;
+            container.innerHTML = ''; 
+            if(btn) { btn.innerText = "▶ Play"; btn.classList.remove('playing'); }
+            lofiPlaying = false;
         }
     }
 
     // ==========================================
-    // 7. SYLLABUS DATA & ACCORDION (BUG FREE)
+    // 7. 3-LEVEL NESTED SYLLABUS DATA (BUG-FREE V11)
     // ==========================================
     let uWeights = JSON.parse(localStorage.getItem('dmcSubjectWeights')) || { phy: 1.5, chem: 2.5, bio: 1.5, math: 1.5, med: 0.5 };
     
@@ -818,15 +906,59 @@
     }
 
     const syllabusData = {
-        "phy": { name: "Physics", icon: "📐", wKey: 'phy', chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস", "তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "চৌম্বক ক্রিয়া", "আবেশ", "জ্যামিতিক আলোক", "ভৌত আলোক", "আধুনিক পদার্থবিজ্ঞান", "পরমাণু ও নিউক্লিয়ার", "সেমিকন্ডাক্টর"] },
-        "chem": { name: "Chemistry", icon: "🧪", wKey: 'chem', chapters: ["ল্যাবরেটরি", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন", "পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] },
-        "math": { name: "Mathematics", icon: "➗", wKey: 'math', chapters: ["ম্যাট্রিক্স", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস-সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণ", "ফাংশন", "অন্তরীকরণ", "যোগজীকরণ", "বাস্তব সংখ্যা", "জটিল সংখ্যা", "বহুপদী", "কনিক", "স্থিতিবিদ্যা", "সমতলে বস্তুকণা"] },
-        "bio": { name: "Biology", icon: "🧬", wKey: 'bio', chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা", "নগ্নবীজী", "টিস্যু", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "পরিবেশ", "প্রাণীর শ্রেণিবিন্যাস", "পরিপাক", "রক্ত ও সঞ্চালন", "শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন", "স্নায়বিক সমন্বয়", "প্রতিরক্ষা", "জিনতত্ত্ব"] },
-        "med": { name: "English & GK", icon: "📖", wKey: 'med', chapters: ["Parts of Speech", "Tense", "Right Forms", "Voice", "Narration", "Correction", "Synonym-Antonym", "Spelling", "Phrases", "Preposition", "প্রাচীন বাংলা", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ", "সংবিধান", "অর্থনীতি", "সংস্কৃতি"] }
+        "phy": { 
+            name: "Physics", icon: "📐", wKey: 'phy', 
+            papers: [
+                { name: "1st Paper", chapters: ["ভৌতজগৎ ও পরিমাপ", "ভেক্টর", "গতিবিদ্যা", "নিউটনিয়ান বলবিদ্যা", "কাজ, শক্তি ও ক্ষমতা", "মহাকর্ষ ও অভিকর্ষ", "পদার্থের গাঠনিক ধর্ম", "পর্যাবৃত্ত গতি", "তরঙ্গ", "আদর্শ গ্যাস ও গতিতত্ত্ব"] },
+                { name: "2nd Paper", chapters: ["তাপগতিবিদ্যা", "স্থির তড়িৎ", "চল তড়িৎ", "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া", "তাড়িতচৌম্বক আবেশ", "জ্যামিতিক আলোকবিজ্ঞান", "ভৌত আলোকবিজ্ঞান", "আধুনিক পদার্থবিজ্ঞানের সূচনা", "পরমাণুর মডেল", "সেমিকন্ডাক্টর", "জ্যোতির্বিজ্ঞান"] }
+            ]
+        },
+        "chem": { 
+            name: "Chemistry", icon: "🧪", wKey: 'chem', 
+            papers: [
+                { name: "1st Paper", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার", "গুণগত রসায়ন", "মৌলের পর্যায়বৃত্ত ধর্ম", "রাসায়নিক পরিবর্তন", "কর্মমুখী রসায়ন"] },
+                { name: "2nd Paper", chapters: ["পরিবেশ রসায়ন", "জৈব রসায়ন", "পরিমাণগত রসায়ন", "তড়িৎ রসায়ন", "অর্থনৈতিক রসায়ন"] }
+            ]
+        },
+        "bio": { 
+            name: "Biology", icon: "🧬", wKey: 'bio', 
+            papers: [
+                { name: "Botany (1st Paper)", chapters: ["কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক", "ব্রায়োফাইটা", "নগ্নবীজী", "টিস্যু", "উদ্ভিদ শারীরতত্ত্ব", "উদ্ভিদ প্রজনন", "জীবপ্রযুক্তি", "পরিবেশ ও বিস্তার"] },
+                { name: "Zoology (2nd Paper)", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", "প্রাণীর পরিচিতি", "পরিপাক ও শোষণ", "রক্ত ও সঞ্চালন", "শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন ও অঙ্গচালনা", "স্নায়বিক সমন্বয়", "মানব জীবনের ধারাবাহিকতা", "মানবদেহের প্রতিরক্ষা", "জিনতত্ত্ব ও বিবর্তন", "প্রাণীর আচরণ"] }
+            ]
+        },
+        "math": { 
+            name: "Mathematics", icon: "➗", wKey: 'math', 
+            papers: [
+                { name: "1st Paper", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক", "ভেক্টর", "সরলরেখা", "বৃত্ত", "বিন্যাস ও সমাবেশ", "ত্রিকোণমিতিক অনুপাত", "সংযুক্ত কোণ", "ফাংশন", "অন্তরীকরণ", "যোগজীকরণ"] },
+                { name: "2nd Paper", chapters: ["বাস্তব সংখ্যা", "যোগাশ্রয়ী প্রোগ্রাম", "জটিল সংখ্যা", "বহুপদী ও সমীকরণ", "দ্বিপদী বিস্তৃতি", "কনিক", "বিপরীত ত্রিকোণমিতিক ফাংশন", "স্থিতিবিদ্যা", "সমতলে বস্তুকণার গতি", "বিস্তার পরিমাপ"] }
+            ]
+        },
+        "med": { 
+            name: "English & GK", icon: "📖", wKey: 'med', 
+            papers: [
+                { name: "English", chapters: ["Parts of Speech", "Tense", "Right Forms of Verbs", "Voice Change", "Narration", "Sentence Correction", "Synonym & Antonym", "Spelling", "Phrases & Idioms", "Preposition"] },
+                { name: "General Knowledge", chapters: ["প্রাচীন বাংলার ইতিহাস", "ভাষা আন্দোলন", "মুক্তিযুদ্ধ ও স্বাধীনতা", "বাংলাদেশের সংবিধান", "বাংলাদেশের অর্থনীতি ও সম্পদ", "বাংলাদেশের সংস্কৃতি ও উপজাতি", "আন্তর্জাতিক বিষয়াবলি"] }
+            ]
+        }
     };
 
+    // Safely load Custom Chapters into a new Extra Topics paper without crashing
+    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChaptersV11')) || {};
+    for(let key in customChapters) {
+        if(customChapters[key].length > 0 && syllabusData[key]) {
+            syllabusData[key].papers.push({ name: "Extra Topics", chapters: customChapters[key] });
+        }
+    }
+
     let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV6')) || {};
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV11')) || {};
+    
+    // Quick Migration
+    if(Object.keys(savedProgress).length === 0) {
+        let oldProg = JSON.parse(localStorage.getItem('missionDmcProgressV10')) || JSON.parse(localStorage.getItem('missionDmcProgressV9')) || {};
+        savedProgress = oldProg; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress));
+    }
 
     let savedDeadline = localStorage.getItem('missionDmcDeadline') || "2026-10-31";
     document.getElementById('deadline-picker').value = savedDeadline;
@@ -834,115 +966,152 @@
 
     function getRevText(num) { return num === 0 ? 'R0' : `R${num}`; }
     function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? 'var(--warning-color)' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
+    function getMastery(pct) { if(pct < 30) return "Novice"; if(pct < 70) return "Scholar"; if(pct < 100) return "Advanced"; return "Master 🏆"; }
 
-    function getMastery(pct) {
-        if(pct < 30) return "Novice";
-        if(pct < 70) return "Scholar";
-        if(pct < 100) return "Advanced";
-        return "Master 🏆";
-    }
-
+    // --- 3-LEVEL NESTED ACCORDION BUILDER ---
     function buildAccordion() {
-        const container = document.getElementById('accordion-container');
+        const container = document.getElementById('syllabus-container');
         container.innerHTML = ''; 
         
-        for (const [key, subject] of Object.entries(syllabusData)) {
-            let totalCh = subject.chapters.length; let compCh = 0;
-            subject.chapters.forEach((_, i) => { let c = savedProgress[`${key}-ch-${i}`]; if(c) compCh += (c.val / 100); });
-            let percent = totalCh > 0 ? Math.round((compCh / totalCh) * 100) : 0;
-            const isTargeted = !excludedSubjects.includes(key);
+        try {
+            for (const [subjKey, subject] of Object.entries(syllabusData)) {
+                let totalSubjCh = 0; let compSubjCh = 0;
+                subject.papers.forEach((paper, pIndex) => {
+                    totalSubjCh += paper.chapters.length;
+                    paper.chapters.forEach((_, cIndex) => {
+                        let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                        if(c) compSubjCh += (c.val / 100);
+                    });
+                });
+                let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
+                const isTargeted = !excludedSubjects.includes(subjKey);
 
-            let accHtml = `
-            <div class="acc-item" id="acc-${key}">
-                <div class="acc-header" onclick="toggleAccordion('${key}')">
-                    <div class="acc-title-wrap">
-                        <div class="acc-title">${subject.icon} ${subject.name} <span class="mastery-badge">${getMastery(percent)}</span></div>
-                        <div class="acc-prog-bg"><div class="acc-prog-fill" style="width:${percent}%"></div></div>
-                    </div>
-                    <div class="acc-right">
-                        <div class="acc-percent">${percent}%</div>
-                        <div class="acc-chevron">▼</div>
-                    </div>
-                </div>
-                <div class="acc-body" id="body-${key}">
-                    <div class="subject-controls">
-                        <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color);"><input type="checkbox" onchange="toggleExcludeBox('${key}', this)" ${!isTargeted ? 'checked' : ''}> Exclude Subject</label>
-                    </div>
-                    <ul class="chapter-list">`;
-
-            subject.chapters.forEach((chapter, index) => {
-                const chapterId = `${key}-ch-${index}`; const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
-                accHtml += `
-                    <li class="chapter-item">
-                        <div class="c-header">
-                            <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)">⭐</span>
-                            <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                let accHtml = `
+                <div class="subj-box" id="subj-box-${subjKey}">
+                    <div class="subj-header" onclick="toggleSubj('${subjKey}')">
+                        <div class="subj-title-wrap">
+                            <div class="subj-title">${subject.icon} ${subject.name} <span class="mastery-badge">${getMastery(subjPercent)}</span></div>
+                            <div class="subj-prog-bg"><div class="subj-prog-fill" style="width:${subjPercent}%"></div></div>
                         </div>
-                        <div class="c-actions">
-                            <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="togglePrac('${chapterId}', this)">📝 Prac</div>
-                            
-                            <div class="rev-wrap">
-                                <button onclick="changeRev('${chapterId}', -1)">-</button>
-                                <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
-                                <button onclick="changeRev('${chapterId}', 1)">+</button>
+                        <div class="subj-right">
+                            <div class="subj-percent">${subjPercent}%</div>
+                            <div class="subj-chevron">▼</div>
+                        </div>
+                    </div>
+                    <div class="subj-body" id="subj-body-${subjKey}">
+                        <div class="subject-controls">
+                            <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color); font-weight:800; font-size:13px;"><input type="checkbox" onchange="toggleExcludeBox('${subjKey}', this)" ${excludedSubjects.includes(subjKey) ? 'checked' : ''}> Exclude Subject</label>
+                            <button class="add-topic-btn" onclick="addCustomChapter('${subjKey}')">+ Add Topic</button>
+                        </div>`;
+
+                subject.papers.forEach((paper, pIndex) => {
+                    let totalPCh = paper.chapters.length; let compPCh = 0;
+                    paper.chapters.forEach((_, cIndex) => { let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; if(c) compPCh += (c.val / 100); });
+                    let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
+
+                    accHtml += `
+                    <div class="paper-box" id="paper-box-${subjKey}-${pIndex}">
+                        <div class="paper-header" onclick="togglePaper('${subjKey}', ${pIndex})">
+                            <div class="paper-title">${paper.name}</div>
+                            <div class="paper-right">
+                                <div class="paper-percent">${pPercent}%</div>
+                                <div class="paper-chevron">▼</div>
                             </div>
-
-                            <select class="c-select" id="${chapterId}" onchange="updateProg('${key}', '${chapterId}', this)" style="color: ${getColor(cData.val)}">
-                                <option value="0" ${cData.val == 0 ? 'selected' : ''}>0%</option>
-                                <option value="25" ${cData.val == 25 ? 'selected' : ''}>25%</option>
-                                <option value="50" ${cData.val == 50 ? 'selected' : ''}>50%</option>
-                                <option value="75" ${cData.val == 75 ? 'selected' : ''}>75%</option>
-                                <option value="100" ${cData.val == 100 ? 'selected' : ''}>100%</option>
-                            </select>
                         </div>
-                    </li>`;
-            });
-            accHtml += `</ul></div></div>`;
-            container.innerHTML += accHtml;
+                        <div class="paper-body" id="paper-body-${subjKey}-${pIndex}">
+                            <ul class="chapter-list">`;
+
+                    paper.chapters.forEach((chapter, cIndex) => {
+                        const chapterId = `${subjKey}-p${pIndex}-ch-${cIndex}`; 
+                        const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
+                        
+                        accHtml += `
+                            <li class="chapter-item">
+                                <div class="c-header">
+                                    <span class="star-btn ${cData.star ? 'active' : ''}" onclick="toggleStar('${chapterId}', this)">⭐</span>
+                                    <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                                </div>
+                                <div class="c-actions">
+                                    <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="togglePrac('${chapterId}', this)">📝 Prac</div>
+                                    <div class="rev-wrap">
+                                        <button onclick="changeRev('${chapterId}', -1)">-</button>
+                                        <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
+                                        <button onclick="changeRev('${chapterId}', 1)">+</button>
+                                    </div>
+                                    <select class="c-select" id="${chapterId}" onchange="updateProg('${subjKey}', ${pIndex}, '${chapterId}', this)" style="color: ${getColor(cData.val)}">
+                                        <option value="0" ${cData.val == 0 ? 'selected' : ''}>0%</option>
+                                        <option value="25" ${cData.val == 25 ? 'selected' : ''}>25%</option>
+                                        <option value="50" ${cData.val == 50 ? 'selected' : ''}>50%</option>
+                                        <option value="75" ${cData.val == 75 ? 'selected' : ''}>75%</option>
+                                        <option value="100" ${cData.val == 100 ? 'selected' : ''}>100%</option>
+                                    </select>
+                                </div>
+                            </li>`;
+                    });
+                    accHtml += `</ul></div></div>`; 
+                });
+                accHtml += `</div></div>`; 
+                container.innerHTML += accHtml;
+            }
+        } catch(e) {
+            container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger-color);">Error loading syllabus data. Please Factory Reset.</div>`;
         }
     }
 
-    function toggleAccordion(key) {
-        let body = document.getElementById(`body-${key}`); let item = document.getElementById(`acc-${key}`);
-        document.querySelectorAll('.acc-body').forEach(el => {
-            if(el.id !== `body-${key}`) { el.style.maxHeight = null; el.parentElement.classList.remove('active'); }
-        });
-        if (body.style.maxHeight) { body.style.maxHeight = null; item.classList.remove('active'); } 
-        else { body.style.maxHeight = body.scrollHeight + "px"; item.classList.add('active'); 
-               setTimeout(() => { if(body.style.maxHeight) body.style.maxHeight = body.scrollHeight + "px"; }, 300); }
+    function toggleSubj(key) {
+        let box = document.getElementById(`subj-box-${key}`);
+        document.querySelectorAll('.subj-box').forEach(el => { if(el.id !== `subj-box-${key}`) el.classList.remove('open'); });
+        box.classList.toggle('open');
+    }
+
+    function togglePaper(subjKey, pIndex) {
+        let box = document.getElementById(`paper-box-${subjKey}-${pIndex}`);
+        box.classList.toggle('open');
+    }
+
+    function addCustomChapter(subjKey) {
+        let t = prompt("Enter new topic name:");
+        if(t && t.trim()!=="") {
+            if(!customChapters[subjKey]) customChapters[subjKey] = [];
+            customChapters[subjKey].push(t.trim());
+            localStorage.setItem('missionDmcCustomChaptersV11', JSON.stringify(customChapters));
+            location.reload();
+        }
     }
 
     function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); buildAccordion(); }
-    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
-    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
-    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
+    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
+    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
+    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
     
-    function updateProg(subjectKey, chapterId, el) { 
+    function updateProg(subjKey, pIndex, chapterId, el) { 
         if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0, prac:false }; 
         savedProgress[chapterId].val = parseInt(el.value); 
-        localStorage.setItem('missionDmcProgressV6', JSON.stringify(savedProgress)); 
+        localStorage.setItem('missionDmcProgressV11', JSON.stringify(savedProgress)); 
         el.style.color = getColor(el.value); 
         
-        let subj = syllabusData[subjectKey]; let comp = 0;
-        subj.chapters.forEach((_, i) => { let c = savedProgress[`${subjectKey}-ch-${i}`]; if(c) comp += (c.val/100); });
-        let pct = subj.chapters.length > 0 ? Math.round((comp / subj.chapters.length)*100) : 0;
+        refreshDashboards();
         
-        let item = document.getElementById(`acc-${subjectKey}`);
-        item.querySelector('.acc-percent').innerText = pct + "%";
-        item.querySelector('.acc-prog-fill').style.width = pct + "%";
-        item.querySelector('.mastery-badge').innerText = getMastery(pct);
-        
-        refreshDashboards(); 
+        let isSubjOpen = document.getElementById(`subj-box-${subjKey}`).classList.contains('open');
+        let isPaperOpen = document.getElementById(`paper-box-${subjKey}-${pIndex}`).classList.contains('open');
+        buildAccordion();
+        if(isSubjOpen) toggleSubj(subjKey);
+        if(isPaperOpen) togglePaper(subjKey, pIndex);
     }
 
     // --- DASHBOARD CALCULATIONS ---
     function calculateMasterProgress() {
         let actW = 0; let compW = 0; let totalRaw = 0; let compRaw = 0;
-        for (const [key, subj] of Object.entries(syllabusData)) {
-            if(!excludedSubjects.includes(key)) {
-                let w = uWeights[subj.wKey] || 1.0; let chCount = subj.chapters.length;
-                actW += (chCount * w); totalRaw += chCount;
-                subj.chapters.forEach((_, i) => { let c = savedProgress[`${key}-ch-${i}`]; if(c) { compW += ((c.val / 100) * w); compRaw += (c.val / 100); } });
+        for (const [subjKey, subj] of Object.entries(syllabusData)) {
+            if(!excludedSubjects.includes(subjKey)) {
+                let w = uWeights[subj.wKey] || 1.0; 
+                subj.papers.forEach((paper, pIndex) => {
+                    let chCount = paper.chapters.length; actW += (chCount * w); totalRaw += chCount;
+                    paper.chapters.forEach((_, cIndex) => {
+                        let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                        if(c) { compW += ((c.val / 100) * w); compRaw += (c.val / 100); }
+                    });
+                });
             }
         }
         const pct = actW > 0 ? Math.round((compW / actW) * 100) : 0;
@@ -961,42 +1130,28 @@
     // --- DATA MANAGEMENT ---
     function exportData() {
         const data = {
-            profile: localStorage.getItem('dmcProfileData'),
-            progress: localStorage.getItem('missionDmcProgressV6'),
-            excluded: localStorage.getItem('missionDmcExcluded'),
-            weights: localStorage.getItem('dmcSubjectWeights'),
-            skin: localStorage.getItem('dmcSkin'),
-            studySecs: localStorage.getItem('dmcLifetimeSecs'),
-            weekHistory: localStorage.getItem('dmcWeekHistory'),
-            todos: localStorage.getItem('dmcTodos')
+            profile: localStorage.getItem('dmcProfileData'), progress: localStorage.getItem('missionDmcProgressV11'), excluded: localStorage.getItem('missionDmcExcluded'),
+            weights: localStorage.getItem('dmcSubjectWeights'), skin: localStorage.getItem('dmcSkin'), studySecs: localStorage.getItem('dmcLifetimeSecs'),
+            weekHistory: localStorage.getItem('dmcWeekHistory'), todos: localStorage.getItem('dmcTodos'), customCh: localStorage.getItem('missionDmcCustomChaptersV11')
         };
-        const blob = new Blob([JSON.stringify(data)], {type: "application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url; a.download = `Mission_DMC_Backup_${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        alert("✅ Backup successfully downloaded!");
+        const blob = new Blob([JSON.stringify(data)], {type: "application/json"}); const url = URL.createObjectURL(blob);
+        const a = document.createElement("a"); a.href = url; a.download = `Mission_DMC_Backup_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); alert("✅ Backup successfully downloaded!");
     }
 
     function importData(event) {
-        const file = event.target.files[0]; if(!file) return;
-        const reader = new FileReader();
+        const file = event.target.files[0]; if(!file) return; const reader = new FileReader();
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if(data.profile) localStorage.setItem('dmcProfileData', data.profile);
-                if(data.progress) localStorage.setItem('missionDmcProgressV6', data.progress);
-                if(data.excluded) localStorage.setItem('missionDmcExcluded', data.excluded);
-                if(data.weights) localStorage.setItem('dmcSubjectWeights', data.weights);
-                if(data.skin) localStorage.setItem('dmcSkin', data.skin);
-                if(data.studySecs) localStorage.setItem('dmcLifetimeSecs', data.studySecs);
-                if(data.weekHistory) localStorage.setItem('dmcWeekHistory', data.weekHistory);
-                if(data.todos) localStorage.setItem('dmcTodos', data.todos);
-                alert("🎉 Data Restored Successfully! Reloading...");
-                location.reload();
+                if(data.profile) localStorage.setItem('dmcProfileData', data.profile); if(data.progress) localStorage.setItem('missionDmcProgressV11', data.progress);
+                if(data.excluded) localStorage.setItem('missionDmcExcluded', data.excluded); if(data.weights) localStorage.setItem('dmcSubjectWeights', data.weights);
+                if(data.skin) localStorage.setItem('dmcSkin', data.skin); if(data.studySecs) localStorage.setItem('dmcLifetimeSecs', data.studySecs);
+                if(data.weekHistory) localStorage.setItem('dmcWeekHistory', data.weekHistory); if(data.todos) localStorage.setItem('dmcTodos', data.todos);
+                if(data.customCh) localStorage.setItem('missionDmcCustomChaptersV11', data.customCh);
+                alert("🎉 Data Restored Successfully! Reloading..."); location.reload();
             } catch (err) { alert("❌ Invalid Backup File!"); }
-        };
-        reader.readAsText(file);
+        }; reader.readAsText(file);
     }
 
     function resetData() { if(confirm("Are you sure? ALL DATA including timer history will be deleted!")) { localStorage.clear(); location.reload(); } }
