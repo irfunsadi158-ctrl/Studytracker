@@ -195,14 +195,14 @@
         .lofi-widget { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; font-weight: 800; transition: 0.3s;}
         .lofi-widget.active { border-color: var(--info-color); background: rgba(50, 173, 230, 0.1); box-shadow: 0 0 20px rgba(50,173,230,0.2);}
 
-        /* --- THE ULTIMATE 3-LEVEL ACCORDION (PURE CSS NO-CRASH) --- */
+        /* --- THE ULTIMATE PURE CSS 3-LEVEL ACCORDION (100% BUG FREE) --- */
         .syllabus-container { display: flex; flex-direction: column; gap: 15px; }
         
         /* Level 1: Subject Box */
         .subj-box { background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: 0.3s ease; }
         .subj-box.open { border-color: var(--accent-color); box-shadow: 0 0 20px var(--accent-glow); background: var(--card-bg);}
         
-        .subj-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .subj-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent;}
         .subj-title-wrap { flex: 1; margin-right: 15px;}
         .subj-title { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;}
         .mastery-badge { font-size: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.1); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.2);}
@@ -214,11 +214,11 @@
         .subj-chevron { font-size: 14px; color: var(--text-muted); transition: transform 0.4s ease; }
         .subj-box.open > .subj-header .subj-chevron { transform: rotate(180deg); color: var(--accent-color); }
         
-        /* CSS Only Transition for Subject Body */
-        .subj-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease; padding: 0 15px; background: rgba(0,0,0,0.2); }
-        .subj-box.open > .subj-body { max-height: 6000px; opacity: 1; padding: 10px 15px 15px 15px; }
+        /* Safe Max-Height Engine */
+        .subj-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease; padding: 0 15px; background: rgba(0,0,0,0.15); }
+        .subj-box.open > .subj-body { max-height: 5000px; opacity: 1; padding: 15px; }
         
-        .subject-controls { padding: 12px 0; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
+        .subject-controls { padding-bottom: 12px; border-bottom: 1px dashed var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
         .add-topic-btn { background: var(--info-color); color: #000; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 11px; transition: 0.2s;}
         
         /* Level 2: Paper Box */
@@ -226,20 +226,19 @@
         .paper-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.3s ease;}
         .paper-box.open { border-color: var(--info-color); }
         
-        .paper-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(255,255,255,0.02);}
+        .paper-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(255,255,255,0.02); -webkit-tap-highlight-color: transparent;}
         .paper-title { font-size: 14px; font-weight: 800; color: var(--info-color); letter-spacing: 1px; text-transform: uppercase;}
         .paper-right { display: flex; align-items: center; gap: 10px; }
         .paper-percent { font-size: 14px; font-weight: 900; color: var(--text-main);}
         .paper-chevron { font-size: 12px; color: var(--text-muted); transition: transform 0.3s ease; }
         .paper-box.open > .paper-header .paper-chevron { transform: rotate(180deg); color: var(--info-color); }
 
-        /* CSS Only Transition for Paper Body */
         .paper-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease; padding: 0 12px; }
         .paper-box.open > .paper-body { max-height: 3000px; opacity: 1; padding: 5px 12px 12px 12px; }
 
         /* Level 3: Chapters */
         .chapter-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;}
-        .chapter-item { background: var(--input-bg); padding: 15px; border-radius: 12px; margin-top: 5px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 12px; transition: 0.2s;}
+        .chapter-item { background: var(--input-bg); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 12px; transition: 0.2s;}
         .c-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;}
         .c-name { font-size: 14px; font-weight: 700; line-height: 1.4; flex: 1; word-break: break-word;}
         .star-btn { font-size: 18px; opacity: 0.2; cursor: pointer; transition: 0.3s; filter: grayscale(1);}
@@ -266,13 +265,14 @@
         .setting-val input:focus { border-color: var(--accent-color); }
         .setting-val input[type="text"] { width: 150px; text-align: left; }
         
-        /* App Skins Grid (All 7 Restored) */
+        /* App Skins Grid */
         .skins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; padding: 15px;}
         .skin-card { background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;}
         .skin-card.active { border-color: var(--accent-color); background: var(--card-bg); box-shadow: 0 0 15px var(--accent-glow);}
         .skin-icon { font-size: 28px; margin-bottom: 8px;}
         .skin-name { font-size: 11px; font-weight: 800; color: var(--text-main);}
 
+        /* Color Picker */
         .color-picker { display: flex; gap: 15px; flex-wrap: wrap;}
         .color-dot { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.3s;}
         .color-dot.active { transform: scale(1.2); border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.4);}
@@ -400,11 +400,11 @@
             </div> 
         </div>
 
-        <!-- ================= 2. SYLLABUS SCREEN (BUG-FREE NESTED) ================= -->
+        <!-- ================= 2. SYLLABUS SCREEN ================= -->
         <div id="screen-syllabus" class="screen">
             <h2 style="margin-top:0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;">📚 Syllabus Tracker</h2>
-            <div class="accordion-container" id="syllabus-container">
-                <!-- Safe DOM Injection -->
+            <div class="syllabus-container" id="syllabus-container">
+                <!-- Data Injected via JS Safely -->
             </div>
         </div>
 
@@ -504,14 +504,14 @@
                 </div>
 
                 <div>
-                    <!-- App Skins (All 7 Restored) -->
+                    <!-- App Skins -->
                     <div class="profile-section">
                         <div class="p-title">🎭 App Skins & Themes</div>
                         <div class="skins-grid" id="skins-grid">
-                            <div class="skin-card" data-skin="default" onclick="haptic(); setAppSkin('default')"><div class="skin-icon">🔵</div><div class="skin-name">Classic Dark</div></div>
-                            <div class="skin-card" data-skin="doom" onclick="haptic(); setAppSkin('doom')"><div class="skin-icon">🦹‍♂️</div><div class="skin-name">Doctor Doom</div></div>
+                            <div class="skin-card" data-skin="default" onclick="haptic(); setAppSkin('default')"><div class="skin-icon">🔵</div><div class="skin-name">Classic</div></div>
+                            <div class="skin-card" data-skin="doom" onclick="haptic(); setAppSkin('doom')"><div class="skin-icon">🦹‍♂️</div><div class="skin-name">Dr. Doom</div></div>
                             <div class="skin-card" data-skin="football" onclick="haptic(); setAppSkin('football')"><div class="skin-icon">⚽</div><div class="skin-name">Pitch Green</div></div>
-                            <div class="skin-card" data-skin="cyberpunk" onclick="haptic(); setAppSkin('cyberpunk')"><div class="skin-icon">🌃</div><div class="skin-name">Neon Punk</div></div>
+                            <div class="skin-card" data-skin="cyberpunk" onclick="haptic(); setAppSkin('cyberpunk')"><div class="skin-icon">🌃</div><div class="skin-name">Cyberpunk</div></div>
                             <div class="skin-card" data-skin="galaxy" onclick="haptic(); setAppSkin('galaxy')"><div class="skin-icon">🌌</div><div class="skin-name">Galaxy</div></div>
                             <div class="skin-card" data-skin="ocean" onclick="haptic(); setAppSkin('ocean')"><div class="skin-icon">🌊</div><div class="skin-name">Ocean Deep</div></div>
                             <div class="skin-card" data-skin="nature" onclick="haptic(); setAppSkin('nature')"><div class="skin-icon">🌿</div><div class="skin-name">Nature Zen</div></div>
@@ -594,18 +594,18 @@
 </div>
 
 <script>
-    // --- Haptic Feedback Function ---
+    // --- Haptic Feedback Function (Safe execution) ---
     let hapticEnabled = localStorage.getItem('dmcHaptic') !== 'false';
     document.getElementById('haptic-toggle').checked = hapticEnabled;
     
     function toggleHaptic() {
         hapticEnabled = document.getElementById('haptic-toggle').checked;
         localStorage.setItem('dmcHaptic', hapticEnabled);
-        if(hapticEnabled && navigator.vibrate) navigator.vibrate(40);
+        try { if(hapticEnabled && navigator.vibrate) navigator.vibrate(40); } catch(e){}
     }
     
     function haptic() {
-        if(hapticEnabled && navigator.vibrate) { navigator.vibrate(30); }
+        try { if(hapticEnabled && navigator.vibrate) { navigator.vibrate(30); } } catch(e){}
     }
 
     // ==========================================
@@ -679,7 +679,8 @@
     // ==========================================
     function navTo(screenId, mobileNavEl, desktopNavEl) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(`screen-${screenId}`).classList.add('active');
+        let screen = document.getElementById(`screen-${screenId}`);
+        if(screen) screen.classList.add('active');
         
         if(mobileNavEl) {
             document.querySelectorAll('.bottom-nav .nav-item').forEach(n => n.classList.remove('active'));
@@ -864,7 +865,7 @@
         } else {
             pomoInt = setInterval(() => {
                 if(pomoTime > 0) { pomoTime--; updatePomoUI(); }
-                else { clearInterval(pomoInt); isPomoRunning = false; if(hapticEnabled && navigator.vibrate) navigator.vibrate([200, 100, 200]); alert("🍅 Focus Session Complete!"); resetPomo(); }
+                else { clearInterval(pomoInt); isPomoRunning = false; try{if(hapticEnabled && navigator.vibrate) navigator.vibrate([200, 100, 200]);}catch(e){} alert("🍅 Focus Session Complete!"); resetPomo(); }
             }, 1000);
             isPomoRunning = true; btn.innerText = "Pause"; btn.classList.add('active');
         }
@@ -920,7 +921,7 @@
     }
 
     // ==========================================
-    // 7. 3-LEVEL NESTED SYLLABUS DATA (BULLETPROOF PURE CSS SYSTEM)
+    // 7. PURE CSS 3-LEVEL NESTED SYLLABUS DATA
     // ==========================================
     let uWeights = JSON.parse(localStorage.getItem('dmcSubjectWeights')) || { phy: 1.5, chem: 2.5, bio: 1.5, math: 1.5, med: 0.5 };
     
@@ -930,7 +931,7 @@
 
     function saveWeights() {
         uWeights = { phy: parseFloat(document.getElementById('w-phy').value)||1, chem: parseFloat(document.getElementById('w-chem').value)||1, bio: parseFloat(document.getElementById('w-bio').value)||1, math: parseFloat(document.getElementById('w-math').value)||1, med: parseFloat(document.getElementById('w-med').value)||1 };
-        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); refreshDashboards(); updateProgDOMOnly();
+        localStorage.setItem('dmcSubjectWeights', JSON.stringify(uWeights)); refreshDashboards(); buildAccordion();
     }
 
     const syllabusData = {
@@ -965,14 +966,14 @@
         "med": { 
             name: "English & GK", icon: "📖", wKey: 'med', 
             papers: [
-                { name: "English", chapters: ["MAT+DAT", "BCS", "DU-A", "DU-B", "DU-C",] },
-                { name: "General Knowledge", chapters: ["MAT+DAT", "BCS", "DU-A"] }
+                { name: "English Target Q-Banks", chapters: ["MAT + DAT", "BCS", "DU A", "DU B"] },
+                { name: "General Knowledge Q-Banks", chapters: ["MAT + DAT", "BCS", "DU A"] }
             ]
         }
     };
 
-    // Safely load Custom Chapters without duplicating papers
-    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChaptersV12')) || {};
+    // Safely load Custom Chapters
+    let customChapters = JSON.parse(localStorage.getItem('missionDmcCustomChaptersV14')) || {};
     for(let key in customChapters) {
         if(customChapters[key].length > 0 && syllabusData[key]) {
             let hasExtra = syllabusData[key].papers.some(p => p.name === "Extra Topics");
@@ -983,7 +984,7 @@
     }
 
     let excludedSubjects = JSON.parse(localStorage.getItem('missionDmcExcluded')) || [];
-    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV12')) || {};
+    let savedProgress = JSON.parse(localStorage.getItem('missionDmcProgressV14')) || {};
 
     let savedDeadline = localStorage.getItem('missionDmcDeadline') || "2026-10-31";
     document.getElementById('deadline-picker').value = savedDeadline;
@@ -993,107 +994,100 @@
     function getColor(val) { return val == 0 ? 'var(--danger-color)' : val == 25 ? 'var(--warning-color)' : val == 50 ? 'var(--warning-color)' : val == 75 ? 'var(--info-color)' : 'var(--accent-color)'; }
     function getMastery(pct) { if(pct < 30) return "Novice"; if(pct < 70) return "Scholar"; if(pct < 100) return "Advanced"; return "Master 🏆"; }
 
-    // --- BULLETPROOF ACCORDION BUILDER ---
+    // --- ACCORDION BUILDER ---
     function buildAccordion() {
         const container = document.getElementById('syllabus-container');
         container.innerHTML = ''; 
         
-        for (const [subjKey, subject] of Object.entries(syllabusData)) {
-            let totalSubjCh = 0; let compSubjCh = 0;
-            subject.papers.forEach((paper, pIndex) => {
-                totalSubjCh += paper.chapters.length;
-                paper.chapters.forEach((_, cIndex) => {
-                    let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
-                    if(c) {
-                        let val = parseInt(c.val) || 0;
-                        compSubjCh += (val / 100);
-                    }
+        try {
+            for (const [subjKey, subject] of Object.entries(syllabusData)) {
+                let totalSubjCh = 0; let compSubjCh = 0;
+                subject.papers.forEach((paper, pIndex) => {
+                    totalSubjCh += paper.chapters.length;
+                    paper.chapters.forEach((_, cIndex) => {
+                        let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
+                        if(c) compSubjCh += ((parseInt(c.val) || 0) / 100);
+                    });
                 });
-            });
-            let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
-            const isTargeted = !excludedSubjects.includes(subjKey);
+                let subjPercent = totalSubjCh > 0 ? Math.round((compSubjCh / totalSubjCh) * 100) : 0;
 
-            let accHtml = `
-            <div class="subj-box" id="subj-box-${subjKey}">
-                <div class="subj-header" onclick="haptic(); toggleSubj('${subjKey}')">
-                    <div class="subj-title-wrap">
-                        <div class="subj-title">${subject.icon} ${subject.name} <span class="mastery-badge" id="mastery-${subjKey}">${getMastery(subjPercent)}</span></div>
-                        <div class="subj-prog-bg"><div class="subj-prog-fill" id="s-fill-${subjKey}" style="width:${subjPercent}%"></div></div>
-                    </div>
-                    <div class="subj-right">
-                        <div class="subj-percent" id="s-pct-${subjKey}">${subjPercent}%</div>
-                        <div class="subj-chevron">▼</div>
-                    </div>
-                </div>
-                <div class="subj-body" id="subj-body-${subjKey}">
-                    <div class="subject-controls">
-                        <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color); font-weight:800; font-size:13px;"><input type="checkbox" onchange="haptic(); toggleExcludeBox('${subjKey}', this)" ${excludedSubjects.includes(subjKey) ? 'checked' : ''}> Exclude Subject</label>
-                        <button class="add-topic-btn" onclick="haptic(); addCustomChapter('${subjKey}')">+ Add Topic</button>
-                    </div>
-                    <div class="papers-wrapper">`;
-
-            subject.papers.forEach((paper, pIndex) => {
-                let totalPCh = paper.chapters.length; let compPCh = 0;
-                paper.chapters.forEach((_, cIndex) => { 
-                    let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; 
-                    if(c) {
-                        let val = parseInt(c.val) || 0;
-                        compPCh += (val / 100); 
-                    }
-                });
-                let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
-
-                accHtml += `
-                <div class="paper-box" id="paper-box-${subjKey}-${pIndex}">
-                    <div class="paper-header" onclick="haptic(); togglePaper('${subjKey}', ${pIndex})">
-                        <div class="paper-title">${paper.name}</div>
-                        <div class="paper-right">
-                            <div class="paper-percent" id="p-pct-${subjKey}-${pIndex}">${pPercent}%</div>
-                            <div class="paper-chevron">▼</div>
+                let accHtml = `
+                <div class="subj-box" id="subj-box-${subjKey}">
+                    <div class="subj-header" onclick="haptic(); toggleSubj('${subjKey}')">
+                        <div class="subj-title-wrap">
+                            <div class="subj-title">${subject.icon} ${subject.name} <span class="mastery-badge" id="mastery-${subjKey}">${getMastery(subjPercent)}</span></div>
+                            <div class="subj-prog-bg"><div class="subj-prog-fill" id="s-fill-${subjKey}" style="width:${subjPercent}%"></div></div>
+                        </div>
+                        <div class="subj-right">
+                            <div class="subj-percent" id="s-pct-${subjKey}">${subjPercent}%</div>
+                            <div class="subj-chevron">▼</div>
                         </div>
                     </div>
-                    <div class="paper-body" id="paper-body-${subjKey}-${pIndex}">
-                        <ul class="chapter-list">`;
+                    <div class="subj-body" id="subj-body-${subjKey}">
+                        <div class="subject-controls">
+                            <label style="cursor:pointer; display:flex; gap:8px; align-items:center; color: var(--warning-color); font-weight:800; font-size:13px;"><input type="checkbox" onchange="haptic(); toggleExcludeBox('${subjKey}', this)" ${excludedSubjects.includes(subjKey) ? 'checked' : ''}> Exclude Subject</label>
+                            <button class="add-topic-btn" onclick="haptic(); addCustomChapter('${subjKey}')">+ Add Topic</button>
+                        </div>
+                        <div class="papers-wrapper">`;
 
-                paper.chapters.forEach((chapter, cIndex) => {
-                    const chapterId = `${subjKey}-p${pIndex}-ch-${cIndex}`; 
-                    const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
-                    let safeVal = parseInt(cData.val) || 0;
-                    
+                subject.papers.forEach((paper, pIndex) => {
+                    let totalPCh = paper.chapters.length; let compPCh = 0;
+                    paper.chapters.forEach((_, cIndex) => { let c = savedProgress[`${subjKey}-p${pIndex}-ch-${cIndex}`]; if(c) compPCh += ((parseInt(c.val) || 0) / 100); });
+                    let pPercent = totalPCh > 0 ? Math.round((compPCh / totalPCh) * 100) : 0;
+
                     accHtml += `
-                        <li class="chapter-item">
-                            <div class="c-header">
-                                <span class="star-btn ${cData.star ? 'active' : ''}" onclick="haptic(); toggleStar('${chapterId}', this)">⭐</span>
-                                <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
+                    <div class="paper-box" id="paper-box-${subjKey}-${pIndex}">
+                        <div class="paper-header" onclick="haptic(); togglePaper('${subjKey}', ${pIndex})">
+                            <div class="paper-title">${paper.name}</div>
+                            <div class="paper-right">
+                                <div class="paper-percent" id="p-pct-${subjKey}-${pIndex}">${pPercent}%</div>
+                                <div class="paper-chevron">▼</div>
                             </div>
-                            <div class="c-actions">
-                                <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="haptic(); togglePrac('${chapterId}', this)">📝 Prac</div>
-                                <div class="rev-wrap">
-                                    <button onclick="haptic(); changeRev('${chapterId}', -1)">-</button>
-                                    <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
-                                    <button onclick="haptic(); changeRev('${chapterId}', 1)">+</button>
+                        </div>
+                        <div class="paper-body" id="paper-body-${subjKey}-${pIndex}">
+                            <ul class="chapter-list">`;
+
+                    paper.chapters.forEach((chapter, cIndex) => {
+                        const chapterId = `${subjKey}-p${pIndex}-ch-${cIndex}`; 
+                        const cData = savedProgress[chapterId] || { val: 0, star: false, rev: 0, prac: false };
+                        let safeVal = parseInt(cData.val) || 0;
+                        
+                        accHtml += `
+                            <li class="chapter-item">
+                                <div class="c-header">
+                                    <span class="star-btn ${cData.star ? 'active' : ''}" onclick="haptic(); toggleStar('${chapterId}', this)">⭐</span>
+                                    <span class="c-name ${cData.star ? 'hard-topic' : ''}" id="name-${chapterId}">${chapter}</span>
                                 </div>
-                                <select class="c-select" id="${chapterId}" onchange="updateProg('${subjKey}', ${pIndex}, '${chapterId}', this)" style="color: ${getColor(safeVal)}">
-                                    <option value="0" ${safeVal == 0 ? 'selected' : ''}>0%</option>
-                                    <option value="25" ${safeVal == 25 ? 'selected' : ''}>25%</option>
-                                    <option value="50" ${safeVal == 50 ? 'selected' : ''}>50%</option>
-                                    <option value="75" ${safeVal == 75 ? 'selected' : ''}>75%</option>
-                                    <option value="100" ${safeVal == 100 ? 'selected' : ''}>100%</option>
-                                </select>
-                            </div>
-                        </li>`;
+                                <div class="c-actions">
+                                    <div class="action-btn prac ${cData.prac ? 'active' : ''}" onclick="haptic(); togglePrac('${chapterId}', this)">📝 Prac</div>
+                                    <div class="rev-wrap">
+                                        <button onclick="haptic(); changeRev('${chapterId}', -1)">-</button>
+                                        <span id="rev-${chapterId}" style="color: ${cData.rev > 0 ? 'var(--rev-color)' : ''}">${getRevText(cData.rev)}</span>
+                                        <button onclick="haptic(); changeRev('${chapterId}', 1)">+</button>
+                                    </div>
+                                    <select class="c-select" id="${chapterId}" onchange="updateProg('${subjKey}', ${pIndex}, '${chapterId}', this)" style="color: ${getColor(safeVal)}">
+                                        <option value="0" ${safeVal == 0 ? 'selected' : ''}>0%</option>
+                                        <option value="25" ${safeVal == 25 ? 'selected' : ''}>25%</option>
+                                        <option value="50" ${safeVal == 50 ? 'selected' : ''}>50%</option>
+                                        <option value="75" ${safeVal == 75 ? 'selected' : ''}>75%</option>
+                                        <option value="100" ${safeVal == 100 ? 'selected' : ''}>100%</option>
+                                    </select>
+                                </div>
+                            </li>`;
+                    });
+                    accHtml += `</ul></div></div>`; 
                 });
-                accHtml += `</ul></div></div>`; 
-            });
-            accHtml += `</div></div></div>`; 
-            container.innerHTML += accHtml;
+                accHtml += `</div></div></div>`; 
+                container.innerHTML += accHtml;
+            }
+        } catch(e) {
+            container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger-color);">Error loading syllabus data. Please clear browsing data.</div>`;
         }
     }
 
-    // --- ACCORDION AUTO-CLOSE (CSS-BASED & GLITCH FREE) ---
+    // ACCORDION AUTO-CLOSE LOGIC (SAFE)
     function toggleSubj(key) {
         let box = document.getElementById(`subj-box-${key}`);
-        // Close all other subjects
         document.querySelectorAll('.subj-box').forEach(el => { 
             if(el.id !== `subj-box-${key}`) el.classList.remove('open'); 
         });
@@ -1102,7 +1096,6 @@
 
     function togglePaper(subjKey, pIndex) {
         let box = document.getElementById(`paper-box-${subjKey}-${pIndex}`);
-        // Close all other papers inside THIS subject
         document.querySelectorAll(`#subj-body-${subjKey} .paper-box`).forEach(el => {
             if(el.id !== `paper-box-${subjKey}-${pIndex}`) el.classList.remove('open');
         });
@@ -1114,26 +1107,26 @@
         if(t && t.trim()!=="") {
             if(!customChapters[subjKey]) customChapters[subjKey] = [];
             customChapters[subjKey].push(t.trim());
-            localStorage.setItem('missionDmcCustomChaptersV12', JSON.stringify(customChapters));
+            localStorage.setItem('missionDmcCustomChaptersV14', JSON.stringify(customChapters));
             location.reload();
         }
     }
 
     function toggleExcludeBox(k, cb) { if(cb.checked) { if(!excludedSubjects.includes(k)) excludedSubjects.push(k); } else { excludedSubjects = excludedSubjects.filter(i => i !== k); } localStorage.setItem('missionDmcExcluded', JSON.stringify(excludedSubjects)); refreshDashboards(); updateProgDOMOnly(); }
-    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
-    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
-    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
+    function toggleStar(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].star = !savedProgress[id].star; localStorage.setItem('missionDmcProgressV14', JSON.stringify(savedProgress)); el.classList.toggle('active'); document.getElementById(`name-${id}`).classList.toggle('hard-topic'); }
+    function togglePrac(id, el) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; savedProgress[id].prac = !savedProgress[id].prac; localStorage.setItem('missionDmcProgressV14', JSON.stringify(savedProgress)); el.classList.toggle('active'); }
+    function changeRev(id, amt) { if(!savedProgress[id]) savedProgress[id] = { val:0, star:false, rev:0, prac:false }; let n = Math.max(0, (savedProgress[id].rev || 0) + amt); savedProgress[id].rev = n; localStorage.setItem('missionDmcProgressV14', JSON.stringify(savedProgress)); let s = document.getElementById(`rev-${id}`); if(s) { s.innerText = getRevText(n); s.style.color = n > 0 ? 'var(--rev-color)' : ''; } }
     
-    // --- SMART DOM UPDATE FOR SMOOTHNESS & CELEBRATION ---
+    // DOM ONLY UPDATE FOR SMOOTHNESS & CELEBRATION
     function updateProg(subjKey, pIndex, chapterId, el) { 
         if(!savedProgress[chapterId]) savedProgress[chapterId] = { val:0, star:false, rev:0, prac:false }; 
         savedProgress[chapterId].val = parseInt(el.value); 
-        localStorage.setItem('missionDmcProgressV12', JSON.stringify(savedProgress)); 
+        localStorage.setItem('missionDmcProgressV14', JSON.stringify(savedProgress)); 
         el.style.color = getColor(el.value); 
         
         // 100% Celebration Haptic
-        if(el.value === "100" && hapticEnabled && navigator.vibrate) {
-            navigator.vibrate([100, 50, 100, 50, 200]);
+        if(el.value === "100") {
+            try{ if(hapticEnabled && navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]); }catch(e){}
         }
         
         updateProgDOMOnly();
@@ -1204,9 +1197,9 @@
     // --- DATA MANAGEMENT ---
     function exportData() {
         const data = {
-            profile: localStorage.getItem('dmcProfileData'), progress: localStorage.getItem('missionDmcProgressV12'), excluded: localStorage.getItem('missionDmcExcluded'),
+            profile: localStorage.getItem('dmcProfileData'), progress: localStorage.getItem('missionDmcProgressV14'), excluded: localStorage.getItem('missionDmcExcluded'),
             weights: localStorage.getItem('dmcSubjectWeights'), skin: localStorage.getItem('dmcSkin'), studySecs: localStorage.getItem('dmcLifetimeSecs'),
-            weekHistory: localStorage.getItem('dmcWeekHistory'), todos: localStorage.getItem('dmcTodos'), customCh: localStorage.getItem('missionDmcCustomChaptersV12')
+            weekHistory: localStorage.getItem('dmcWeekHistory'), todos: localStorage.getItem('dmcTodos'), customCh: localStorage.getItem('missionDmcCustomChaptersV14')
         };
         const blob = new Blob([JSON.stringify(data)], {type: "application/json"}); const url = URL.createObjectURL(blob);
         const a = document.createElement("a"); a.href = url; a.download = `Mission_DMC_Backup_${new Date().toISOString().split('T')[0]}.json`;
@@ -1218,11 +1211,11 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if(data.profile) localStorage.setItem('dmcProfileData', data.profile); if(data.progress) localStorage.setItem('missionDmcProgressV12', data.progress);
+                if(data.profile) localStorage.setItem('dmcProfileData', data.profile); if(data.progress) localStorage.setItem('missionDmcProgressV14', data.progress);
                 if(data.excluded) localStorage.setItem('missionDmcExcluded', data.excluded); if(data.weights) localStorage.setItem('dmcSubjectWeights', data.weights);
                 if(data.skin) localStorage.setItem('dmcSkin', data.skin); if(data.studySecs) localStorage.setItem('dmcLifetimeSecs', data.studySecs);
                 if(data.weekHistory) localStorage.setItem('dmcWeekHistory', data.weekHistory); if(data.todos) localStorage.setItem('dmcTodos', data.todos);
-                if(data.customCh) localStorage.setItem('missionDmcCustomChaptersV12', data.customCh);
+                if(data.customCh) localStorage.setItem('missionDmcCustomChaptersV14', data.customCh);
                 alert("🎉 Data Restored Successfully! Reloading..."); location.reload();
             } catch (err) { alert("❌ Invalid Backup File!"); }
         }; reader.readAsText(file);
@@ -1230,7 +1223,7 @@
 
     function resetData() { if(confirm("Are you sure? ALL DATA including timer history will be deleted!")) { localStorage.clear(); location.reload(); } }
 
-    // Init App
+    // Init App Safely
     buildAccordion();
     navTo('home');
 </script>
